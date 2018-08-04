@@ -31,3 +31,8 @@ a{
 .spacer{
   flex: 1 1 auto;
 }
+
+.logo-home-link{
+  width: 0;
+  height: 1.5em;
+}

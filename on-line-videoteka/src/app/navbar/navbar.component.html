@@ -1,5 +1,7 @@
 <mat-toolbar color="primary">
+  <a class="logo-home-link" routerLink="/">
   <img src="assets/images/logo.png" class="navbar-logo">
+  </a>
   <span class="spacer"></span>
   <mat-form-field color="accent" class="main-search">
       <input matInput type="search">
@@ -7,16 +9,16 @@
     <mat-icon class="main-search-icon" color="accent">search</mat-icon>
   <ul>
     <li>
-      <a mat-button routerLink="/" routerLinkActive="mat-accent">Movies</a>
+      <a mat-button routerLinkActive="mat-accent">Movies</a>
   </li>
 
   </ul>
   <ul>
     <li>
-      <a mat-button routerLink="/" routerLinkActive="mat-accent">Login</a>
+      <a mat-button routerLink="/login" routerLinkActive="mat-accent">Login</a>
     </li>
     <li>
-      <a mat-button routerLink="/" routerLinkActive="mat-accent">Sign Up</a>
+      <a mat-button routerLinkActive="mat-accent">Sign Up</a>
     </li>
   </ul>
 </mat-toolbar>
