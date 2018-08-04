@@ -1,0 +1,33 @@
+.main-search{
+  width: 300px;
+  margin-left: 2em;
+}
+
+.main-search-icon{
+  margin-top: 0.2em;
+  margin-right: 0.5em;
+}
+
+.navbar-logo{
+  width: 10em;
+}
+
+body{
+  margin: 0;
+}
+
+ul{
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+}
+
+a{
+  text-decoration: none;
+  color: white;
+}
+
+.spacer{
+  flex: 1 1 auto;
+}
