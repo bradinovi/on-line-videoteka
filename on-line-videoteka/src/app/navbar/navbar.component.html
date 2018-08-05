@@ -4,9 +4,9 @@
   </a>
   <span class="spacer"></span>
   <mat-form-field color="accent" class="main-search">
-      <input matInput type="search">
+      <input matInput type="search" (focus)="onSearchFocused()" (blur)="onSearchBlur()">
     </mat-form-field>
-    <mat-icon class="main-search-icon" color="accent">search</mat-icon>
+    <mat-icon class="main-search-icon" color={{searchIconColor}}>search</mat-icon>
   <ul>
     <li>
       <a mat-button routerLinkActive="mat-accent">Movies</a>

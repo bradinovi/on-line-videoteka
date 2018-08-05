@@ -36,3 +36,7 @@ a{
   width: 0;
   height: 1.5em;
 }
+
+input {
+  font-size: 0.8em;
+}
