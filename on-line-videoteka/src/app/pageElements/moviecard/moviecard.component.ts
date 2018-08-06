@@ -21,7 +21,6 @@ export class MoviecardComponent implements OnInit {
     this.moviePrice = '3';
 
   }
-
   ngOnInit() {
   }
 

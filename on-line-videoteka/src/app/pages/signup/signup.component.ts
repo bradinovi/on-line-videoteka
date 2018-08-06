@@ -32,7 +32,7 @@ const moment = _moment;
 })
 export class SignupComponent implements OnInit {
 
-  //dateOfBirth = new Date();
+  // dateOfBirth = new Date();
 
   constructor() {
     moment.locale('HRV');

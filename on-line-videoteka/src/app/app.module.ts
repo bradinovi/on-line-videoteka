@@ -9,12 +9,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // my modules
 import { AngularMaterialModule } from './angular-material.module';
-import { NavbarComponent } from './navbar/navbar.component';
-import { LoginComponent } from './login/login.component';
-import { SignupComponent } from './signup/signup.component';
+import { NavbarComponent } from './pageElements/navbar/navbar.component';
+import { LoginComponent } from './pages/login/login.component';
+import { SignupComponent } from './pages/signup/signup.component';
 import { FormsModule } from '../../node_modules/@angular/forms';
-import { HomepageComponent } from './homepage/homepage.component';
-import { MoviecardComponent } from './moviecard/moviecard.component';
+import { HomepageComponent } from './pages/homepage/homepage.component';
+import { MoviecardComponent } from './pageElements/moviecard/moviecard.component';
 
 
 

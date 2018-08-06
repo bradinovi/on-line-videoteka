@@ -1,5 +1,5 @@
 import { Component, OnInit} from '@angular/core';
-import { MoviecardComponent } from '../moviecard/moviecard.component';
+import { MoviecardComponent } from '../../pageElements/moviecard/moviecard.component';
 
 import { NgModule } from '@angular/core';
 
