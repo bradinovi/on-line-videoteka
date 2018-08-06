@@ -1,0 +1,15 @@
+mat-card {
+  width: 220px;
+  margin: 0.5em;
+
+}
+mat-icon {
+  margin-right: 0.3em;
+
+}
+
+mat-chip{
+  display: inline-block;
+}
+
+
