@@ -7,9 +7,10 @@ import {
   MatInputModule,
   MatIconModule,
   MatCardModule,
-
+  MatChipsModule,
   MatCheckboxModule,
-  MatTooltipModule
+  MatTooltipModule,
+  MatExpansionPanel
 } from '@angular/material';
 
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -30,7 +31,9 @@ import { MatMomentDateModule } from '@angular/material-moment-adapter';
     MatDatepickerModule,
     MatMomentDateModule,
     MatCheckboxModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatExpansionModule,
+    MatChipsModule
   ]
 })
 export class AngularMaterialModule {
