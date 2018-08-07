@@ -1,8 +1,20 @@
 mat-card {
   width: 200px;
   margin: 0.5em;
+  height: 475px;
+  margin-bottom: 10px;
 
 }
+
+mat-card-header{
+  height: 40px;
+}
+
+mat-card img{
+ height: 400px;
+
+}
+
 mat-icon {
   margin-right: 0.3em;
 
