@@ -1,4 +1,5 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, Input } from '@angular/core';
+import { Movie } from '../../models/movie.model';
 
 @Component({
   selector: 'app-moviecard',
@@ -7,21 +8,26 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
   encapsulation: ViewEncapsulation.None
 })
 export class MoviecardComponent implements OnInit {
+  @Input() movie: Movie;
+
 
   movieTitle = '';
+  movieYear = '';
   movieGenres = '';
   moviePrice = '';
-  moviePosterPath =
-  'https://m.media-amazon.com/images/M/MV5BMjMxNjY2MDU1OV5BMl5BanBnXkFtZTgwNzY1MTUwNTM@._V1_SY1000_CR0,0,674,1000_AL_.jpg';
+  moviePosterPath = '';
 
   constructor() {
-    // test data
-    this.movieTitle = 'Avengers: Infinity War' + '(' + '2018' + ')';
-    this.movieGenres = 'Action, Adventure, Fantasy';
-    this.moviePrice = '3';
+
 
   }
   ngOnInit() {
+    console.log(this.movie);
+    this.movieYear = this.movie.movieYear.toString();
+    this.movieTitle = this.movie.movieTitle + '(' + this.movie.movieYear.toString() + ')';
+    this.moviePosterPath = this.movie.moviePosterPath;
+    this.movieGenres = this.movie.movieGenre;
+    this.moviePrice = this.movie.moviePrice.toString();
   }
 
 }
