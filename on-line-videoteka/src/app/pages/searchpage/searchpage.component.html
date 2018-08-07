@@ -1,0 +1,50 @@
+<mat-card>
+  <div class="search">
+      <mat-form-field color="accent">
+          <input matInput type="text" placeholder="What are you watching today?" [(ngModel)]="value">
+          <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+            <mat-icon>close</mat-icon>
+          </button>
+      </mat-form-field>
+      <button mat-stroked-button color="accent" class="serach-button">Search</button>
+
+      <mat-form-field color="accent" class="search-filter">
+          <mat-select placeholder="Genre">
+            <mat-option>None</mat-option>
+            <mat-option value="option1">Drama</mat-option>
+            <mat-option value="option2">Thriller</mat-option>
+            <mat-option value="option3">Comedy</mat-option>
+          </mat-select>
+      </mat-form-field>
+
+      <mat-form-field color="accent" class="search-filter">
+          <mat-select placeholder="Year">
+            <mat-option>None</mat-option>
+            <mat-option value="option1">2018</mat-option>
+            <mat-option value="option2">2017</mat-option>
+            <mat-option value="option3">2016</mat-option>
+          </mat-select>
+      </mat-form-field>
+
+      <mat-form-field color="accent" class="search-filter">
+          <mat-select placeholder="Likes">
+            <mat-option>None</mat-option>
+            <mat-option value="option1">0+</mat-option>
+            <mat-option value="option2">100+</mat-option>
+            <mat-option value="option3">200+</mat-option>
+          </mat-select>
+      </mat-form-field>
+
+      <div class="filter-sort-spacer"></div>
+
+      <mat-form-field color="accent" class="sort-filter">
+          <mat-select placeholder="Sort">
+            <mat-option>None</mat-option>
+            <mat-option value="option1">Year</mat-option>
+            <mat-option value="option2">Likes</mat-option>
+            <mat-option value="option3">Popularity</mat-option>
+          </mat-select>
+      </mat-form-field>
+
+  </div>
+</mat-card>

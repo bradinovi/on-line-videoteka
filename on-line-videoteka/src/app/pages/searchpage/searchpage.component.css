@@ -1,0 +1,30 @@
+mat-card {
+  margin-top: 1.5em;
+}
+
+mat-form-field{
+  width: 90%;
+}
+.serach-button {
+  margin-left: 0.7em;
+
+}
+.search{
+  width: 80%;
+  display: table;
+  margin: 0 auto;
+}
+
+.search-filter {
+  width: 10em;
+  margin-right: 2em;
+}
+
+.sort-filter{
+  width: 10em;
+}
+
+.filter-sort-spacer{
+  width: 26.5%;
+  display: inline-block;
+}
