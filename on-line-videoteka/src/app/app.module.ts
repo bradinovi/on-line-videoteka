@@ -17,6 +17,7 @@ import { HomepageComponent } from './pages/homepage/homepage.component';
 import { MoviecardComponent } from './pageElements/moviecard/moviecard.component';
 import { MoviecardgridComponent } from './pageElements/moviecardgrid/moviecardgrid.component';
 import { HttpClientModule } from '@angular/common/http';
+import { SearchpageComponent } from './pages/searchpage/searchpage.component';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { HttpClientModule } from '@angular/common/http';
     SignupComponent,
     HomepageComponent,
     MoviecardComponent,
-    MoviecardgridComponent
+    MoviecardgridComponent,
+    SearchpageComponent
   ],
   imports: [
     BrowserModule,

@@ -13,6 +13,7 @@ import {
   MatGridListModule,
   MatPaginatorModule,
   MatButtonToggleModule,
+  MatSelectModule
 
 } from '@angular/material';
 
@@ -39,7 +40,8 @@ import { MatMomentDateModule } from '@angular/material-moment-adapter';
     MatChipsModule,
     MatGridListModule,
     MatPaginatorModule,
-    MatButtonToggleModule
+    MatButtonToggleModule,
+    MatSelectModule
   ]
 })
 export class AngularMaterialModule {
