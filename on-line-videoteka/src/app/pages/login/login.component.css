@@ -1,5 +1,5 @@
 mat-card{
-  width: 25%;
+  width: 30%;
   padding-left: 3em;
   padding-right: 3em;
   padding-top: 2em;
@@ -28,14 +28,35 @@ mat-card-title{
   margin-bottom: 1em;
 }
 
-p {
+
+.not-registered-link{
   margin-top: 2em;
+}
+
+.forgot-passw-link{
+  margin-top: 0.5em;
+}
+
+p {
   display: block;
   margin-left: auto;
   margin-right: auto;
   width: 57%;
+  text-align: center;
 }
+
 
 a {
  color:#8EFFA3;
 }
+
+.back-button{
+  width: 3em;
+}
+
+
+
+
+
+
+

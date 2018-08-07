@@ -12,6 +12,8 @@ export class LoginComponent implements OnInit {
   userEmail: string;
   userPassword: string;
 
+  forgotPassword = false;
+
   constructor() { }
 
   ngOnInit() {
@@ -23,6 +25,14 @@ export class LoginComponent implements OnInit {
     }
     this.userEmail = logInForm.value.email;
     this.userPassword = logInForm.value.password;
-
   }
+
+  onForgotPassword() {
+    this.forgotPassword = true;
+  }
+
+  onBackToLogIn() {
+    this.forgotPassword = false;
+  }
+
 }
