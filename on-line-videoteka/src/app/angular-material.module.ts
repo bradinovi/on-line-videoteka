@@ -10,7 +10,10 @@ import {
   MatChipsModule,
   MatCheckboxModule,
   MatTooltipModule,
-  MatExpansionPanel
+  MatGridListModule,
+  MatPaginatorModule,
+  MatButtonToggleModule,
+
 } from '@angular/material';
 
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -33,7 +36,10 @@ import { MatMomentDateModule } from '@angular/material-moment-adapter';
     MatCheckboxModule,
     MatTooltipModule,
     MatExpansionModule,
-    MatChipsModule
+    MatChipsModule,
+    MatGridListModule,
+    MatPaginatorModule,
+    MatButtonToggleModule
   ]
 })
 export class AngularMaterialModule {

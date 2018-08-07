@@ -15,7 +15,8 @@ import { SignupComponent } from './pages/signup/signup.component';
 import { FormsModule } from '../../node_modules/@angular/forms';
 import { HomepageComponent } from './pages/homepage/homepage.component';
 import { MoviecardComponent } from './pageElements/moviecard/moviecard.component';
-
+import { MoviecardgridComponent } from './pageElements/moviecardgrid/moviecardgrid.component';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { MoviecardComponent } from './pageElements/moviecard/moviecard.component
     LoginComponent,
     SignupComponent,
     HomepageComponent,
-    MoviecardComponent
+    MoviecardComponent,
+    MoviecardgridComponent
   ],
   imports: [
     BrowserModule,
@@ -33,7 +35,7 @@ import { MoviecardComponent } from './pageElements/moviecard/moviecard.component
     AngularMaterialModule,
     AppRoutingModule,
     FormsModule,
-
+    HttpClientModule
 
   ],
   providers: [],
