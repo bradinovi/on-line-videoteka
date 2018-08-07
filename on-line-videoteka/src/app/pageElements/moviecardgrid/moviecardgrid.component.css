@@ -2,7 +2,7 @@ mat-grid-list{
   margin-left: auto;
   margin-right: auto;
   padding-bottom: 80px;
-  margin-top: 70px;
+  margin-top: 20px;
 }
 
 .footer {
@@ -12,6 +12,11 @@ mat-grid-list{
   z-index: 9999;
 }
 
-app-moviecard {
-  margin-bottom: 15px;
+.content{
+  width: 85%;
+  margin: auto;
+}
+
+.icon {
+  font-size: 100px;
 }

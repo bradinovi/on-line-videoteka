@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Movie } from '../../models/movie.model';
@@ -7,7 +7,7 @@ import { Movie } from '../../models/movie.model';
   selector: 'app-moviecardgrid',
   templateUrl: './moviecardgrid.component.html',
   styleUrls: ['./moviecardgrid.component.css'],
-  encapsulation: ViewEncapsulation.None
+
 })
 export class MoviecardgridComponent implements OnInit {
   isDataAvailable = false;

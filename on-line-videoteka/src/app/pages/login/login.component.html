@@ -17,7 +17,7 @@
       <p class="forgot-passw-link"><a (click)="onForgotPassword()">Forgot your password?</a></p>
     </mat-card-content>
 </mat-card>
-
+<div class="content">
 <mat-card *ngIf="forgotPassword">
 
     <mat-card-title>
@@ -34,3 +34,4 @@
       <button (click)="onBackToLogIn()" mat-button class="back-button" mat-mini-fab color="primary"><mat-icon>keyboard_arrow_left</mat-icon></button>
     </mat-card-content>
 </mat-card>
+</div>

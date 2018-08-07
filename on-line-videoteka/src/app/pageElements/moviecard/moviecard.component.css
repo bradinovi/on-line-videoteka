@@ -1,8 +1,6 @@
 mat-card {
   width: 200px;
-  margin: 0.5em;
-  height: 475px;
-  margin-bottom: 10px;
+  height: 480px;
 }
 
 mat-card-header{
@@ -24,18 +22,10 @@ mat-chip{
   height: 2.2em;
 }
 
-.price-chip{
-  width: 100%;
-  justify-content: center;
-}
 
-.time-chip-bottom-spacer{
-  margin-bottom: 5px;
-}
 
-.time-chip {
-  margin-left: 10px;
-}
+
+
 
 .movie-link-card{
   text-decoration: none;

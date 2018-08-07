@@ -1,12 +1,12 @@
+<div class="content">
 <div *ngIf="isDataAvailable">
-<mat-grid-list cols="5" rowHeight="500px">
+<mat-grid-list cols="5" rowHeight="535px">
       <mat-grid-tile *ngFor="let moviea of moviesToDisplay">
           <app-moviecard [movie]="moviea"></app-moviecard>
       </mat-grid-tile>
 </mat-grid-list>
 </div>
-
+</div>
 <mat-paginator length="10" pageSize="5" class="footer">
-
 </mat-paginator>
 

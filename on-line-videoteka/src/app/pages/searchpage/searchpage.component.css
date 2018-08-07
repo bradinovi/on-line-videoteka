@@ -28,3 +28,8 @@ mat-form-field{
   width: 26.5%;
   display: inline-block;
 }
+
+.content{
+  width: 85%;
+  margin: auto;
+}

@@ -32,3 +32,7 @@ mat-checkbox a:hover{
   color: #8EFFA3;
 }
 
+.content {
+  width: 85%;
+  margin: auto;
+}
