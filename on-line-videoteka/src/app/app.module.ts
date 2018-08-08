@@ -20,7 +20,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { SearchpageComponent } from './pages/searchpage/searchpage.component';
 import { MoviedetailComponent } from './pages/moviedetail/moviedetail.component';
 import { ActordetailComponent, DialogOverviewExampleDialog  } from './pages/actordetail/actordetail.component';
-
+import { MyprofileComponent } from './pages/myprofile/myprofile.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +34,8 @@ import { ActordetailComponent, DialogOverviewExampleDialog  } from './pages/acto
     SearchpageComponent,
     MoviedetailComponent,
     ActordetailComponent,
-    DialogOverviewExampleDialog
+    DialogOverviewExampleDialog,
+    MyprofileComponent
   ],
   imports: [
     BrowserModule,
@@ -42,12 +43,12 @@ import { ActordetailComponent, DialogOverviewExampleDialog  } from './pages/acto
     AngularMaterialModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule,
+    HttpClientModule
 
 
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
   entryComponents: [DialogOverviewExampleDialog]
 })
 export class AppModule { }

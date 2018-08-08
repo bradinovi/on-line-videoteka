@@ -1,0 +1,67 @@
+<div class="content">
+    <mat-card *ngIf="!profileInfoEdit&&!passwordEdit">
+      <h3>First name</h3>
+      <p>Borna</p>
+      <h3>Last name</h3>
+      <p>Radinović</p>
+      <h3>Email</h3>
+      <p>bradinovi@foi.hr</p>
+      <h3>Date of birth</h3>
+      <p>12.01.1997</p>
+      <button mat-stroked-button color="accent" (click)="onChangeInfoBtn()">Change profile info</button>
+      <button mat-stroked-button color="accent" (click)="onChangePasswordBtn()">Change password</button>
+    </mat-card>
+
+
+    <mat-card *ngIf="profileInfoEdit">
+      <mat-card-title>
+        Change Profile info
+      </mat-card-title>
+      <mat-card-content>
+        <form (submit)="onProfileInfoChange(profileInfoForm)" #profileInfoForm="ngForm">
+          <mat-form-field color="accent">
+                <input matInput placeholder="First name" ngModel name="firstName">
+          </mat-form-field>
+          <mat-form-field color="accent">
+              <input matInput placeholder="Last name" ngModel name="lastName">
+          </mat-form-field>
+
+          <mat-form-field color="accent">
+              <input matInput [matDatepicker]="picker" placeholder="Date of birth" name="dateOfBirth" ngModel>
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+
+          <mat-form-field color="accent">
+              <input matInput placeholder="Email" #emailInput="ngModel" name="email" ngModel required email>
+              <mat-error *ngIf="emailInput.invalid">Please enter valid email.</mat-error>
+          </mat-form-field>
+
+          <button mat-flat-button color="accent" type="submit">Save</button>
+        </form>
+      </mat-card-content>
+      <button (click)="onBackButton()" mat-button class="back-button" mat-mini-fab color="primary"><mat-icon>keyboard_arrow_left</mat-icon></button>
+    </mat-card>
+
+    <mat-card *ngIf="passwordEdit">
+        <mat-card-title>
+          Password change
+        </mat-card-title>
+        <mat-card-content>
+          <form (submit)="onPasswordChange(newPasswordForm)" #newPasswordForm="ngForm">
+            <mat-form-field color="accent">
+                <input matInput type="password" placeholder="Current password" #passwordOld="ngModel" ngModel name="oldPassword" required>
+            </mat-form-field>
+            <mat-form-field color="accent">
+              <input matInput type="password" placeholder="Password" #passwordInput="ngModel" name="password" ngModel required>
+              <mat-hint align="start">*At least 6 letters, 1 Upercase letter and 1 numeric value</mat-hint>
+            </mat-form-field>
+            <mat-form-field color="accent">
+                <input matInput type="password" placeholder="Confirm Password" #passwordConfirm="ngModel" ngModel name="passwordConfirm" required>
+            </mat-form-field>
+            <button mat-flat-button color="accent" type="submit">Change Password</button>
+          </form>
+        </mat-card-content>
+        <button (click)="onBackButton()" mat-button class="back-button" mat-mini-fab color="primary"><mat-icon>keyboard_arrow_left</mat-icon></button>
+      </mat-card>
+</div>
