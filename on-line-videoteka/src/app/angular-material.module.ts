@@ -13,7 +13,10 @@ import {
   MatGridListModule,
   MatPaginatorModule,
   MatButtonToggleModule,
-  MatSelectModule
+  MatSelectModule,
+  MatProgressBarModule,
+  MatListModule,
+
 
 } from '@angular/material';
 
@@ -21,7 +24,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 
-
+import {MatTabsModule} from '@angular/material/tabs';
+import {MatDividerModule} from '@angular/material/divider';
 
 
 @NgModule({
@@ -41,7 +45,11 @@ import { MatMomentDateModule } from '@angular/material-moment-adapter';
     MatGridListModule,
     MatPaginatorModule,
     MatButtonToggleModule,
-    MatSelectModule
+    MatSelectModule,
+    MatProgressBarModule,
+    MatTabsModule,
+    MatDividerModule,
+    MatListModule
   ]
 })
 export class AngularMaterialModule {

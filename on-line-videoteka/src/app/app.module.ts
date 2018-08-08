@@ -18,6 +18,7 @@ import { MoviecardComponent } from './pageElements/moviecard/moviecard.component
 import { MoviecardgridComponent } from './pageElements/moviecardgrid/moviecardgrid.component';
 import { HttpClientModule } from '@angular/common/http';
 import { SearchpageComponent } from './pages/searchpage/searchpage.component';
+import { MoviedetailComponent } from './pages/moviedetail/moviedetail.component';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { SearchpageComponent } from './pages/searchpage/searchpage.component';
     HomepageComponent,
     MoviecardComponent,
     MoviecardgridComponent,
-    SearchpageComponent
+    SearchpageComponent,
+    MoviedetailComponent
   ],
   imports: [
     BrowserModule,
