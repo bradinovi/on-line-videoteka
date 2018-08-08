@@ -1,6 +1,7 @@
 <div class="content">
 
     <mat-card>
+
         <mat-grid-list cols="5" rowHeight="380px;" >
             <mat-grid-tile>
               <img src="https://m.media-amazon.com/images/M/MV5BNzg1MTUyNDYxOF5BMl5BanBnXkFtZTgwNTQ4MTE2MjE@._V1_SY1000_CR0,0,664,1000_AL_.jpg">
@@ -25,6 +26,7 @@
               <p>
                  {{actorBio}}
               </p>
+              <button mat-raised-button (click)="openDialog()" color="accent">Read More</button>
               </div>
 
             </mat-grid-tile>

@@ -19,7 +19,7 @@ import { MoviecardgridComponent } from './pageElements/moviecardgrid/moviecardgr
 import { HttpClientModule } from '@angular/common/http';
 import { SearchpageComponent } from './pages/searchpage/searchpage.component';
 import { MoviedetailComponent } from './pages/moviedetail/moviedetail.component';
-import { ActordetailComponent } from './pages/actordetail/actordetail.component';
+import { ActordetailComponent, DialogOverviewExampleDialog  } from './pages/actordetail/actordetail.component';
 
 
 @NgModule({
@@ -33,7 +33,8 @@ import { ActordetailComponent } from './pages/actordetail/actordetail.component'
     MoviecardgridComponent,
     SearchpageComponent,
     MoviedetailComponent,
-    ActordetailComponent
+    ActordetailComponent,
+    DialogOverviewExampleDialog
   ],
   imports: [
     BrowserModule,
@@ -41,10 +42,12 @@ import { ActordetailComponent } from './pages/actordetail/actordetail.component'
     AngularMaterialModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+
 
   ],
   providers: [],
   bootstrap: [AppComponent]
+  entryComponents: [DialogOverviewExampleDialog]
 })
 export class AppModule { }

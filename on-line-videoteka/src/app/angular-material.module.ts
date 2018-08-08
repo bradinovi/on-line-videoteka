@@ -16,7 +16,7 @@ import {
   MatSelectModule,
   MatProgressBarModule,
   MatListModule,
-
+  MatDialogModule
 
 
 } from '@angular/material';
@@ -50,8 +50,10 @@ import {MatDividerModule} from '@angular/material/divider';
     MatProgressBarModule,
     MatTabsModule,
     MatDividerModule,
-    MatListModule
-  ]
+    MatListModule,
+    MatDialogModule]
+
+
 })
 export class AngularMaterialModule {
 
