@@ -7,13 +7,15 @@ import { SignupComponent } from './pages/signup/signup.component';
 import { HomepageComponent } from './pages/homepage/homepage.component';
 import { SearchpageComponent } from './pages/searchpage/searchpage.component';
 import { MoviedetailComponent } from './pages/moviedetail/moviedetail.component';
+import { ActordetailComponent } from './pages/actordetail/actordetail.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent},
   { path: 'signup', component: SignupComponent},
   { path: 'searchpage', component: SearchpageComponent},
   { path: '', component: HomepageComponent},
-  { path: 'moviedetail', component: MoviedetailComponent}
+  { path: 'moviedetail', component: MoviedetailComponent},
+  { path: 'actordetail', component: ActordetailComponent}
 
 ];
 
