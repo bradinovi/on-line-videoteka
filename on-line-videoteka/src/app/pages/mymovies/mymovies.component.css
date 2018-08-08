@@ -1,0 +1,40 @@
+.content{
+  width: 85%;
+  margin:auto;
+}
+
+h1{
+  color: #424242;
+  padding-left: 0.2em;
+  font-size: 2.5em;
+}
+
+
+#outer-box {
+  width: 100%;
+  height: 100%;
+  display: block;
+  position: relative;
+}
+/* line 9, ../sass/style.scss */
+
+/* line 14, ../sass/style.scss */
+#outer-box #inner-box {
+  background: #424242;
+  height: 96%;
+  width: 96.5%;
+  opacity: .8;
+  top: 0;
+  left: 0;
+  position: absolute;
+  padding: 0;
+  transition: opacity .5s;
+}
+/* line 25, ../sass/style.scss */
+#outer-box #inner-box p {
+  color: #fff;
+  line-height: 150px;
+  font-family: 'arial';
+  text-align: center;
+}
+

@@ -2,7 +2,7 @@
 <div *ngIf="isDataAvailable">
 <mat-grid-list cols="5" rowHeight="535px">
       <mat-grid-tile *ngFor="let moviea of moviesToDisplay">
-          <app-moviecard [movie]="moviea"></app-moviecard>
+          <app-moviecard [movie]="moviea" likeRent="true"></app-moviecard>
       </mat-grid-tile>
 </mat-grid-list>
 </div>

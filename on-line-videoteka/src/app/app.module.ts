@@ -21,6 +21,7 @@ import { SearchpageComponent } from './pages/searchpage/searchpage.component';
 import { MoviedetailComponent } from './pages/moviedetail/moviedetail.component';
 import { ActordetailComponent, DialogOverviewExampleDialog  } from './pages/actordetail/actordetail.component';
 import { MyprofileComponent } from './pages/myprofile/myprofile.component';
+import { MymoviesComponent } from './pages/mymovies/mymovies.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { MyprofileComponent } from './pages/myprofile/myprofile.component';
     MoviedetailComponent,
     ActordetailComponent,
     DialogOverviewExampleDialog,
-    MyprofileComponent
+    MyprofileComponent,
+    MymoviesComponent
   ],
   imports: [
     BrowserModule,

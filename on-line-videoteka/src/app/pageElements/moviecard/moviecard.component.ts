@@ -10,6 +10,10 @@ import { Movie } from '../../models/movie.model';
 export class MoviecardComponent implements OnInit {
   @Input() movie: Movie;
 
+  @Input() likeRent: boolean;
+  @Input() myMovies: boolean;
+
+
 
   movieTitle = '';
   movieYear = '';
