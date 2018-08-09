@@ -17,11 +17,14 @@
 
   </ul>
   <ul>
-    <li>
+    <li *ngIf="!userAuthenticated">
       <a mat-button routerLink="/login" routerLinkActive="mat-accent">Login</a>
     </li>
-    <li>
+    <li *ngIf="!userAuthenticated">
       <a mat-button routerLinkActive="mat-accent" routerLink="/signup">Sign Up</a>
+    </li>
+    <li *ngIf="userAuthenticated">
+      <a mat-button routerLinkActive="mat-accent" routerLink="/signup">Log out</a>
     </li>
   </ul>
 </mat-toolbar>

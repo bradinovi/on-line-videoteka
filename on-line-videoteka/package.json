@@ -7,7 +7,8 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "server": "nodemon server.js"
   },
   "private": true,
   "dependencies": {
@@ -23,8 +24,12 @@
     "@angular/platform-browser": "^6.0.3",
     "@angular/platform-browser-dynamic": "^6.0.3",
     "@angular/router": "^6.0.3",
+    "bcrypt": "^3.0.0",
     "core-js": "^2.5.4",
+    "jsonwebtoken": "^8.3.0",
     "moment": "^2.22.2",
+    "mongoose": "^5.2.7",
+    "mongoose-unique-validator": "^2.0.1",
     "rxjs": "^6.0.0",
     "zone.js": "^0.8.26"
   },

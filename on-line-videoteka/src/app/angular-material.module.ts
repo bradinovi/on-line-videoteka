@@ -16,7 +16,8 @@ import {
   MatSelectModule,
   MatProgressBarModule,
   MatListModule,
-  MatDialogModule
+  MatDialogModule,
+  MatProgressSpinnerModule
 
 
 } from '@angular/material';
@@ -51,7 +52,9 @@ import {MatDividerModule} from '@angular/material/divider';
     MatTabsModule,
     MatDividerModule,
     MatListModule,
-    MatDialogModule]
+    MatDialogModule,
+    MatProgressSpinnerModule
+  ]
 
 
 })

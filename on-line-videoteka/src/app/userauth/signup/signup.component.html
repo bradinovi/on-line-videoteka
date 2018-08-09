@@ -14,14 +14,18 @@
       </mat-form-field>
 
       <mat-form-field color="accent">
-          <input matInput [matDatepicker]="picker" placeholder="Date of birth" name="dateOfBirth" ngModel>
-          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-datepicker #picker></mat-datepicker>
+        <input matInput placeholder="Username" ngModel name="username">
       </mat-form-field>
 
       <mat-form-field color="accent">
           <input matInput placeholder="Email" #emailInput="ngModel" name="email" ngModel required email>
           <mat-error *ngIf="emailInput.invalid">Please enter valid email.</mat-error>
+      </mat-form-field>
+
+      <mat-form-field color="accent">
+        <input matInput [matDatepicker]="picker" placeholder="Date of birth" name="dateOfBirth" ngModel>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
 
       <mat-form-field color="accent">
