@@ -1,10 +1,11 @@
 <div class="content">
 <mat-card>
-  <mat-card-title>
+  <mat-spinner *ngIf="isLoading" color="accent"></mat-spinner>
+  <mat-card-title *ngIf="!isLoading">
     Register
   </mat-card-title>
   <mat-card-content>
-    <form (submit)="onSignUp(signUpForm)" #signUpForm="ngForm">
+    <form (submit)="onSignUp(signUpForm)" #signUpForm="ngForm"  *ngIf="!isLoading">
       <mat-form-field color="accent">
             <input matInput placeholder="First name" ngModel name="firstName">
       </mat-form-field>
@@ -33,14 +34,15 @@
         <mat-hint align="start">*At least 6 letters, 1 Upercase letter and 1 numeric value</mat-hint>
         <mat-error *ngIf="passwordInput.invalid">Please enter password.</mat-error>
       </mat-form-field>
-
+      <mat-error class="my-err-terms" *ngIf="passwordFormatErr" class="my-err-pass">Password does not match needed format</mat-error>
       <mat-form-field color="accent">
           <input matInput type="password" placeholder="Confirm Password" #passwordConfirm="ngModel" ngModel name="passwordConfirm" required>
           <mat-error *ngIf="passwordConfirm.invalid">You must confirm your first password input.</mat-error>
+
       </mat-form-field>
-
-      <mat-checkbox>I agree to the <a  matTooltipPosition="after" matTooltip="Clicking this will open our privacy policy and terms of service" target="_blank" class="pt-check" href="https://policies.google.com/privacy">Privacy policy and terms of service</a> of Moviestacks</mat-checkbox>
-
+      <mat-error class="my-err-pass" *ngIf="passwordsNotMatchingErr">Password inputs do not match.</mat-error>
+      <mat-checkbox  ngModel name="termsConfirm">I have read and agree to the <a  matTooltipPosition="after" matTooltip="Clicking this will open our privacy policy and terms of service" target="_blank" class="pt-check" href="https://policies.google.com/privacy">Privacy policy and terms of service</a><br>  of Moviestacks</mat-checkbox>
+      <mat-error class="my-err-terms" *ngIf="termsConfirmErr">You must confirm before Sign Up</mat-error>
       <button mat-flat-button color="accent" type="submit">Register</button>
     </form>
   </mat-card-content>

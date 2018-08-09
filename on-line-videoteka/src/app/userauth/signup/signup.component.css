@@ -2,8 +2,12 @@ mat-card{
   width: 35%;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 1.5em;
+  margin-top: 0.3em;
   margin-bottom: 0.5em;
+}
+
+mat-spinner{
+  margin: auto;
 }
 
 mat-form-field {
@@ -33,4 +37,18 @@ mat-checkbox a:hover{
 .content {
   width: 85%;
   margin: auto;
+}
+
+
+
+.my-err-pass {
+  margin-bottom: 10px;
+  font-size: 12px;
+
+}
+
+.my-err-terms {
+  margin-top: 10px;
+  font-size: 12px;
+
 }
