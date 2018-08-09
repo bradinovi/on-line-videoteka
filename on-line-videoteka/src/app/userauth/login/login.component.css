@@ -10,6 +10,10 @@ mat-card{
   margin-bottom: 0.5em;
 }
 
+mat-spinner{
+  margin: auto;
+}
+
 mat-form-field {
   width: 100%;
   display: block;

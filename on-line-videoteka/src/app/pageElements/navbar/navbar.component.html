@@ -11,9 +11,9 @@
       <li>
           <a mat-button routerLinkActive="mat-accent" routerLink="/searchpage">Browse</a>
       </li>
-    <li>
+    <li *ngIf="userAuthenticated">
       <a mat-button routerLinkActive="mat-accent" routerLink="/mymovies">My Movies</a>
-  </li>
+    </li>
 
   </ul>
   <ul>
@@ -24,7 +24,7 @@
       <a mat-button routerLinkActive="mat-accent" routerLink="/signup">Sign Up</a>
     </li>
     <li *ngIf="userAuthenticated">
-      <a mat-button routerLinkActive="mat-accent" routerLink="/signup">Log out</a>
+      <a mat-button routerLinkActive="mat-accent" (click)="onLogOut()">Log out</a>
     </li>
   </ul>
 </mat-toolbar>

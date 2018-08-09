@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NgForm } from '../../../../node_modules/@angular/forms';
+import { Subscription } from 'rxjs';
+import { AuthService } from '../userauth.service';
 
 
 
@@ -8,23 +10,26 @@ import { NgForm } from '../../../../node_modules/@angular/forms';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
-  userEmail: string;
-  userPassword: string;
-
+export class LoginComponent implements OnInit, OnDestroy {
+  isLoading = false;
   forgotPassword = false;
-
-  constructor() { }
+  private authStatusSub: Subscription;
+  constructor(public authService: AuthService) {}
 
   ngOnInit() {
+    this.authStatusSub = this.authService.getAuthStatusListener().subscribe(
+      authStatus => {
+        this.isLoading = false;
+      }
+    );
   }
 
   onLogIn(logInForm: NgForm) {
     if (logInForm.invalid) {
       return;
     }
-    this.userEmail = logInForm.value.email;
-    this.userPassword = logInForm.value.password;
+    this.isLoading = true;
+    this.authService.login(logInForm.value.email, logInForm.value.password);
   }
 
   onForgotPassword() {
@@ -34,5 +39,10 @@ export class LoginComponent implements OnInit {
   onBackToLogIn() {
     this.forgotPassword = false;
   }
+
+  ngOnDestroy() {
+    this.authStatusSub.unsubscribe();
+  }
+
 
 }

@@ -1,8 +1,9 @@
 <mat-card *ngIf="!forgotPassword">
-    <mat-card-title>
+    <mat-spinner *ngIf="isLoading" color="accent"></mat-spinner>
+    <mat-card-title *ngIf="!isLoading">
       Log in
     </mat-card-title>
-    <mat-card-content>
+    <mat-card-content *ngIf="!isLoading">
       <form (submit)="onLogIn(logInForm)" #logInForm="ngForm">
         <mat-form-field color="accent">
             <input matInput placeholder="Email" #emailInput="ngModel" name="email" ngModel email>

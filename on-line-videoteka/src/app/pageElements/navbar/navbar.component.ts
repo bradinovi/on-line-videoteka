@@ -31,4 +31,8 @@ export class NavbarComponent implements OnInit {
     this.searchIconColor = 'white';
   }
 
+  onLogOut() {
+    this.authService.logout();
+  }
+
 }

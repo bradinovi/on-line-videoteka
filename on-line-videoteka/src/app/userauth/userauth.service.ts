@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AuthData, UserData } from './user.model';
 import { Subject } from 'rxjs';
@@ -14,8 +14,8 @@ export class AuthService {
   private authStatusListener = new Subject<boolean>();
   private tokenTimer: any;
   constructor(private http: HttpClient, private router: Router) {}
-
   private userId: string;
+
 
   getToken() {
     return this.token;
@@ -67,7 +67,8 @@ export class AuthService {
         this.authStatusListener.next(true);
         const now = new Date();
         const expirationDate = new Date(now.getTime() + expiresInDuration * 1000);
-        this.saveAuthData(token, expirationDate, response.userId);
+        this.saveAuthData(token, expirationDate, response.userId, response.role);
+        console.log(response);
         this.router.navigate(['/']);
       }
     }, error => {
@@ -102,29 +103,33 @@ export class AuthService {
     clearTimeout(this.tokenTimer);
   }
 
-  private saveAuthData(token: string, expirationDate: Date, userId: string) {
+  private saveAuthData(token: string, expirationDate: Date, userId: string, role: string) {
     localStorage.setItem('token', token);
     localStorage.setItem('expiration', expirationDate.toISOString());
     localStorage.setItem('userId', userId);
+    localStorage.setItem('role', role);
   }
 
   private clearAuthData() {
     localStorage.removeItem('token');
     localStorage.removeItem('expiration');
     localStorage.removeItem('userId');
+    localStorage.removeItem('role');
   }
 
   private getAuthData() {
     const token = localStorage.getItem('token');
     const expirationDate = localStorage.getItem('expiration');
     const userId = localStorage.getItem('userId');
+    const role = localStorage.getItem('role');
     if (!token && !expirationDate) {
       return;
     }
     return {
       token: token,
       expirationDate: new Date(expirationDate),
-      userId: userId
+      userId: userId,
+      role: role
     };
   }
 
