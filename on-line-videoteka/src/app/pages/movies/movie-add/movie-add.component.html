@@ -1,0 +1,108 @@
+<div class="content">
+
+  <mat-card>
+
+      <mat-grid-list cols="5" rowHeight="380px;" >
+          <mat-grid-tile>
+            <button mat-raised-button color="accent">Add Poster</button>
+          </mat-grid-tile>
+          <mat-grid-tile colspan="2" class="movie-header-data">
+
+            <div>
+
+              <mat-form-field color="accent">
+                <input matInput placeholder="First name">
+              </mat-form-field> <br>
+              <mat-form-field color="accent">
+                <input matInput placeholder="Last name">
+              </mat-form-field> <br>
+              <mat-form-field color="accent">
+                <input matInput placeholder="Duration" type="number">
+                <span matSuffix>min</span>
+              </mat-form-field>
+              <div>
+                <mat-form-field color="accent">
+                  <input matInput [matDatepicker]="releasePicker" placeholder="Release date" name="release" ngModel>
+                  <mat-datepicker-toggle matSuffix [for]="releasePicker"></mat-datepicker-toggle>
+                  <mat-datepicker #releasePicker></mat-datepicker>
+                </mat-form-field> <br>
+
+              </div>
+              <br>
+              <mat-form-field class="example-chip-list" color="accent">
+                <mat-chip-list #chipList>
+                  <mat-chip *ngFor="let genre of genres" [selectable]="selectable"
+                           [removable]="removable" (removed)="remove(genre)">
+                    {{genre.name}}
+                    <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                  </mat-chip>
+                  <input placeholder="Genres"
+                         [formControl]="genreControl"
+                         [matAutocomplete]="auto"
+                         [matChipInputFor]="chipList"
+                         [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                         [matChipInputAddOnBlur]="addOnBlur"
+                        >
+                </mat-chip-list>
+    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+      <mat-option *ngFor="let option of filteredGenres| async" [value]="option">
+        {{option.name}}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+</div>
+</mat-grid-tile>
+<mat-grid-tile colspan="2">
+<div style="width: 90%;">
+  <mat-form-field color="accent" style="width: 100%">
+    <textarea matInput placeholder="Add bio" rows="15" style="resize: none;"></textarea>
+  </mat-form-field>
+</div>
+</mat-grid-tile>
+</mat-grid-list>
+<button class="save-button" mat-raised-button color="accent">Save</button>
+</mat-card>
+
+
+    <mat-card class="roles-add">
+      <mat-card-title-group>
+        <mat-card-title>Roles</mat-card-title>
+      </mat-card-title-group>
+      <form>
+        <mat-form-field color="accent">
+          <input matInput placeholder="Actor">
+        </mat-form-field>
+        &nbsp;&nbsp;&nbsp; - &nbsp;&nbsp;&nbsp;
+        <mat-form-field color="accent">
+          <input matInput placeholder="Role Name">
+        </mat-form-field> &nbsp; &nbsp;
+        <button mat-raised-button color="accent">Add</button>
+      </form>
+      <h1 *ngFor="let number of [0,1,2,3,4,5...,18,19]">TEST1</h1>
+      <h1 *ngFor="let number of [0,1,2,3,4,5...,18,19]">TEST2</h1>
+      <h1 *ngFor="let number of [0,1,2,3,4,5...,18,19]">TEST3</h1>
+    </mat-card>
+
+    <mat-card class="directors-add">
+      <mat-card-title-group>
+        <mat-card-title>Directors</mat-card-title>
+      </mat-card-title-group>
+
+      <form>
+        <mat-form-field color="accent">
+          <input matInput placeholder="Actor">
+        </mat-form-field>
+        &nbsp; &nbsp;
+        <button mat-raised-button color="accent">Add</button>
+      </form>
+
+    </mat-card>
+
+
+
+
+
+
+
+
+</div>

@@ -6,10 +6,12 @@ import { LoginComponent } from './userauth/login/login.component';
 import { SignupComponent } from './userauth/signup/signup.component';
 import { HomepageComponent } from './pages/homepage/homepage.component';
 import { SearchpageComponent } from './pages/searchpage/searchpage.component';
-import { MoviedetailComponent } from './pages/moviedetail/moviedetail.component';
-import { ActordetailComponent } from './pages/actordetail/actordetail.component';
+import { MoviedetailComponent } from './pages/movies/moviedetail/moviedetail.component';
+import { ActordetailComponent } from './pages/actors/actordetail/actordetail.component';
 import { MyprofileComponent } from './pages/myprofile/myprofile.component';
 import { MymoviesComponent } from './pages/mymovies/mymovies.component';
+import { ActorAddComponent } from './pages/actors/actor-add/actor-add.component';
+import { MovieAddComponent } from './pages/movies/movie-add/movie-add.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent},
@@ -19,7 +21,10 @@ const routes: Routes = [
   { path: 'moviedetail', component: MoviedetailComponent},
   { path: 'actordetail', component: ActordetailComponent},
   { path: 'myprofile', component: MyprofileComponent},
-  { path: 'mymovies', component: MymoviesComponent}
+  { path: 'mymovies', component: MymoviesComponent},
+  { path: 'actoradd', component: ActorAddComponent},
+  { path: 'movieadd', component: MovieAddComponent}
+
 
 ];
 

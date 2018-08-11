@@ -17,11 +17,13 @@ import {
   MatProgressBarModule,
   MatListModule,
   MatDialogModule,
-  MatProgressSpinnerModule
+  MatProgressSpinnerModule,
+
 
 
 } from '@angular/material';
 
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
@@ -53,7 +55,8 @@ import {MatDividerModule} from '@angular/material/divider';
     MatDividerModule,
     MatListModule,
     MatDialogModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatAutocompleteModule
   ]
 
 

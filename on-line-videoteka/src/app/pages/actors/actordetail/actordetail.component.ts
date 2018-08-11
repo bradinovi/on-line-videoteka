@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MatBottomSheet } from '../../../../node_modules/@angular/material';
+import { MatBottomSheet } from '@angular/material';
 
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 

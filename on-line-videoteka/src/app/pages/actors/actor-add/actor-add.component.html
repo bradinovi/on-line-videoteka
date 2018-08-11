@@ -1,0 +1,63 @@
+<div class="content">
+
+  <mat-card>
+
+      <mat-grid-list cols="5" rowHeight="380px;" >
+          <mat-grid-tile>
+            <button mat-raised-button color="accent">Add Portrait</button>
+          </mat-grid-tile>
+          <mat-grid-tile colspan="2" class="movie-header-data">
+
+            <div>
+
+              <mat-form-field color="accent">
+                <input matInput placeholder="First name">
+              </mat-form-field> <br>
+              <mat-form-field color="accent">
+                <input matInput placeholder="Last name">
+              </mat-form-field>
+
+              <div>
+                <mat-form-field color="accent">
+                  <input matInput [matDatepicker]="pickerBorn" placeholder="Born" name="born" ngModel>
+                  <mat-datepicker-toggle matSuffix [for]="pickerBorn"></mat-datepicker-toggle>
+                  <mat-datepicker #pickerBorn></mat-datepicker>
+                </mat-form-field> <br>
+                <mat-form-field color="accent">
+                  <input matInput [matDatepicker]="pickerDied" placeholder="Died" name="died" ngModel>
+                  <mat-datepicker-toggle matSuffix [for]="pickerDied"></mat-datepicker-toggle>
+                  <mat-datepicker #pickerDied></mat-datepicker>
+                </mat-form-field>
+              </div>
+              <br>
+              <mat-form-field class="example-chip-list" color="accent">
+                <mat-chip-list #chipList>
+                  <mat-chip *ngFor="let ocupation of ocupations" [selectable]="selectable"
+                           [removable]="removable" (removed)="remove(ocupation)">
+                    {{ocupation.name}}
+                    <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                  </mat-chip>
+                  <input placeholder="Ocupations"
+                         [matChipInputFor]="chipList"
+                         [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                         [matChipInputAddOnBlur]="addOnBlur"
+                         (matChipInputTokenEnd)="add($event)">
+                </mat-chip-list>
+              </mat-form-field>
+            </div>
+          </mat-grid-tile>
+          <mat-grid-tile colspan="2">
+            <div style="width: 90%;">
+              <mat-form-field color="accent" style="width: 100%">
+                <textarea matInput placeholder="Add bio" rows="15" style="resize: none;"></textarea>
+              </mat-form-field>
+            </div>
+          </mat-grid-tile>
+      </mat-grid-list>
+      <button class="save-button" mat-raised-button color="accent">Save</button>
+
+
+  </mat-card>
+
+
+  </div>

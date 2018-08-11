@@ -18,10 +18,31 @@ import { MoviecardComponent } from './pageElements/moviecard/moviecard.component
 import { MoviecardgridComponent } from './pageElements/moviecardgrid/moviecardgrid.component';
 import { HttpClientModule } from '@angular/common/http';
 import { SearchpageComponent } from './pages/searchpage/searchpage.component';
-import { MoviedetailComponent } from './pages/moviedetail/moviedetail.component';
-import { ActordetailComponent, DialogOverviewExampleDialog  } from './pages/actordetail/actordetail.component';
+import { MoviedetailComponent } from './pages/movies/moviedetail/moviedetail.component';
+import { ActordetailComponent, DialogOverviewExampleDialog  } from './pages/actors/actordetail/actordetail.component';
 import { MyprofileComponent } from './pages/myprofile/myprofile.component';
 import { MymoviesComponent } from './pages/mymovies/mymovies.component';
+import { ActorAddComponent } from './pages/actors/actor-add/actor-add.component';
+
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
+import {MomentDateAdapter} from '@angular/material-moment-adapter';
+import { MovieAddComponent } from './pages/movies/movie-add/movie-add.component';
+
+import { ReactiveFormsModule} from '@angular/forms';
+
+
+export const MY_FORMATS = {
+  parse: {
+    dateInput: 'DD.MM.gggg'
+  },
+  display: {
+    dateInput: 'DD.MM.gggg',
+    monthYearLabel: 'MMM YYYY',
+    dateA11yLabel: 'DD.MM.gggg',
+    monthYearA11yLabel: 'MMMM YYYY',
+  },
+};
+
 
 @NgModule({
   declarations: [
@@ -37,7 +58,9 @@ import { MymoviesComponent } from './pages/mymovies/mymovies.component';
     ActordetailComponent,
     DialogOverviewExampleDialog,
     MyprofileComponent,
-    MymoviesComponent
+    MymoviesComponent,
+    ActorAddComponent,
+    MovieAddComponent
   ],
   imports: [
     BrowserModule,
@@ -45,11 +68,15 @@ import { MymoviesComponent } from './pages/mymovies/mymovies.component';
     AngularMaterialModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
 
 
   ],
-  providers: [],
+  providers: [
+    {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
+    {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
+  ],
   bootstrap: [AppComponent],
   entryComponents: [DialogOverviewExampleDialog]
 })
