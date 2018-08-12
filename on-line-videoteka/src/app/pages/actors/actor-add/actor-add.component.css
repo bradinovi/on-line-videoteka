@@ -75,3 +75,8 @@ mat-grid-tile div a {
   width: 30%;
   height: 3em;
 }
+
+input[type="file"]{
+  visibility: hidden;
+
+}
