@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const uniqueValidator = require('mongoose-unique-validator');
+var Schema = mongoose.Schema,ObjectId = Schema.ObjectId;
 
 const actorSchema = mongoose.Schema({
   firstName: {type: String, required: true},
