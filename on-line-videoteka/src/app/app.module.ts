@@ -9,26 +9,33 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // my modules
 import { AngularMaterialModule } from './angular-material.module';
-import { NavbarComponent } from './pageElements/navbar/navbar.component';
+
 import { LoginComponent } from './userauth/login/login.component';
 import { SignupComponent } from './userauth/signup/signup.component';
 import { FormsModule } from '@angular/forms';
-import { HomepageComponent } from './pages/homepage/homepage.component';
-import { MoviecardComponent } from './pageElements/moviecard/moviecard.component';
-import { MoviecardgridComponent } from './pageElements/moviecardgrid/moviecardgrid.component';
+
 import { HttpClientModule } from '@angular/common/http';
-import { SearchpageComponent } from './pages/searchpage/searchpage.component';
-import { MoviedetailComponent } from './pages/movies/moviedetail/moviedetail.component';
-import { ActordetailComponent, DialogOverviewExampleDialog  } from './pages/actors/actordetail/actordetail.component';
-import { MyprofileComponent } from './pages/myprofile/myprofile.component';
-import { MymoviesComponent } from './pages/mymovies/mymovies.component';
-import { ActorAddComponent } from './pages/actors/actor-add/actor-add.component';
 
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
-import { MovieAddComponent } from './pages/movies/movie-add/movie-add.component';
-
 import { ReactiveFormsModule} from '@angular/forms';
+
+
+
+
+import { NavbarComponent } from './navbar/navbar.component';
+
+import { AdminModule } from './admin/admin.module';
+
+import { MoviecardComponent } from './client/moviecard/moviecard.component';
+import { MoviecardgridComponent } from './client/moviecardgrid/moviecardgrid.component';
+import { MyprofileComponent } from './client/myprofile/myprofile.component';
+import { MymoviesComponent } from './client/mymovies/mymovies.component';
+import { SearchpageComponent } from './client/searchpage/searchpage.component';
+import { MoviedetailComponent } from './client/moviedetail/moviedetail.component';
+import { ActordetailComponent } from './client/actordetail/actordetail.component';
+import { HomepageComponent } from './client/homepage/homepage.component';
+
 
 
 export const MY_FORMATS = {
@@ -50,17 +57,14 @@ export const MY_FORMATS = {
     NavbarComponent,
     LoginComponent,
     SignupComponent,
-    HomepageComponent,
     MoviecardComponent,
     MoviecardgridComponent,
+    MyprofileComponent,
+    MymoviesComponent,
     SearchpageComponent,
     MoviedetailComponent,
     ActordetailComponent,
-    DialogOverviewExampleDialog,
-    MyprofileComponent,
-    MymoviesComponent,
-    ActorAddComponent,
-    MovieAddComponent
+    HomepageComponent
   ],
   imports: [
     BrowserModule,
@@ -71,13 +75,11 @@ export const MY_FORMATS = {
     HttpClientModule,
     ReactiveFormsModule
 
-
   ],
   providers: [
     {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
     {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
   ],
-  bootstrap: [AppComponent],
-  entryComponents: [DialogOverviewExampleDialog]
+  bootstrap: [AppComponent]
 })
 export class AppModule { }

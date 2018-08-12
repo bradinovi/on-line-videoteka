@@ -5,7 +5,7 @@ import {MatChipInputEvent} from '@angular/material';
 
 
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { ActorService } from '../actors.service';
+import { ActorService } from '../../services/actors.service';
 
 
 export interface Ocupation {

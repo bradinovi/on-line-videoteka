@@ -1,8 +1,7 @@
-import { Actor } from '../../models/actor.model';
+import { Actor } from '../models/actor.model';
 import { Subject } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
 @Injectable({providedIn: 'root'})
