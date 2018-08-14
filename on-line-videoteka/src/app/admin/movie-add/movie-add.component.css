@@ -7,6 +7,11 @@ mat-card {
   margin-top: 1em;
 }
 
+.genres {
+  width: 45.6%;
+  margin-left: 2em;
+}
+
 mat-grid-tile img{
   width: 100%;
   display: block;
@@ -101,6 +106,10 @@ input {
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   display: none;
+}
+
+.inputs-middle mat-form-field{
+  width: 100%;
 }
 
 

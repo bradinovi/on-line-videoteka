@@ -9,12 +9,12 @@ const checkAuthAdmin = require('../middleware/auth-check-admin');
 
 router.post('/',extractPortraitFile, ActorController.addActor);
 
-router.put('/',checkAuthAdmin, ActorController.updateActor);
+router.put('/',extractPortraitFile, ActorController.updateActor);
 
 router.get('/', ActorController.getActors);
 
 router.get('/:id', ActorController.getActor);
 
-router.delete('/:id',checkAuthAdmin, ActorController.deleteActor);
+router.delete('/:id', ActorController.deleteActor);
 
 module.exports = router;

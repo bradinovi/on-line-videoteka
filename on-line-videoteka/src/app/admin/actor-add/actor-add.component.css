@@ -2,6 +2,9 @@
   width: 85%;
   margin: auto;
 }
+mat-spinner{
+  margin: auto;
+}
 
 mat-card {
   margin-top: 1em;

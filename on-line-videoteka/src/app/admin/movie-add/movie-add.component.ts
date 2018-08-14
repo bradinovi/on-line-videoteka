@@ -23,7 +23,7 @@ export interface Genre {
   styleUrls: ['./movie-add.component.css']
 })
 export class MovieAddComponent implements OnInit {
-  duration: FormGroup;
+  roleDirectorFormsEnabled = true;
 
   visible = true;
   selectable = true;
@@ -31,20 +31,39 @@ export class MovieAddComponent implements OnInit {
   addOnBlur = true;
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
   genreControl = new FormControl();
-  // genres: string[] = ['One', 'Two', 'Three'];
-  genres: Genre[] = [];
-  filteredGenres: Observable<Genre[]>;
 
-  constructor(fb: FormBuilder) {
-    this.duration = fb.group({
-      area: '',
-      exchange: '',
-      subscriber: '',
+  genres: Genre[] = [];
+  movieGenres: Genre[] = [];
+  filteredGenres: Observable<Genre[]>;
+  movieForm: FormGroup;
+  roleForm: FormGroup;
+  directorForm: FormGroup;
+
+  constructor(  ) {
+    this.genres.push( {id: '', name: 'Action'} );
+    this.genres.push( {id: '', name: 'Thriller'} );
+    this.genres.push( {id: '', name: 'Adventure'} );
+
+    this.movieForm = new FormGroup({
+      'title' : new FormControl(null),
+      'trailerLink' : new FormControl(null),
+      'duration' : new FormControl(null),
+      'releaseDate' : new FormControl(null),
+      'plotSum' : new FormControl(null),
+      'image' : new FormControl(null),
+    });
+
+    this.roleForm = new FormGroup({
+      'actor': new FormControl(null),
+      'role': new FormControl(null)
+    });
+
+    this.directorForm = new FormGroup({
+      'director': new FormControl(null)
     });
   }
 
   private _filter(value: any): Genre[] {
-
     const filterGenres: Genre[] = [];
     if (typeof(value) === 'string') {
       const filterValue = value.toLowerCase();
@@ -54,8 +73,6 @@ export class MovieAddComponent implements OnInit {
       }
     });
     }
-
-
     return filterGenres;
   }
 
@@ -69,15 +86,16 @@ export class MovieAddComponent implements OnInit {
 
 
   remove(genre): void {
-    const index = this.genres.indexOf(genre);
+    const index = this.movieGenres.indexOf(genre);
 
     if (index >= 0) {
-      this.genres.splice(index, 1);
+      this.movieGenres.splice(index, 1);
     }
   }
 
   selected(event: MatAutocompleteSelectedEvent): void {
-    this.genres.push(event.option.value);
+    console.log(event.option.value);
+    this.movieGenres.push(event.option.value);
     this.genreControl.setValue(null);
   }
 

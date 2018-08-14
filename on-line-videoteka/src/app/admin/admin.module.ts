@@ -7,6 +7,7 @@ import { AngularMaterialModule } from '../angular-material.module';
 import { CommonModule } from '../../../node_modules/@angular/common';
 import { DateAdapter, MAT_DATE_LOCALE, MAT_DATE_FORMATS } from '../../../node_modules/@angular/material';
 import { MomentDateAdapter } from '../../../node_modules/@angular/material-moment-adapter';
+import { ActorListComponent } from './actor-list/actor-list.component';
 
 export const MY_FORMATS = {
   parse: {
@@ -23,7 +24,8 @@ export const MY_FORMATS = {
 @NgModule({
   declarations: [
     ActorAddComponent,
-    MovieAddComponent
+    MovieAddComponent,
+    ActorListComponent
   ],
   imports: [
     ReactiveFormsModule,

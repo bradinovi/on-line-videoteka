@@ -1,0 +1,51 @@
+<div class="content">
+  <mat-card>
+    <h2>Actors</h2>
+      <button mat-button class="addnew-btn" (click)="goToActorAdd()" color="accent" mat-raised-button>Create</button>
+      <mat-form-field color="accent">
+          <input matInput placeholder="Filter" #searchInput>
+      </mat-form-field>
+      <button mat-button (click)="onSearch(searchInput)" class="search-btn" color="accent" mat-stroked-button>Search</button>
+      <table mat-table [dataSource]="actors" class="mat-elevation-z8">
+
+          <ng-container matColumnDef="firstName">
+            <th mat-header-cell *matHeaderCellDef> First Name </th>
+            <td mat-cell *matCellDef="let element"> {{element.firstName}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="lastName">
+            <th mat-header-cell *matHeaderCellDef> Last Name </th>
+            <td mat-cell *matCellDef="let element"> {{element.lastName}} </td>
+          </ng-container>
+
+
+          <ng-container matColumnDef="born">
+            <th mat-header-cell *matHeaderCellDef> Born </th>
+            <td mat-cell *matCellDef="let element"> {{element.born}} </td>
+          </ng-container>
+
+
+          <ng-container matColumnDef="died">
+            <th mat-header-cell *matHeaderCellDef> Died </th>
+            <td mat-cell *matCellDef="let element"> {{element.died}} </td>
+          </ng-container>
+          <ng-container matColumnDef="actions">
+              <th mat-header-cell *matHeaderCellDef> Actions </th>
+              <td mat-cell *matCellDef="let element">
+                <button mat-button (click)="onEdit(element)" color="accent">Edit</button>
+                <button mat-button (click)="onDelete(element)" color="warn">Delete</button>
+                <button mat-button (click)="onViewPage(element)">View Page</button>
+              </td>
+            </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+        <mat-paginator
+          [length]="totalActors"
+          [pageSize]="actorsPerPage"
+          [pageSizeOptions]="pageSizeOptions"
+          (page)="onChangePage($event)"
+          showFirstLastButtons></mat-paginator>
+  </mat-card>
+</div>

@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import {MatTableModule} from '@angular/material/table';
 
 import {
   MatButtonModule,
@@ -56,7 +57,8 @@ import {MatDividerModule} from '@angular/material/divider';
     MatListModule,
     MatDialogModule,
     MatProgressSpinnerModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    MatTableModule
   ]
 
 

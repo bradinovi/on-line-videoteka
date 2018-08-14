@@ -1,7 +1,7 @@
 <div class="content">
 
   <mat-card>
-      <mat-spinner *ngIf="isLoading"></mat-spinner>
+      <mat-spinner *ngIf="isLoading" color="accent"></mat-spinner>
       <form [formGroup]="form" (submit)="onSaveActor()"  *ngIf="!isLoading">
       <mat-grid-list cols="5" rowHeight="380px;" >
 
