@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { ActorAddComponent } from './actor-add/actor-add.component';
 import { MovieAddComponent } from './movie-add/movie-add.component';
 import { ActorListComponent } from './actor-list/actor-list.component';
+import { GenreCrudComponent } from './genre-crud/genre-crud.component';
 
 
 
@@ -11,7 +12,8 @@ const routes: Routes = [
   { path: 'actoradd/:id', component: ActorAddComponent },
   { path: 'actoradd', component: ActorAddComponent },
   { path: 'movieadd', component: MovieAddComponent },
-  { path: 'actors', component: ActorListComponent }
+  { path: 'actors', component: ActorListComponent },
+  { path: 'genres', component: GenreCrudComponent }
 ];
 
 

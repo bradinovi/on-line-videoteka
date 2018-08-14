@@ -3,8 +3,15 @@ const Actor = require('../models/actor')
 exports.getActors = (req, res, next) => {
   const pageSize = +req.query.pagesize;
   const currentPage = +req.query.page;
-  const actorQuery = Actor.find();
+  let actorQuery;
   let fetchedActors;
+  const textQuery = req.query.text;
+  if(textQuery){
+    actorQuery = Actor.find({ $text: { $search: textQuery } });
+  } else {
+    actorQuery = Actor.find();
+  }
+
   if (pageSize && currentPage) {
     actorQuery
       .skip(pageSize * (currentPage - 1))
@@ -85,7 +92,6 @@ exports.deleteActor = (req, res, next) => {
 }
 
 exports.updateActor = (req, res, next) => {
-
   console.log(req.body);
   let imagePath = req.body.imagePath;
   if (req.file) {
@@ -106,9 +112,7 @@ exports.updateActor = (req, res, next) => {
     bio: req.body.bio,
     portraitPath: imagePath,
   });
-  console.log('UPDATE');
-  console.log('ID:' + req.body.id);
-  console.log(actor);
+
   Actor.updateOne({ _id: req.body.id }, actor).then((result) => {
     console.log(result);
     if(result.n > 0) {

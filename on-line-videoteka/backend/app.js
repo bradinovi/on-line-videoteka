@@ -5,8 +5,8 @@ const path = require('path');
 
 const userRoutes= require('./routes/users');
 const actorRoutes= require('./routes/actors');
-
-
+const movieRoutes = require('./routes/movies');
+const genreRoutes = require('./routes/genres');
 const app = express();
 // mongodb+srv://borna:qsnjMteIbEfJotQS@clustermeanudemy-mcba4.mongodb.net/node-angular
 mongoose.connect('mongodb+srv://videoteka:9mD738nncgx1JjgT@videoteka-aippe.mongodb.net/test?retryWrites=true', {useNewUrlParser: true}).then(() => {
@@ -21,7 +21,6 @@ app.use(bodyParser.urlencoded({
 }));
 app.use('/images', express.static(path.join('backend/images')));
 
-
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin','*');
   res.setHeader('Access-Control-Allow-Headers','Origin, X-Requested-With, Content-Type, Accept, Authorization');
@@ -29,11 +28,12 @@ app.use((req, res, next) => {
   next();
 });
 
-/*
-app.use('/api/posts', postsRoutes);
-*/
 app.use('/api/users', userRoutes);
 
 app.use('/api/actors', actorRoutes);
+
+app.use('/api/movies', movieRoutes);
+
+app.use('/api/genres', genreRoutes);
 
 module.exports = app;

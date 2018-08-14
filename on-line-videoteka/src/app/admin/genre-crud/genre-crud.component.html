@@ -1,0 +1,48 @@
+<div class="content">
+  <mat-card>
+
+    <h2>Actors</h2>
+      <button *ngIf="!formShow" mat-button class="addnew-btn" color="accent" mat-raised-button (click)="onCreate()">Create</button>
+      <div *ngIf="formShow">
+          <form (submit)="onSave()" [formGroup]="form">
+          <mat-form-field color="accent" class="genre-name-input">
+            <input matInput placeholder="Genre name" formControlName="name">
+          </mat-form-field>
+          <button mat-button class="addnew-btn" class="save-btn" color="accent" mat-raised-button type="submit">Save</button>
+
+          <button mat-icon-button (click)="onCreate()" type="button">
+              <mat-icon>clear</mat-icon>
+          </button>
+        </form>
+        </div>
+      <mat-form-field color="accent">
+          <input matInput placeholder="Filter" #searchInput>
+      </mat-form-field>
+      <button mat-button (click)="onSearch(searchInput)" class="search-btn" color="accent" mat-stroked-button>Search</button>
+      <table mat-table [dataSource]="genres" class="mat-elevation-z8">
+
+          <ng-container matColumnDef="Name">
+            <th mat-header-cell *matHeaderCellDef> Name </th>
+            <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+          </ng-container>
+
+
+          <ng-container matColumnDef="Actions">
+              <th mat-header-cell *matHeaderCellDef> Actions </th>
+              <td mat-cell *matCellDef="let element">
+                <button mat-button (click)="onEdit(element)" color="accent">Edit</button>
+                <button mat-button (click)="onDelete(element)" color="warn">Delete</button>
+              </td>
+            </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+        <mat-paginator
+          [length]="totalGenres"
+          [pageSize]="genresPerPage"
+          [pageSizeOptions]="pageSizeOptions"
+          (page)="onChangePage($event)"
+          showFirstLastButtons></mat-paginator>
+  </mat-card>
+</div>
