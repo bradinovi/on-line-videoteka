@@ -9,7 +9,7 @@ const movieSchema = mongoose.Schema({
   trailerLink: {type: String},
   plotsum: {type: String},
   posterPath: {type: String},
-  genre: [{ type: Schema.Types.ObjectId }],
+  genres: [{ type: Schema.Types.ObjectId }],
   roles: [{ type: Schema.Types.ObjectId }],
   directors: [{ type: Schema.Types.ObjectId }],
   rents: {type: Number },
