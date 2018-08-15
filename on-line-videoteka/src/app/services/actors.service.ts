@@ -110,7 +110,6 @@ export class ActorService {
         actorData.append('lastName', lastName);
         actorData.append('born', born);
         actorData.append('died', died);
-
         actorData.append('ocupations', JSON.stringify(ocupationsJSON));
         actorData.append('bio', bio);
         actorData.append('image', portrait, firstName + lastName);
