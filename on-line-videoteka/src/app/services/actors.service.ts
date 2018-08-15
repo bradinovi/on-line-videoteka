@@ -29,7 +29,8 @@ export class ActorService {
     postData.append('lastName', lastName);
     postData.append('born', born);
     postData.append('died', died);
-    postData.append('ocupations', JSON.stringify(ocupations));
+    const ocupationsJSON = { ocupations: ocupations };
+    postData.append('ocupations', JSON.stringify(ocupationsJSON));
     postData.append('bio', bio);
     postData.append('image', portrait, firstName + lastName);
 
@@ -100,6 +101,7 @@ export class ActorService {
       let actorData: ActorForAPI| FormData;
       console.log(portrait);
       console.log('typeof: ' + typeof(portrait));
+      const ocupationsJSON = { ocupations: ocupations };
       if (typeof(portrait) === 'object') {
         console.log('SLIKA stavljena');
         actorData = new FormData();
@@ -108,7 +110,8 @@ export class ActorService {
         actorData.append('lastName', lastName);
         actorData.append('born', born);
         actorData.append('died', died);
-        actorData.append('ocupations', JSON.stringify(ocupations));
+
+        actorData.append('ocupations', JSON.stringify(ocupationsJSON));
         actorData.append('bio', bio);
         actorData.append('image', portrait, firstName + lastName);
       } else {
@@ -116,7 +119,7 @@ export class ActorService {
           id: actorId,
           firstName: firstName,
           lastName: lastName,
-          ocupations: ocupations,
+          ocupations: ocupationsJSON,
           born: born,
           died: died,
           bio: bio,

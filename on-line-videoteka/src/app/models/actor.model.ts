@@ -17,7 +17,7 @@ export interface ActorForAPI {
   lastName: string;
   born:  string;
   died: string;
-  ocupations: string[];
+  ocupations: {ocupations: string[]};
   bio: string;
   portraitPath: string;
   roles: string[];

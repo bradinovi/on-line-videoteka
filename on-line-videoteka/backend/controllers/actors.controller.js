@@ -65,7 +65,7 @@ exports.addActor = (req, res, next) => {
     lastName: req.body.lastName,
     born: born,
     died: died,
-    ocupations: JSON.parse( req.body.ocupations),
+    ocupations: JSON.parse(req.body.ocupations),
     bio: req.body.bio,
     portraitPath: url + "/images/portrait/" + req.file.filename,
   });
@@ -94,21 +94,20 @@ exports.deleteActor = (req, res, next) => {
 exports.updateActor = (req, res, next) => {
   console.log(req.body);
   let imagePath = req.body.imagePath;
+  let occupationsForDB = req.body.ocupations.ocupations;
   if (req.file) {
     const url = req.protocol + '://' + req.get("host");
-
     imagePath = url + "/images/" + req.file.filename;
-
+    occupationsForDB = JSON.parse(req.body.ocupations).ocupations;
   };
-  console.log('------JSON-----');
-  console.log(typeof(req.body.ocupations));
+
   const actor = new Actor({
     _id: req.body.id,
     firstName: req.body.firstName,
     lastName: req.body.lastName,
     born: new Date(req.body.born),
     died: new Date(req.body.died),
-    ocupations: req.body.ocupations,
+    ocupations: occupationsForDB,
     bio: req.body.bio,
     portraitPath: imagePath,
   });
