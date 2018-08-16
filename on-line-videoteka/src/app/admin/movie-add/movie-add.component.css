@@ -113,3 +113,14 @@ input::-webkit-inner-spin-button {
 }
 
 
+input[type="file"]{
+  visibility: hidden;
+}
+
+mat-option{
+  font-size: 12px;
+}
+
+.actor-field{
+  width: 250px;
+}

@@ -1,10 +1,11 @@
 <div class="content">
 
   <mat-card>
-      <form [formGroup]="movieForm">
+      <form [formGroup]="movieForm" (submit)="saveMovie()">
       <mat-grid-list cols="5" rowHeight="380px;" >
           <mat-grid-tile>
-            <button mat-raised-button color="accent">Add Poster</button>
+            <button *ngIf="imagePreview === '' " mat-raised-button color="accent" (click)="filePicker.click()" type="button">Add Poster</button>
+            <img *ngIf="imagePreview !== '' " [src]="imagePreview" [alt]="movieForm.value.name" (click)="clearImage()">
           </mat-grid-tile>
           <mat-grid-tile colspan="2" class="movie-header-data">
             <div class="inputs-middle">
@@ -20,7 +21,7 @@
               </mat-form-field>
               <div>
                 <mat-form-field color="accent">
-                  <input matInput [matDatepicker]="releasePicker" placeholder="Release date" formControlName="releaseDate">
+                  <input matInput [matDatepicker]="releasePicker" placeholder="Release date" formControlName="release">
                   <mat-datepicker-toggle matSuffix [for]="releasePicker"></mat-datepicker-toggle>
                   <mat-datepicker #releasePicker></mat-datepicker>
                 </mat-form-field> <br>
@@ -32,7 +33,7 @@
 <mat-grid-tile colspan="2">
 <div style="width: 90%;">
   <mat-form-field color="accent" style="width: 100%">
-    <textarea matInput placeholder="Short plot description" rows="15" style="resize: none;" fromControlName="plotSum"></textarea>
+    <textarea matInput placeholder="Short plot description" rows="15" style="resize: none;" formControlName="plot"></textarea>
   </mat-form-field>
 </div>
 </mat-grid-tile>
@@ -40,11 +41,12 @@
 <mat-form-field class="genres" color="accent">
   <mat-chip-list #chipList>
     <mat-chip *ngFor="let genre of movieGenres" [selectable]="selectable"
-             [removable]="removable" (removed)="remove(genre)">
+             [removable]="removable" (removed)="removeGenre(genre)">
       {{genre.name}}
       <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
     </mat-chip>
     <input placeholder="Genres"
+           #genreInput
            [formControl]="genreControl"
            [matAutocomplete]="auto"
            [matChipInputFor]="chipList"
@@ -52,28 +54,35 @@
            [matChipInputAddOnBlur]="addOnBlur"
           >
   </mat-chip-list>
-<mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+<mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectedGenre($event)">
 <mat-option *ngFor="let option of filteredGenres| async" [value]="option">
 {{option.name}}
 </mat-option>
 </mat-autocomplete>
 </mat-form-field>
-<button class="save-button" mat-raised-button color="accent">Save</button>
+<input type="file" #filePicker (change)="onImageChosen($event)">
+<button class="save-button" mat-raised-button color="accent">{{saveButton}}</button>
 </form>
 </mat-card>
     <mat-card class="roles-add">
       <mat-card-title-group>
         <mat-card-title>Roles</mat-card-title>
       </mat-card-title-group>
-      <form [formGroup] = "roleForm">
-        <mat-form-field color="accent">
-          <input matInput placeholder="Actor" fromControlName="actor" disabled={{roleDirectorFormsEnabled}}>
+      <form [formGroup] = "roleForm" (submit)="onAddRole()">
+        <mat-form-field color="accent" class="actor-field">
+          <input matInput placeholder="Actor" [formControl]="actorControl" disabled={{roleDirectorFormsEnabled}}
+          [matAutocomplete]="autoActor">
+          <mat-autocomplete #autoActor="matAutocomplete"  (optionSelected)="selectedActor($event)">
+            <mat-option *ngFor="let actor of filteredActors | async" [value]="actor">
+              {{actor.firstName}} {{actor.lastName}}
+            </mat-option>
+          </mat-autocomplete>
         </mat-form-field>
         &nbsp;&nbsp;&nbsp; - &nbsp;&nbsp;&nbsp;
         <mat-form-field color="accent">
-          <input matInput placeholder="Role Name" fromControlName="role">
+          <input matInput placeholder="Role Name" formControlName="roleName">
         </mat-form-field> &nbsp; &nbsp;
-        <button mat-raised-button color="accent" disabled={{roleDirectorFormsEnabled}}>Add</button>
+        <button type="submit" mat-raised-button color="accent" disabled={{roleDirectorFormsEnabled}}>Add</button>
       </form>
       <mat-hint *ngIf="roleDirectorFormsEnabled">You can only add roles if you saved the movie</mat-hint>
     </mat-card>
