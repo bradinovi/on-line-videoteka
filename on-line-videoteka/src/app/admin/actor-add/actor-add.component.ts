@@ -2,19 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import {MatChipInputEvent} from '@angular/material';
 
-
-
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActorService } from '../../services/actors.service';
 import { ActivatedRoute, ParamMap } from '../../../../node_modules/@angular/router';
 import { Actor } from '../../models/actor.model';
 import { Moment } from '../../../../node_modules/moment';
-
-
-export interface Ocupation {
-  name: string;
-}
-
 
 @Component({
   selector: 'app-actor-add',

@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Genre } from '../movie-add/movie-add.component';
+
 import { PageEvent } from '../../../../node_modules/@angular/material';
 import { FormGroup, FormControl, Validators } from '../../../../node_modules/@angular/forms';
 import { ActorService } from '../../services/actors.service';
 import { Subscription } from '../../../../node_modules/rxjs';
 import { GenreService } from '../../services/genres.service';
+import { Genre } from '../../models/genre.model';
 
 @Component({
   selector: 'app-genre-crud',
@@ -32,7 +33,7 @@ export class GenreCrudComponent implements OnInit {
     this.form = new FormGroup({
       'name': new FormControl(null, { validators: [Validators.required] })
     });
-    this.genreSub = this.genreService.getActorUpdateListener().subscribe(
+    this.genreSub = this.genreService.getGenreUpdateListener().subscribe(
       (genreData: {genres: Genre[], genreCount: number }) => {
       console.log(genreData);
       this.isLoading = false;

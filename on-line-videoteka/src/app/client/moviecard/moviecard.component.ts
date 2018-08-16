@@ -27,11 +27,11 @@ export class MoviecardComponent implements OnInit {
   }
   ngOnInit() {
     console.log(this.movie);
-    this.movieYear = this.movie.movieYear.toString();
-    this.movieTitle = this.movie.movieTitle + '(' + this.movie.movieYear.toString() + ')';
-    this.moviePosterPath = this.movie.moviePosterPath;
-    this.movieGenres = this.movie.movieGenre;
-    this.moviePrice = this.movie.moviePrice.toString();
+    this.movieYear = this.movie.release.toString();
+    this.movieTitle = this.movie.title + '(' + this.movie.release.toString() + ')';
+    this.moviePosterPath = this.movie.posterPath;
+    // this.movieGenres = this.movie.genres;
+    // this.moviePrice = this.movie.moviePrice.toString();
   }
 
 }

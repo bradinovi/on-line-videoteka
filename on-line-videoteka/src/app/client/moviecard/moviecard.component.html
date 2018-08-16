@@ -1,3 +1,4 @@
+
 <mat-card style="padding-top: 10px;">
   <a routerLink="/" class="movie-link-card">
   <mat-card-header>
@@ -9,7 +10,7 @@
   <img mat-card-image  src={{moviePosterPath}} alt={{movieTitle}}>
  </a>
   <mat-chip-list *ngIf="likeRent">
-    <!-- <mat-chip color="accent"selected ><mat-icon>local_offer</mat-icon>{{moviePrice}} stacks</mat-chip> -->
+     <mat-chip color="accent"selected ><mat-icon>local_offer</mat-icon>{{moviePrice}} stacks</mat-chip>
         <mat-chip style="font-size: 15px">
           <mat-icon [inline]="true">favorite</mat-icon> {{moviePrice}}00
         </mat-chip>
