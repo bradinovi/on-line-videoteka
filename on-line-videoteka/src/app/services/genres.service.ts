@@ -1,10 +1,11 @@
-import { Actor, ActorForAPI } from '../models/actor.model';
+import { Actor } from '../models/actor.model';
 import { Subject } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { map } from '../../../node_modules/rxjs/operators';
-import { Genre } from '../admin/movie-add/movie-add.component';
+import { Genre } from '../models/genre.model';
+
 
 @Injectable({providedIn: 'root'})
 export class GenreService {
@@ -15,7 +16,7 @@ export class GenreService {
 
   constructor(private http: HttpClient, private router: Router) {}
 
-  getActorUpdateListener() {
+  getGenreUpdateListener() {
     return this.genresUpdated.asObservable();
   }
 

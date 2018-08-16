@@ -1,7 +1,21 @@
 export interface Movie {
-  movieTitle: string;
-  movieYear: number;
-  movieGenre: string;
-  moviePrice: number;
-  moviePosterPath: string;
+  id: string;
+  title: string;
+  release: string;
+  duration: number;
+  trailerLink: string;
+  plotsum: string;
+  genres: string[];
+  posterPath: string;
+}
+
+export interface MovieForAPI {
+  id: string;
+  title: string;
+  release: string;
+  duration: number;
+  trailerLink: string;
+  plotsum: string;
+  genres: { genres: string[] };
+  posterPath: string;
 }
