@@ -7,6 +7,8 @@ const userRoutes= require('./routes/users');
 const actorRoutes= require('./routes/actors');
 const movieRoutes = require('./routes/movies');
 const genreRoutes = require('./routes/genres');
+const roleRoutes = require('./routes/roles');
+
 const app = express();
 // mongodb+srv://borna:qsnjMteIbEfJotQS@clustermeanudemy-mcba4.mongodb.net/node-angular
 mongoose.connect('mongodb+srv://videoteka:9mD738nncgx1JjgT@videoteka-aippe.mongodb.net/test?retryWrites=true', {useNewUrlParser: true}).then(() => {
@@ -35,5 +37,7 @@ app.use('/api/actors', actorRoutes);
 app.use('/api/movies', movieRoutes);
 
 app.use('/api/genres', genreRoutes);
+
+app.use('/api/roles', roleRoutes);
 
 module.exports = app;
