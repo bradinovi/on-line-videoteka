@@ -15,4 +15,7 @@ router.put('/', extractMoviePosterFile,MoviesController.updateMovie);
 
 router.delete('/:id', MoviesController.deleteMovie);
 
+router.post('/director/:id', MoviesController.addDirector);
+router.delete('/director/:id', MoviesController.deleteDirector);
+
 module.exports = router;

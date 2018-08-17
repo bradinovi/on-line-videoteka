@@ -147,7 +147,40 @@ exports.deleteMovie = (req, res, next) => {
      });
     }
   });
+}
 
+exports.addDirector = (req, res, next) => {
+  const movieId = req.params.id;
+  const directorId = req.body.actorId;
+  // TO Do: push to movie directors and push to actor directed
 
+  Movie.updateOne({_id: movieId}, { $push: { directors: directorId} }).then((moviepush) => {
+    Actor.updateOne({_id: directorId}, { $push: { directed: movieId} }).then(
+      (actorpush) => {
+        res.status(201).json(
+          {
+            message: 'Director added'
+          }
+        );
+      }
+    );
+  });
 
+}
+
+exports.deleteDirector = (req, res, next) => {
+  const movieId = req.params.id;
+  const directorId =  req.body.actorId;
+  // TO DO: Pull from movie actorID and pull from actor movieid
+  Movie.updateOne({_id: movieId}, { $pull: { directors: directorId} }).then((moviepull) => {
+    Actor.updateOne({_id: directorId}, { $pull: { directed: movieId} }).then(
+      (actorpull) => {
+        res.status(201).json(
+          {
+            message: 'Director deleted'
+          }
+        );
+      }
+    );
+  });
 }
