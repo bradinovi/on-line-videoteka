@@ -89,7 +89,7 @@ exports.getRolesActor = (req, res, next) => {
 exports.getRolesMovie = (req, res, next) => {
   const pageSize = +req.query.pagesize;
   const currentPage = +req.query.page;
-  let roleQuery  = Role.find({ movie: req.params.movieId }).populate({ path: 'actor', select: 'firstName lastName' });
+  let roleQuery  = Role.find({ movie: req.params.movieId }).populate({ path: 'actor', select: 'firstName lastName portraitPath' });
 
   if (pageSize && currentPage) {
     roleQuery
@@ -118,7 +118,7 @@ exports.getRolesMovie = (req, res, next) => {
 exports.getRole = (req, res, next) => {
   // TO DO: GET ROLE BY roleId
   Role.find({_id: req.params.id})
-    .populate({ path: 'actor', select: 'firstName lastName' })
+    .populate({ path: 'actor', select: 'firstName lastName portraitPath' })
     .populate(({ path: 'movie', select: 'title' })).then(
       (roleFound) => {
         res.json(

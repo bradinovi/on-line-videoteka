@@ -8,7 +8,7 @@ export interface Role {
 export interface RoleOfMovie {
   id: string;
   movie: string;
-  actor: { _id: string, firstName: string, lastName: string };
+  actor: { _id: string, firstName: string, lastName: string, portraitPath: string };
   name: string;
 }
 

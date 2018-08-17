@@ -10,6 +10,7 @@ export interface Director {
   id: string;
   firstName: string;
   lastName: string;
+  portraitPath: string;
 }
 
 @Injectable({providedIn: 'root'})
@@ -77,14 +78,22 @@ export class MovieService {
     });
   }
 
-  getMovie(movieId: string) {
-    return this.http.get<
-      {
-        _id: string,
-        name: string
-      }
-    >('http://localhost:3000/api/movies' + '/' + movieId);
+  getMovie(movieId: string) { // ???
+    return this.http.get <{
+      genres: { _id: string, name: string, __v: number }[],
+      roles: {}[],
+      directors: {}[],
+      _id: string,
+      title: string,
+      duration: number,
+      release: string,
+      trailerLink: string,
+      plotsum: string,
+      posterPath: string
+    }>('http://localhost:3000/api/movies' + '/' + movieId);
   }
+
+
 
   updateMovie( movieId: string, title: string, release: string, duration: number,
     trailerLink: string, plotSum: string, genres: Genre[], image: File | string) {
@@ -147,7 +156,8 @@ export class MovieService {
               return {
                 id: director._id,
                 firstName: director.firstName,
-                lastName: director.lastName
+                lastName: director.lastName,
+                portraitPath: director.portraitPath
               };
             })
           )

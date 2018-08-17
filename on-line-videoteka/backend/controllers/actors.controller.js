@@ -97,7 +97,7 @@ exports.updateActor = (req, res, next) => {
   let occupationsForDB = req.body.ocupations.ocupations;
   if (req.file) {
     const url = req.protocol + '://' + req.get("host");
-    imagePath = url + "/images/" + req.file.filename;
+    imagePath = url + "/images/portrait" + req.file.filename;
     occupationsForDB = JSON.parse(req.body.ocupations).ocupations;
   };
 

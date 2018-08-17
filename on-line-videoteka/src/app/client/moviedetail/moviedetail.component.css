@@ -61,3 +61,7 @@ mat-grid-tile div a {
   color:#8EFFA3;
 }
 
+mat-spinner {
+  margin: auto;
+  width: 50%;
+}

@@ -69,7 +69,7 @@ exports.getMovies = (req, res, next) => {
 }
 
 exports.getMovie = (req, res, next) => {
-  Movie.findById(req.params.id).then( movie => {
+  Movie.findById(req.params.id).populate({ path: 'genres' }).then( movie => {
     if(movie){
       res.status(200).json(movie);
     } else {
@@ -189,7 +189,7 @@ exports.deleteDirector = (req, res, next) => {
 exports.getDirectorsForMovie = (req, res, next) => {
   const movieId = req.params.id;
   console.log(movieId);
-  Movie.find({_id:movieId},'title directors').populate({ path: 'directors', select: 'firstName lastName' }).then(
+  Movie.find({_id:movieId},'title directors').populate({ path: 'directors', select: 'firstName lastName portraitPath' }).then(
     (directors) => {
       console.log(directors);
       res.status(200).json({
