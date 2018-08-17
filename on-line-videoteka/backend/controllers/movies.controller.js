@@ -184,3 +184,17 @@ exports.deleteDirector = (req, res, next) => {
     );
   });
 }
+
+exports.getDirectorsForMovie = (req, res, next) => {
+  const movieId = req.params.id;
+  console.log(movieId);
+  Movie.find({_id:movieId},'title directors').populate({ path: 'directors', select: 'firstName lastName' }).then(
+    (directors) => {
+      console.log(directors);
+      res.status(200).json({
+        directors: directors
+      });
+    }
+  );
+
+}
