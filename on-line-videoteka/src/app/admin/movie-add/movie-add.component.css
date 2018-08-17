@@ -134,3 +134,7 @@ mat-option{
   width: 40%;
   display: inline-block;
 }
+
+.director-input {
+  width: 40%;
+}

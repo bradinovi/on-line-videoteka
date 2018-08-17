@@ -85,7 +85,7 @@
         <button type="submit" mat-raised-button color="accent" disabled={{roleDirectorFormsEnabled}}>Add</button>
       </form>
       <mat-hint *ngIf="roleDirectorFormsEnabled">You can only add roles if you saved the movie</mat-hint>
-      <div  *ngIf="roles.length > 0">
+      <div *ngIf="roles.length > 0">
         <div *ngFor="let role of roles">
           <div class="role-container">
           <p> {{role.actor.firstName}} {{role.actor.lastName}} - {{ role.name }}
@@ -102,13 +102,27 @@
       <mat-card-title-group>
         <mat-card-title>Directors</mat-card-title>
       </mat-card-title-group>
-      <form [formGroup] = "directorForm">
-        <mat-form-field color="accent">
-          <input matInput placeholder="Director" fromControlName="director" disabled={{roleDirectorFormsEnabled}}>
-        </mat-form-field>
-        &nbsp; &nbsp;
-        <button mat-raised-button color="accent" disabled={{roleDirectorFormsEnabled}}>Add</button>
+      <form [formGroup] = "directorForm" (submit)="onAddDirector()">
+        <mat-form-field color="accent" class="director-input">
+        <input matInput placeholder="Director" [formControl]="directorControl" disabled={{roleDirectorFormsEnabled}} [matAutocomplete]="autoDirector">
+        <mat-autocomplete #autoDirector="matAutocomplete" (optionSelected)="selectedDirector($event)">
+          <mat-option *ngFor="let actor of filteredDirectors | async" [value]="actor">
+            {{actor.firstName}} {{actor.lastName}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+      &nbsp;&nbsp;&nbsp;
+        <button mat-raised-button color="accent" disabled={{roleDirectorFormsEnabled}} type="submit">Add</button>
       </form>
       <mat-hint *ngIf="roleDirectorFormsEnabled">You can only add directors if you saved the movie</mat-hint>
+      <div *ngFor="let director of directors">
+          <div class="role-container">
+          <p> {{director.firstName}} {{director.lastName}}
+          </p>
+          </div>
+          <div class="role-action-containter">
+              <button mat-button (click)="onDeleteDirector(director)" color="warn">Delete</button>
+          </div>
+        </div>
     </mat-card>
 </div>

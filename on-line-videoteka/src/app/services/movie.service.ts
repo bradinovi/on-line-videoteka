@@ -1,23 +1,32 @@
 import { Subject } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { map } from '../../../node_modules/rxjs/operators';
 import { Movie, MovieForAPI } from '../models/movie.model';
 import { Genre } from '../models/genre.model';
 
+export interface Director {
+  id: string;
+  firstName: string;
+  lastName: string;
+}
 
 @Injectable({providedIn: 'root'})
 export class MovieService {
   private movies: Movie[] = [];
-
+  private directors: Director[] = [];
   private moviesUpdated = new Subject<{movies: Movie[], movieCount: number}>();
-
+  private directorsUpdated = new Subject<{directors: Director[], movieId: string}>();
 
   constructor(private http: HttpClient, private router: Router) {}
 
   getMovieUpdateListener() {
     return this.moviesUpdated.asObservable();
+  }
+
+  getDirectorsUpdateListener() {
+    return this.directorsUpdated.asObservable();
   }
 
   addMovie(title: string, release: string, duration: number, trailerLink: string, plotSum: string, genres: Genre[], image: File) {
@@ -111,5 +120,47 @@ export class MovieService {
 
   deleteMovie(movieId: string) {
     return this.http.delete('http://localhost:3000/api/movies' + '/' + movieId);
+  }
+
+  addDirector(movieId: string, directorId: string) {
+    return this.http.post('http://localhost:3000/api/movies/director' + '/' + movieId, { actorId: directorId });
+  }
+
+  deleteDirector(movieId: string, directorId: string) {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }), body: { actorId: directorId }
+  };
+    return this.http.delete('http://localhost:3000/api/movies/director' + '/' + movieId, httpOptions);
+  }
+
+
+
+  getMovieDirectors(movieId: string) {
+    this.http.get<
+    { directors: { directors: any, _id: string, title: string } }
+    >('http://localhost:3000/api/movies/director' + '/' + movieId).pipe(
+      map(directorData => {
+        return {
+          movieId: directorData.directors._id,
+          directors: directorData.directors.directors.map(
+            (director => {
+              return {
+                id: director._id,
+                firstName: director.firstName,
+                lastName: director.lastName
+              };
+            })
+          )
+        };
+      })
+    ).subscribe(
+      (transformedDirectorData) => {
+        this.directors = transformedDirectorData.directors;
+        this.directorsUpdated.next({
+          directors: [...this.directors],
+          movieId: transformedDirectorData.movieId
+        });
+      }
+    );
   }
 }

@@ -8,7 +8,7 @@ import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import {MatAutocompleteSelectedEvent} from '@angular/material';
 import { GenreService } from '../../services/genres.service';
 import { Genre } from '../../models/genre.model';
-import { MovieService } from '../../services/movie.service';
+import { MovieService, Director } from '../../services/movie.service';
 import { Movie } from '../../models/movie.model';
 import { Moment } from '../../../../node_modules/moment';
 import { Actor } from '../../models/actor.model';
@@ -42,6 +42,7 @@ export class MovieAddComponent implements OnInit, OnDestroy {
   directorControl = new FormControl();
   actors: Actor[] = [];
   filteredActors: Observable<Actor[]>;
+  filteredDirectors: Observable<Actor[]>;
 
   movieForm: FormGroup;
   roleForm: FormGroup;
@@ -50,10 +51,11 @@ export class MovieAddComponent implements OnInit, OnDestroy {
   genresSub: Subscription;
   actorSub: Subscription;
   rolesSub: Subscription;
+  directorSub: Subscription;
   createdMovieId: string;
 
   roles: RoleOfMovie[] = [];
-
+  directors: Director[] = [];
   roleMode = 'create';
   roleToEdit = '';
 
@@ -69,6 +71,12 @@ export class MovieAddComponent implements OnInit, OnDestroy {
       (actorData: { actors: Actor[], actorCount: number }) => {
       this.actors = actorData.actors;
     });
+    this.directorSub = this.movieService.getDirectorsUpdateListener().subscribe(
+      ( directorData: { directors: Director[], movieId: string } ) => {
+        this.directors = directorData.directors;
+      }
+    );
+
     this.actorsService.getActors(1, 0);
     this.movieForm = new FormGroup({
       'title' : new FormControl(null),
@@ -103,6 +111,9 @@ export class MovieAddComponent implements OnInit, OnDestroy {
     this.filteredActors = this.actorControl.valueChanges.pipe<Actor[]>(
       map(value => this._filterActor(value))
     );
+    this.filteredDirectors = this.directorControl.valueChanges.pipe<Actor[]>(
+      map(value => this._filterActor(value))
+    );
   }
 
   private _filterGenre(value: any): Genre[] {
@@ -119,6 +130,7 @@ export class MovieAddComponent implements OnInit, OnDestroy {
   }
 
   private _filterActor(value: any): Actor[] {
+    console.log(value);
     const filterActors: Actor[] = [];
     if (typeof(value) === 'string') {
       const filterValue = value.toLowerCase();
@@ -192,7 +204,7 @@ export class MovieAddComponent implements OnInit, OnDestroy {
   }
 
   onAddRole() {
-    this.roleForm.reset();
+
     console.log(this.roleForm.value);
     console.log(this.createdMovieId);
     if (this.roleMode === 'create') {
@@ -207,23 +219,36 @@ export class MovieAddComponent implements OnInit, OnDestroy {
         this.roleService.getRolesForMovie(this.createdMovieId);
       });
     }
+    this.roleForm.reset();
     return;
   }
 
   selectedActor(event: MatAutocompleteSelectedEvent) {
-    this.setActorValue(event.option.value.id, event.option.value.firstName, event.option.value.lastName);
+    this.setActorValue(this.actorControl, this.roleForm, event.option.value.id,
+      event.option.value.firstName, event.option.value.lastName, 'actor');
   }
 
-  setActorValue( actorId, firstName, lastName) {
+  selectedDirector(event: MatAutocompleteSelectedEvent) {
+    this.setActorValue(this.directorControl, this.directorForm, event.option.value.id,
+      event.option.value.firstName, event.option.value.lastName, 'director');
+  }
+
+  setActorValue( control, form, actorId, firstName, lastName, controlName: string) {
     console.log(actorId);
-    this.roleForm.patchValue({'actor': actorId });
+    console.log(control);
+    if (controlName === 'director') {
+      form.patchValue({ 'director': actorId });
+    }
+    if (controlName === 'actor') {
+      form.patchValue({ 'actor': actorId });
+    }
     console.log(firstName + lastName);
-    this.actorControl.setValue(firstName + ' ' + lastName );
+    control.setValue(firstName + ' ' + lastName );
   }
 
   onEditRole(role) {
     console.log(role);
-    this.setActorValue(role.actor._id, role.actor.firstName, role.actor.lastName);
+    this.setActorValue(this.actorControl, this.roleForm, role.actor._id, role.actor.firstName, role.actor.lastName, 'actor');
     this.roleToEdit = role.id;
     this.roleForm.patchValue({'roleName': role.name });
     this.roleMode = 'edit';
@@ -233,6 +258,25 @@ export class MovieAddComponent implements OnInit, OnDestroy {
     this.roleService.deleteRole(role.id).subscribe((res) => {
       console.log(res);
       this.roleService.getRolesForMovie(this.createdMovieId);
+    });
+  }
+
+  onAddDirector() {
+    console.log(this.directorForm);
+    this.movieService.addDirector( this.createdMovieId, this.directorForm.value.director ).subscribe(
+      (res) => {
+        console.log(res);
+        this.movieService.getMovieDirectors(this.createdMovieId);
+      }
+    );
+  }
+
+  onDeleteDirector(director) {
+    console.log('DIRECTOR');
+    console.log(director);
+    this.movieService.deleteDirector(this.createdMovieId, director.id).subscribe((res) => {
+      console.log(res);
+      this.movieService.getMovieDirectors(this.createdMovieId);
     });
   }
 }

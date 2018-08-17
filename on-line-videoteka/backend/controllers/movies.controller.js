@@ -20,7 +20,8 @@ exports.addMovie = (req, res, next) => {
       trailerLink: req.body.trailerLink,
       plotsum: req.body.plotsum,
       posterPath: url + '/images/posters/' + req.file.filename,
-      genres: genresForDB
+      genres: genresForDB,
+      rents: 0
     }
   );
 
@@ -192,7 +193,7 @@ exports.getDirectorsForMovie = (req, res, next) => {
     (directors) => {
       console.log(directors);
       res.status(200).json({
-        directors: directors
+        directors: directors[0]
       });
     }
   );
