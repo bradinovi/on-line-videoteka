@@ -85,6 +85,18 @@
         <button type="submit" mat-raised-button color="accent" disabled={{roleDirectorFormsEnabled}}>Add</button>
       </form>
       <mat-hint *ngIf="roleDirectorFormsEnabled">You can only add roles if you saved the movie</mat-hint>
+      <div  *ngIf="roles.length > 0">
+        <div *ngFor="let role of roles">
+          <div class="role-container">
+          <p> {{role.actor.firstName}} {{role.actor.lastName}} - {{ role.name }}
+          </p>
+          </div>
+          <div class="role-action-containter">
+              <button mat-button (click)="onEditRole(role)" color="accent">Edit</button>
+              <button mat-button (click)="onDeleteRole(role)" color="warn">Delete</button>
+          </div>
+        </div>
+      </div>
     </mat-card>
     <mat-card class="directors-add">
       <mat-card-title-group>

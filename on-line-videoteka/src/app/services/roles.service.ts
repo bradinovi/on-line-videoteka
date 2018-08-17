@@ -40,7 +40,7 @@ export class RoleService {
         roles:
         roleData.roles.map( role => {
         return {
-          id: role.id,
+          id: role._id,
           movie: role.movie,
           actor: role.actor,
           name: role.name
@@ -64,7 +64,7 @@ export class RoleService {
         roles:
         roleData.roles.map( role => {
         return {
-          id: role.id,
+          id: role._id,
           movie: role.movie,
           actor: role.actor,
           name: role.name

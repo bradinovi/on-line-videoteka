@@ -124,3 +124,13 @@ mat-option{
 .actor-field{
   width: 250px;
 }
+
+.role-container{
+  width: 60%;
+  display: inline-block;
+}
+
+.role-action-containter{
+  width: 40%;
+  display: inline-block;
+}

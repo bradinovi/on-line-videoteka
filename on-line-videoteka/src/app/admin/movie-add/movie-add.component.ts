@@ -25,7 +25,7 @@ import { RoleOfMovie } from '../../models/role.model';
 })
 export class MovieAddComponent implements OnInit, OnDestroy {
   saveButton = 'Save';
-  roleDirectorFormsEnabled = false;
+  roleDirectorFormsEnabled = true;
   isLoading = true;
   visible = true;
   selectable = true;
@@ -52,7 +52,10 @@ export class MovieAddComponent implements OnInit, OnDestroy {
   rolesSub: Subscription;
   createdMovieId: string;
 
-  roles: RoleOfMovie[];
+  roles: RoleOfMovie[] = [];
+
+  roleMode = 'create';
+  roleToEdit = '';
 
   @ViewChild('genreInput') genreInput: ElementRef;
   constructor( private genreService: GenreService, private movieService: MovieService,
@@ -189,18 +192,47 @@ export class MovieAddComponent implements OnInit, OnDestroy {
   }
 
   onAddRole() {
+    this.roleForm.reset();
     console.log(this.roleForm.value);
     console.log(this.createdMovieId);
-    this.roleService.addRole(this.roleForm.value.roleName, this.roleForm.value.actor, this.createdMovieId).subscribe((response) => {
-      this.roleService.getRolesForMovie(this.createdMovieId);
-    });
+    if (this.roleMode === 'create') {
+      this.roleService.addRole(this.roleForm.value.roleName, this.roleForm.value.actor, this.createdMovieId).subscribe((response) => {
+        this.roleService.getRolesForMovie(this.createdMovieId);
+      });
+    } else {
+      this.roleService.updateRole(this.roleToEdit, this.roleForm.value.actor, this.createdMovieId, this.roleForm.value.roleName)
+      .subscribe((res) => {
+        console.log(res);
+        this.roleMode = 'create';
+        this.roleService.getRolesForMovie(this.createdMovieId);
+      });
+    }
     return;
   }
 
   selectedActor(event: MatAutocompleteSelectedEvent) {
-    console.log(event.option.value);
-    this.roleForm.patchValue({'actor': event.option.value.id });
-    console.log(this.roleForm.value.actor);
-    this.actorControl.setValue(event.option.value.firstName + ' ' + event.option.value.lastName);
+    this.setActorValue(event.option.value.id, event.option.value.firstName, event.option.value.lastName);
+  }
+
+  setActorValue( actorId, firstName, lastName) {
+    console.log(actorId);
+    this.roleForm.patchValue({'actor': actorId });
+    console.log(firstName + lastName);
+    this.actorControl.setValue(firstName + ' ' + lastName );
+  }
+
+  onEditRole(role) {
+    console.log(role);
+    this.setActorValue(role.actor._id, role.actor.firstName, role.actor.lastName);
+    this.roleToEdit = role.id;
+    this.roleForm.patchValue({'roleName': role.name });
+    this.roleMode = 'edit';
+  }
+
+  onDeleteRole(role) {
+    this.roleService.deleteRole(role.id).subscribe((res) => {
+      console.log(res);
+      this.roleService.getRolesForMovie(this.createdMovieId);
+    });
   }
 }
