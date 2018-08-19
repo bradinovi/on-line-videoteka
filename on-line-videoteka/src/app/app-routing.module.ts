@@ -16,6 +16,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent},
   { path: 'signup', component: SignupComponent},
   { path: 'searchpage', component: SearchpageComponent},
+  { path: 'searchpage/:searchText', component: SearchpageComponent},
   { path: 'moviedetail/:movieId', component: MoviedetailComponent},
   { path: 'actordetail/:actorId', component: ActordetailComponent},
   { path: 'myprofile', component: MyprofileComponent},

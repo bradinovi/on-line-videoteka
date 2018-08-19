@@ -3,6 +3,7 @@ import { GenreService } from '../../services/genres.service';
 import { Subscription } from '../../../../node_modules/rxjs';
 import { Genre } from '../../models/genre.model';
 import { MovieService } from '../../services/movie.service';
+import { ActivatedRoute, ParamMap } from '@angular/router';
 
 @Component({
   selector: 'app-searchpage',
@@ -21,7 +22,7 @@ export class SearchpageComponent implements OnInit, OnDestroy {
 
   genreSub: Subscription;
 
-  constructor( private genreService: GenreService, public movieService: MovieService ) { }
+  constructor( private genreService: GenreService, public movieService: MovieService, private route: ActivatedRoute ) { }
 
   ngOnInit() {
     this.genreSub = this.genreService.getGenreUpdateListener().subscribe(
@@ -31,6 +32,13 @@ export class SearchpageComponent implements OnInit, OnDestroy {
     );
     this.genreService.getGenres(0, 1);
    this.fillYearField();
+
+   this.route.paramMap.subscribe((param: ParamMap) => {
+    if (param.has('searchText')) {
+      this.isSearch = true;
+      this.movieService.getMovies( 5, 1, param.get('searchText'), this.selectedGenre, this.selectedYear, this.selectedSort );
+    }});
+
   }
 
   fillYearField() {

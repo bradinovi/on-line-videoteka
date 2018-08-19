@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../userauth/userauth.service';
 import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -13,7 +14,7 @@ export class NavbarComponent implements OnInit {
   userAuthenticated = false;
   searchIconColor = 'white';
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit() {
     this. userAuthenticated = this.authService.getIsAuth();
@@ -33,6 +34,12 @@ export class NavbarComponent implements OnInit {
 
   onLogOut() {
     this.authService.logout();
+  }
+
+  onHitEnter(event) {
+    if (event.key === 'Enter') {
+      this.router.navigate(['/searchpage', event.target.value]);
+    }
   }
 
 }

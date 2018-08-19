@@ -4,7 +4,8 @@
   </a>
   <span class="spacer"></span>
   <mat-form-field color="accent" class="main-search">
-      <input matInput type="search" (focus)="onSearchFocused()" (blur)="onSearchBlur()">
+      <input matInput type="search"
+      (focus)="onSearchFocused()" (blur)="onSearchBlur()" (keypress)="onHitEnter($event)">
     </mat-form-field>
     <mat-icon class="main-search-icon" color={{searchIconColor}}>search</mat-icon>
   <ul>
