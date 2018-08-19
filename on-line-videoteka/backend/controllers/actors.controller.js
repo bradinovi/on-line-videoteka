@@ -65,7 +65,7 @@ exports.addActor = (req, res, next) => {
     lastName: req.body.lastName,
     born: born,
     died: died,
-    ocupations: JSON.parse(req.body.ocupations),
+    ocupations: JSON.parse(req.body.ocupations).ocupations,
     bio: req.body.bio,
     portraitPath: url + "/images/portrait/" + req.file.filename,
   });
@@ -157,4 +157,17 @@ exports.getActorsBySearch = (req, res, next) => {
       message: 'Fatching Actors failed!',
    });
   });
+}
+
+exports.getDirectedByActor = (req, res, next) => {
+  const actorId = req.params.id;
+
+  Actor.find({_id:actorId},'firstName lastName').populate({ path: 'directed', select: 'title _id' }).then(
+    (directed) => {
+      console.log(directed);
+      res.status(200).json({
+        directed: directed[0]
+      });
+    }
+  );
 }

@@ -66,4 +66,15 @@ mat-grid-tile div a {
   color:#8EFFA3;
 }
 
+mat-chip-list {
+  width: 100%;
+}
 
+mat-spinner {
+  margin: auto;
+  width: 50%;
+}
+
+::-webkit-scrollbar {
+  display: none;
+  }

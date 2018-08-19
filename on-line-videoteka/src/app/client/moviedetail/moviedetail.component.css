@@ -54,6 +54,8 @@ mat-list-item p a{
   font-size: 17px;
 }
 
+
+
 mat-grid-tile div a {
   font-size: 20px;
   margin-top: 2em;
@@ -64,4 +66,10 @@ mat-grid-tile div a {
 mat-spinner {
   margin: auto;
   width: 50%;
+}
+
+.genres{
+  display: inline;
+  margin-right: 10px;
+  font-weight: 150;
 }

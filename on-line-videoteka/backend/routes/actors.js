@@ -17,4 +17,6 @@ router.get('/:id', ActorController.getActor);
 
 router.delete('/:id', ActorController.deleteActor);
 
+router.get('/directed/:id', ActorController.getDirectedByActor);
+
 module.exports = router;

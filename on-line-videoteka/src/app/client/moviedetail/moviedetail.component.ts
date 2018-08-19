@@ -52,13 +52,16 @@ export class MoviedetailComponent implements OnInit {
               release: movie.release,
               duration: movie.duration,
               plotsum: movie.plotsum,
+
               genres: movie.genres.map( genre => {
                 return genre.name;
               }),
               posterPath: movie.posterPath,
-              trailerLink: movie.trailerLink
+              trailerLink: movie.trailerLink,
+              rents: movie.rents
             };
           this.movie = movieToDisplay;
+          console.log(this.movie);
           this.roleService.getRolesForMovie(this.movie.id);
           this.movieService.getMovieDirectors(this.movie.id);
           this.movieYear = moment(this.movie.release).format('Y');

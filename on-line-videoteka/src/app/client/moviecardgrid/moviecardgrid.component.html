@@ -1,5 +1,6 @@
 <div class="content">
-<div *ngIf="isDataAvailable">
+<mat-spinner *ngIf="isLoading" color="accent"></mat-spinner>
+<div *ngIf="!isLoading">
 <mat-grid-list cols="5" rowHeight="535px">
       <mat-grid-tile *ngFor="let moviea of moviesToDisplay">
           <app-moviecard [movie]="moviea" likeRent="true"></app-moviecard>
@@ -7,6 +8,9 @@
 </mat-grid-list>
 </div>
 </div>
-<mat-paginator length="10" pageSize="5" class="footer">
+<mat-paginator *ngIf="!isLoading" [length]="movieCount" [pageSize]="moviesPerPage"
+[pageSizeOptions]="pageSizeOptions"
+(page)="onChangePage($event)"
+showFirstLastButtons>
 </mat-paginator>
 

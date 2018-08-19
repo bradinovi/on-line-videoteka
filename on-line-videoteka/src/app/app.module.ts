@@ -33,8 +33,9 @@ import { MyprofileComponent } from './client/myprofile/myprofile.component';
 import { MymoviesComponent } from './client/mymovies/mymovies.component';
 import { SearchpageComponent } from './client/searchpage/searchpage.component';
 import { MoviedetailComponent } from './client/moviedetail/moviedetail.component';
-import { ActordetailComponent } from './client/actordetail/actordetail.component';
+import { ActordetailComponent} from './client/actordetail/actordetail.component';
 import { HomepageComponent } from './client/homepage/homepage.component';
+import { FullBioComponent } from './client/actordetail/full-bio/full-bio.component';
 
 
 
@@ -64,7 +65,8 @@ export const MY_FORMATS = {
     SearchpageComponent,
     MoviedetailComponent,
     ActordetailComponent,
-    HomepageComponent
+    HomepageComponent,
+    FullBioComponent
   ],
   imports: [
     BrowserModule,
@@ -74,12 +76,12 @@ export const MY_FORMATS = {
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule
-
   ],
   providers: [
     {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
     {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [FullBioComponent]
 })
 export class AppModule { }

@@ -11,7 +11,7 @@ const actorSchema = mongoose.Schema({
   bio: {type: String},
   portraitPath: {type: String},
   roles: [{ type: Schema.Types.ObjectId }],
-  directed: [{ type: Schema.Types.ObjectId }]
+  directed: [{ type: Schema.Types.ObjectId , ref: 'Movie'}]
 });
 
 module.exports = mongoose.model('Actor', actorSchema);

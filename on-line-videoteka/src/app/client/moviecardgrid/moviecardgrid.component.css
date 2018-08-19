@@ -20,3 +20,9 @@ mat-grid-list{
 .icon {
   font-size: 100px;
 }
+
+mat-spinner{
+  margin-top: 3em;
+  margin-left: auto;
+  margin-right: auto;
+}

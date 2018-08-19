@@ -30,7 +30,7 @@ export class GenreService {
   getGenres( genresPerPage: number, currentPage: number ) {
 
     const queryParams = `?pagesize=${genresPerPage}&page=${currentPage}`;
-    console.log(queryParams);
+
     this.http.get<{message: string, genres: any, maxGenres: number}>( 'http://localhost:3000/api/genres' + queryParams)
     .pipe( map((genreData) => {
       return {

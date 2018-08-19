@@ -13,6 +13,7 @@ const movieSchema = mongoose.Schema({
   roles: [{ type: Schema.Types.ObjectId }],
   directors: [{ type: Schema.Types.ObjectId , ref: 'Actor'}],
   rents: {type: Number },
+  year: {type: Number }
 });
 
 module.exports = mongoose.model('Movie', movieSchema);

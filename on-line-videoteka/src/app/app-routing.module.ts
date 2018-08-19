@@ -17,7 +17,7 @@ const routes: Routes = [
   { path: 'signup', component: SignupComponent},
   { path: 'searchpage', component: SearchpageComponent},
   { path: 'moviedetail/:movieId', component: MoviedetailComponent},
-  { path: 'actordetail', component: ActordetailComponent},
+  { path: 'actordetail/:actorId', component: ActordetailComponent},
   { path: 'myprofile', component: MyprofileComponent},
   { path: 'mymovies', component: MymoviesComponent},
   { path: 'admin', loadChildren: './admin/admin.module#AdminModule'}

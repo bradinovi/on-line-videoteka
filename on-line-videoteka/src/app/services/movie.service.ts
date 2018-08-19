@@ -19,6 +19,11 @@ export class MovieService {
   private directors: Director[] = [];
   private moviesUpdated = new Subject<{movies: Movie[], movieCount: number}>();
   private directorsUpdated = new Subject<{directors: Director[], movieId: string}>();
+  private searchQueryUpdated = new Subject<
+    {
+      searchText: string, selectedGenre: string, selectedYear: string, selectedSort: string
+    }
+  >();
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -28,6 +33,10 @@ export class MovieService {
 
   getDirectorsUpdateListener() {
     return this.directorsUpdated.asObservable();
+  }
+
+  getSearchQueryUpdatedListener() {
+    return this.searchQueryUpdated.asObservable();
   }
 
   addMovie(title: string, release: string, duration: number, trailerLink: string, plotSum: string, genres: Genre[], image: File) {
@@ -48,25 +57,37 @@ export class MovieService {
     return this.http.post<{message: string, createdMovie: any}>('http://localhost:3000/api/movies', movieData);
   }
 
-  getMovies( genresPerPage: number, currentPage: number ) {
+  updateQueryData(searchText: string,
+    selectedGenre: string, selectedYear: string, selectedSort: string) {
+    this.searchQueryUpdated.next({
+      searchText: searchText, selectedGenre: selectedGenre, selectedYear: selectedYear, selectedSort: selectedSort
+    });
+  }
+
+  getMovies( genresPerPage: number, currentPage: number, searchText: string,
+    selectedGenre: string, selectedYear: string, selectedSort: string ) {
     const queryParams = `?pagesize=${genresPerPage}&page=${currentPage}`;
-    console.log(queryParams);
-    this.http.get<{message: string, movies: any, maxGenres: number}>( 'http://localhost:3000/api/movies' + queryParams)
+    const searchParams =
+    `&searchText=${searchText}&selectedGenre=${selectedGenre}&selectedYear=${selectedYear}&selectedSort=${selectedSort}`;
+
+    console.log(searchParams + queryParams);
+    this.http.get<{message: string, movies: any, maxPosts: number}>( 'http://localhost:3000/api/movies' + queryParams + searchParams)
     .pipe( map((movieData) => {
       return {
         movies:
         movieData.movies.map( movie => {
         return {
-          id: movie.id,
+          id: movie._id,
           title: movie.title,
           release: movie.release,
           duration: movie.duration,
           trailerLink: movie.trailerLink,
           plotsum: movie.plotSum,
-          genres: {genres: movie.genresForSend},
-          posterPath: movie.image
+          genres: movie.genres,
+          posterPath: movie.posterPath,
+          rents: movie.rents
         }; }),
-        maxGenres: movieData.maxGenres
+        maxGenres: movieData.maxPosts
       };
     }) )
     .subscribe((transformedMovieData) => {
@@ -74,6 +95,9 @@ export class MovieService {
       this.moviesUpdated.next({
         movies : [...this.movies],
         movieCount: transformedMovieData.maxGenres
+      });
+      this.searchQueryUpdated.next({
+        searchText: searchText, selectedGenre: selectedGenre, selectedYear: selectedYear, selectedSort: selectedSort
       });
     });
   }
@@ -89,14 +113,16 @@ export class MovieService {
       release: string,
       trailerLink: string,
       plotsum: string,
-      posterPath: string
+      posterPath: string,
+      rents: number
+
     }>('http://localhost:3000/api/movies' + '/' + movieId);
   }
 
 
 
   updateMovie( movieId: string, title: string, release: string, duration: number,
-    trailerLink: string, plotSum: string, genres: Genre[], image: File | string) {
+    trailerLink: string, plotSum: string, genres: Genre[], image: File | string, rents: number) {
     let movieData: MovieForAPI | FormData;
     const genresForSend = [];
     genres.forEach(genre => {
@@ -112,6 +138,7 @@ export class MovieService {
       movieData.append('plotsum', plotSum);
       movieData.append('genres', JSON.stringify({genres: genresForSend}));
       movieData.append('image', image , title);
+      movieData.append('rents', rents.toString());
     } else {
     movieData = {
       id: movieId,
@@ -121,7 +148,8 @@ export class MovieService {
       trailerLink: trailerLink,
       plotsum: plotSum,
       genres: {genres: genresForSend},
-      posterPath: image
+      posterPath: image,
+      rents: rents
     };
   }
     return this.http.put('http://localhost:3000/api/movies', movieData);

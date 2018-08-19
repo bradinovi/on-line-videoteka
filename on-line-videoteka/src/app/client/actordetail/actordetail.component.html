@@ -1,23 +1,23 @@
 <div class="content">
 
     <mat-card>
-
-        <mat-grid-list cols="5" rowHeight="380px;" >
+        <mat-spinner *ngIf="isLoading" color="accent"></mat-spinner>
+        <mat-grid-list cols="5" rowHeight="380px;" *ngIf="!isLoading">
             <mat-grid-tile>
-              <img src="https://m.media-amazon.com/images/M/MV5BNzg1MTUyNDYxOF5BMl5BanBnXkFtZTgwNTQ4MTE2MjE@._V1_SY1000_CR0,0,664,1000_AL_.jpg">
+              <img src={{actor.portraitPath}}>
             </mat-grid-tile>
             <mat-grid-tile colspan="2" class="movie-header-data">
 
               <div>
 
                 <h1>
-                    Robert Downey Jr.</h1>
+                    {{actor.firstName}} {{actor.lastName}}</h1>
 
-                <div><h4 style="display: inline;">Born: </h4><p style="display: inline;">04.04.1965</p></div>
+                <div><h4 style="display: inline;">Born: </h4><p style="display: inline;">{{born}}</p></div>
+                <div *ngIf="died !== 'Invalid date'"><h4 style="display: inline;">Died: </h4><p style="display: inline;">{{died}}</p></div>
                 <br>
-                <mat-chip-list>
-                    <mat-chip>Actor</mat-chip>
-                    <mat-chip>Producer </mat-chip>
+                <mat-chip-list *ngFor="let ocupation of actor.ocupations">
+                    <mat-chip>{{ocupation}}</mat-chip>
                 </mat-chip-list>
               </div>
             </mat-grid-tile>
@@ -34,19 +34,19 @@
         <mat-tab-group color="accent">
             <mat-tab label="Acted">
                 <mat-list>
+                  <div *ngFor="let role of roles">
                     <mat-list-item>
-                      <p><a routerLink="/" color="accent">Avengers: Infinity War </a> - Tony Stark/Iron man</p></mat-list-item>
+                      <p><a [routerLink]="['/moviedetail',role.movie._id]" color="accent">{{role.movie.title}} </a> - {{role.name}}</p></mat-list-item>
                     <mat-divider></mat-divider>
-                    <mat-list-item>
-                      <p><a routerLink="/" color="accent">The Judge </a> - Hank Palmer</p></mat-list-item>
-                    <mat-divider></mat-divider>
-                    <mat-list-item>
-                      <p><a routerLink="/" color="accent">Chef </a> - Marvin</p></mat-list-item>
+                  </div>
                 </mat-list>
             </mat-tab>
             <mat-tab label="Directed">
                 <mat-list>
-                    <mat-list-item><a routerLink="/" color="accent">Singularity</a></mat-list-item>
+                  <div *ngFor="let movie of directed">
+                    <mat-list-item><a [routerLink]="['/moviedetail',movie.id]" color="accent">{{movie.title}}</a></mat-list-item>
+                    <mat-divider></mat-divider>
+                  </div>
                 </mat-list>
             </mat-tab>
         </mat-tab-group>

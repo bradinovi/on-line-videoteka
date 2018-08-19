@@ -5,17 +5,26 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { map } from '../../../node_modules/rxjs/operators';
 
+export interface Directed {
+  id: string;
+  title: string;
+}
+
 @Injectable({providedIn: 'root'})
 export class ActorService {
   private actors: Actor[] = [];
-
+  private directed: Directed[] = [];
   private actorsUpdated = new Subject<{actors: Actor[], actorCount: number}>();
-
+  private directedUpdated = new Subject<{directed: Directed[], firstName: string}>();
 
   constructor(private http: HttpClient, private router: Router) {}
 
   getActorUpdateListener() {
     return this.actorsUpdated.asObservable();
+  }
+
+  getDirectedUpdatedListener() {
+    return this.directedUpdated.asObservable();
   }
 
   addActor(
@@ -30,7 +39,7 @@ export class ActorService {
     postData.append('born', born);
     postData.append('died', died);
     const ocupationsJSON = { ocupations: ocupations };
-    postData.append('ocupations', JSON.stringify(ocupationsJSON));
+    postData.append('ocupations', JSON.stringify( {ocupations: ocupations} ));
     postData.append('bio', bio);
     postData.append('image', portrait, firstName + lastName);
 
@@ -136,5 +145,33 @@ export class ActorService {
 
   deleteActor(actorId: string) {
     return this.http.delete('http://localhost:3000/api/actors' + '/' + actorId);
+  }
+
+  getActorDirected(actorId: string) {
+    this.http.get<
+    { directed: { directed: any } , _id: string, firstName: string, lastName: string }
+    >('http://localhost:3000/api/actors/directed' + '/' + actorId).pipe(
+      map(directedData => {
+        return {
+          firstName: directedData.firstName,
+          directed: directedData.directed.directed.map(
+            (director => {
+              return {
+                id: director._id,
+                title: director.title
+              };
+            })
+          )
+        };
+      })
+    ).subscribe(
+      (transformedDirectorData) => {
+        this.directed = transformedDirectorData.directed;
+        this.directedUpdated.next({
+          directed: [...this.directed],
+          firstName: transformedDirectorData.firstName
+        });
+      }
+    );
   }
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Movie } from '../../models/movie.model';
-
+import * as moment from 'moment';
 @Component({
   selector: 'app-moviecard',
   templateUrl: './moviecard.component.html',
@@ -9,17 +9,13 @@ import { Movie } from '../../models/movie.model';
 })
 export class MoviecardComponent implements OnInit {
   @Input() movie: Movie;
-
+  movieYear: string;
   @Input() likeRent: boolean;
   @Input() myMovies: boolean;
 
 
 
-  movieTitle = '';
-  movieYear = '';
-  movieGenres = '';
-  moviePrice = '';
-  moviePosterPath = '';
+
 
   constructor() {
 
@@ -27,11 +23,7 @@ export class MoviecardComponent implements OnInit {
   }
   ngOnInit() {
     console.log(this.movie);
-    this.movieYear = this.movie.release.toString();
-    this.movieTitle = this.movie.title + '(' + this.movie.release.toString() + ')';
-    this.moviePosterPath = this.movie.posterPath;
-    // this.movieGenres = this.movie.genres;
-    // this.moviePrice = this.movie.moviePrice.toString();
+    this.movieYear = moment(this.movie.release).format('Y');
   }
 
 }

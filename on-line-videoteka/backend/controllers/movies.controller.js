@@ -21,7 +21,8 @@ exports.addMovie = (req, res, next) => {
       plotsum: req.body.plotsum,
       posterPath: url + '/images/posters/' + req.file.filename,
       genres: genresForDB,
-      rents: 0
+      rents: 0,
+      year :new Date(req.body.release).getFullYear()
     }
   );
 
@@ -35,17 +36,44 @@ exports.addMovie = (req, res, next) => {
 }
 
 exports.getMovies = (req, res, next) => {
-  const pageSize = req.query.pagesize;
-  const currentPage = req.query.page;
+  const pageSize = parseInt(req.query.pagesize) ;
+  const currentPage = parseInt(req.query.page);
+
+  const searchText = req.query.searchText;
+  const selectedGenre = req.query.selectedGenre;
+  const selectedYear = req.query.selectedYear;
+  const selectedSort = req.query.selectedSort;
+
+  console.log(pageSize); // +
+  console.log(currentPage); // +
+  console.log(searchText); // +
+  console.log(selectedGenre);
+  console.log(selectedYear);
+  console.log(selectedSort);
+
   let movieQuery;
   let fetchedMovies;
-  const textQuery = req.query.text;
-  if(textQuery){
-    movieQuery = Movie.find({ $text: { $search: textQuery } });
+
+  if(searchText !== 'undefined'){
+    movieQuery = Movie.find({ $text: { $search: searchText } });
   } else {
     movieQuery = Movie.find();
   }
-
+  if (selectedGenre && selectedGenre !== 'undefined') {
+    movieQuery = movieQuery.find({genres: { $in: [mongoose.Types.ObjectId(selectedGenre)]}});
+  }
+  if (selectedYear && selectedYear !== 'undefined') {
+    movieQuery = movieQuery.find({ year: selectedYear });
+  }
+  if (selectedSort && selectedSort !== 'undefined') {
+    if (selectedSort == 'year'){
+      movieQuery = movieQuery.sort({ year: -1 });
+    }
+    if (selectedSort == 'rents' && selectedSort){
+      movieQuery = movieQuery.sort({ rents: -1 });
+    }
+  }
+  const count = Movie.count(movieQuery);
   if (pageSize && currentPage) {
     movieQuery
       .skip(pageSize * (currentPage - 1))
@@ -53,17 +81,18 @@ exports.getMovies = (req, res, next) => {
   }
   movieQuery.then((documents) => {
     fetchedMovies = documents;
-    return Movie.count();
+    return count;
   })
   .then( count => {
     res.json({
       message: 'Movies fetched succesfully!',
-      actors: fetchedMovies,
+      movies: fetchedMovies,
       maxPosts: count
     });
   }).catch( error =>{
     res.status(500).json({
       message: 'Fatching Movies failed!',
+      error: error
    });
   });
 }
@@ -107,7 +136,8 @@ exports.updateMovie = (req, res, next) => {
     trailerLink: req.body.trailerLink,
     plotsum: req.body.plotsum,
     posterPath: imagePath,
-    genres: req.body.genres
+    genres: req.body.genres,
+    year: new Date(req.body.release).getFullYear()
   });
 
   Movie.updateOne({ _id: req.body.id }, movie).then((result) => {
