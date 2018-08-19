@@ -56,3 +56,117 @@ exports.loginUser = (req, res, next) => {
       });}
   )
 }
+
+exports.updateUser = (req, res, next) => {
+  const userData = req.body;
+  const userId = req.body.id;
+    const patchData = {
+      firstName: userData.firstName,
+      lastName: userData.lastName,
+      username: userData.username,
+      dateOfBirth: userData.dateOfBirth,
+      email: userData.email
+  }
+  if(userData.password) {
+    const newPassword = bcrypt.hashSync(req.body.password, 10);
+    patchData['password'] = newPassword;
+  }
+  User.findOneAndUpdate( { _id: userId }, patchData ).then(
+    (err, updatedUser) => {
+      if(err){
+        res.status(500).json({
+          message: 'User update failed',
+          error: err
+        });
+      } else {
+        res.status(201).json({
+          message: 'User updated successfuly!'
+        });
+      }
+    }
+  );
+}
+
+exports.deleteUser = (req, res, next) => {
+  User.deleteOne({ _id: req.params.id}).then(
+    (result) => {
+      if(result.n > 0) {
+        res.status(201).json({message: 'User deleted!'});
+      } else {
+        res.status(500).json({
+          message: 'User delete failed (ID not found)'
+        });
+      }
+    }
+  )
+}
+
+exports.userChangePassword = (req, res, next) => {
+  const newPassword = req.body.newPassword;
+  const oldPassword = req.body.oldPassword;
+  const userEmail = req.body.email;
+  User.findOne({ email: userEmail }).then( user => {
+    if(!user){
+      return res.status(401).json({ massage: 'That is not your registered email' });
+    }
+    userFound = user;
+    return bcrypt.compare(oldPassword, user.password);
+  }).then(
+    (compareRes) => {
+      if(!compareRes){
+        return res.status(401).json({ massage: 'Wrong password' });
+      }
+      bcrypt.hash(newPassword, 10).then( hash => {
+        User.findOneAndUpdate( { email: userEmail }, { password: hash } ).then(
+          (updatedUser, err) => {
+            if(updatedUser){
+              res.status(201).json({
+                message: 'Password change successful!',
+                error: updatedUser
+              });
+            }
+          }
+        );
+      });
+    }
+  );
+
+}
+
+exports.userChangeUserInfo = (req, res, next) => {
+  const userData = req.body;
+  const userId = req.body.id;
+    const patchData = {
+      firstName: userData.firstName,
+      lastName: userData.lastName,
+      username: userData.username,
+      dateOfBirth: userData.dateOfBirth,
+      email: userData.email
+  }
+
+  User.findOneAndUpdate( { _id: userId }, patchData ).then(
+    (updatedUser) => {
+      if(updatedUser){
+        res.status(201).json({
+          message: 'User info data updated',
+          info: updatedUser
+        });
+      } else {
+        res.status(500).json({
+          message: 'User indo update data failed'
+        });
+      }
+    }
+  );
+}
+
+
+exports.getUsers = (req, res, next) => {
+  User.find({}, { password: 0}).then(
+    (usersData) => {
+      res.status(200).json(
+        { usersData }
+      );
+    }
+  );
+}
