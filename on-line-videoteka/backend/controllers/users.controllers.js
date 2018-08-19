@@ -65,18 +65,19 @@ exports.updateUser = (req, res, next) => {
       lastName: userData.lastName,
       username: userData.username,
       dateOfBirth: userData.dateOfBirth,
-      email: userData.email
+      email: userData.email,
+      role: userData.role
   }
   if(userData.password) {
     const newPassword = bcrypt.hashSync(req.body.password, 10);
     patchData['password'] = newPassword;
   }
   User.findOneAndUpdate( { _id: userId }, patchData ).then(
-    (err, updatedUser) => {
-      if(err){
-        res.status(500).json({
-          message: 'User update failed',
-          error: err
+    (updatedUser, err) => {
+      if(updatedUser){
+        res.status(201).json({
+          message: 'User update worked',
+          old: updatedUser
         });
       } else {
         res.status(201).json({
@@ -162,10 +163,30 @@ exports.userChangeUserInfo = (req, res, next) => {
 
 
 exports.getUsers = (req, res, next) => {
-  User.find({}, { password: 0}).then(
+  const pageSize = parseInt(req.query.pagesize) ;
+  const currentPage = parseInt(req.query.page);
+
+  const userQuery = User.find({}, { password: 0});
+
+  if (pageSize && currentPage) {
+    userQuery
+      .skip(pageSize * (currentPage - 1))
+      .limit(pageSize);
+  }
+  let fetchedUsers;
+  userQuery.then(
     (usersData) => {
+      fetchedUsers = usersData;
+      return User.count();
+    }
+  ).then(
+    count => {
       res.status(200).json(
-        { usersData }
+        {
+          users: fetchedUsers,
+          message: 'Users fetched',
+          maxUsers: count
+        }
       );
     }
   );

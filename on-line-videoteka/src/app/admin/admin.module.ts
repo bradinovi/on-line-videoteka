@@ -9,6 +9,7 @@ import { DateAdapter, MAT_DATE_LOCALE, MAT_DATE_FORMATS } from '../../../node_mo
 import { MomentDateAdapter } from '../../../node_modules/@angular/material-moment-adapter';
 import { ActorListComponent } from './actor-list/actor-list.component';
 import { GenreCrudComponent } from './genre-crud/genre-crud.component';
+import { UserCrudComponent } from './user-crud/user-crud.component';
 
 export const MY_FORMATS = {
   parse: {
@@ -27,7 +28,8 @@ export const MY_FORMATS = {
     ActorAddComponent,
     MovieAddComponent,
     ActorListComponent,
-    GenreCrudComponent
+    GenreCrudComponent,
+    UserCrudComponent
   ],
   imports: [
     ReactiveFormsModule,

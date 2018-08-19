@@ -32,7 +32,7 @@ import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatDividerModule} from '@angular/material/divider';
 
-
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 @NgModule({
   exports: [
     MatInputModule,
@@ -58,7 +58,8 @@ import {MatDividerModule} from '@angular/material/divider';
     MatDialogModule,
     MatProgressSpinnerModule,
     MatAutocompleteModule,
-    MatTableModule
+    MatTableModule,
+    MatSlideToggleModule
   ]
 
 
