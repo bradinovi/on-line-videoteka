@@ -36,6 +36,7 @@ import { MoviedetailComponent } from './client/moviedetail/moviedetail.component
 import { ActordetailComponent} from './client/actordetail/actordetail.component';
 import { HomepageComponent } from './client/homepage/homepage.component';
 import { FullBioComponent } from './client/actordetail/full-bio/full-bio.component';
+import { MovieDeleteDialogComponent } from './client/moviedetail/movie-delete-dialog/movie-delete-dialog.component';
 
 
 
@@ -66,7 +67,8 @@ export const MY_FORMATS = {
     MoviedetailComponent,
     ActordetailComponent,
     HomepageComponent,
-    FullBioComponent
+    FullBioComponent,
+    MovieDeleteDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -82,6 +84,6 @@ export const MY_FORMATS = {
     {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
   ],
   bootstrap: [AppComponent],
-  entryComponents: [FullBioComponent]
+  entryComponents: [FullBioComponent, MovieDeleteDialogComponent]
 })
 export class AppModule { }

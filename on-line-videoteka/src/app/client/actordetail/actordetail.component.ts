@@ -91,7 +91,7 @@ export class ActordetailComponent implements OnInit {
   }
 
   openDialog(): void {
-    const dialogRef = this.dialog.open(FullBioComponent, { data: { bio: this.actor.bio }, maxHeight: '500px'});
+    this.dialog.open(FullBioComponent, { data: { bio: this.actor.bio }, maxHeight: '500px'});
   }
 
 }

@@ -73,3 +73,11 @@ mat-spinner {
   margin-right: 10px;
   font-weight: 150;
 }
+
+.admin-btns{
+  margin-top: 1.5em;
+}
+
+.admin-btns button{
+  margin-right: 1em;
+}

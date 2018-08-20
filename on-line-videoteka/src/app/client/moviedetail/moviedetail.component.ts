@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Injectable } from '@angular/core';
 import { RoleOfMovie } from '../../models/role.model';
 import { Director, MovieService } from '../../services/movie.service';
 import { Movie } from '../../models/movie.model';
@@ -7,12 +7,15 @@ import { Subscription } from '../../../../node_modules/rxjs';
 import { ActivatedRoute, ParamMap } from '../../../../node_modules/@angular/router';
 
 import * as moment from 'moment';
+import { MatDialog } from '@angular/material';
+import { MovieDeleteDialogComponent } from './movie-delete-dialog/movie-delete-dialog.component';
 
 @Component({
   selector: 'app-moviedetail',
   templateUrl: './moviedetail.component.html',
   styleUrls: ['./moviedetail.component.css']
 })
+@Injectable()
 export class MoviedetailComponent implements OnInit {
   isLoading = true;
   roles: RoleOfMovie[] = [];
@@ -25,7 +28,8 @@ export class MoviedetailComponent implements OnInit {
   rolesSub: Subscription;
   directorSub: Subscription;
 
-  constructor( private roleService: RoleService, private movieService: MovieService, public route: ActivatedRoute ) { }
+  constructor( private roleService: RoleService, private movieService: MovieService, public route: ActivatedRoute,
+   private dialog: MatDialog ) { }
 
   ngOnInit() {
     this.rolesSub = this.roleService.getrolesOfMovieUpdatedListener().subscribe(
@@ -75,5 +79,8 @@ export class MoviedetailComponent implements OnInit {
 
   }
 
+  onDeleteMovie() {
+    const dialogRef = this.dialog.open(MovieDeleteDialogComponent, { data: { id: this.movie.id } });
+  }
 
 }
