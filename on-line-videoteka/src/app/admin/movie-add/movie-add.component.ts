@@ -15,6 +15,7 @@ import { Actor } from '../../models/actor.model';
 import { ActorService } from '../../services/actors.service';
 import { RoleService } from '../../services/roles.service';
 import { RoleOfMovie } from '../../models/role.model';
+import { ActivatedRoute, ParamMap } from '@angular/router';
 
 
 
@@ -25,6 +26,9 @@ import { RoleOfMovie } from '../../models/role.model';
 })
 export class MovieAddComponent implements OnInit, OnDestroy {
   saveButton = 'Save';
+  mode = 'create';
+  movie: Movie;
+  movieId: string;
   roleDirectorFormsEnabled = true;
   isLoading = true;
   visible = true;
@@ -61,7 +65,8 @@ export class MovieAddComponent implements OnInit, OnDestroy {
 
   @ViewChild('genreInput') genreInput: ElementRef;
   constructor( private genreService: GenreService, private movieService: MovieService,
-    private actorsService: ActorService, private roleService: RoleService ) {
+    private actorsService: ActorService, private roleService: RoleService,
+    public route: ActivatedRoute) {
     this.rolesSub = this.roleService.getrolesOfMovieUpdatedListener().subscribe(
       (roleData: {roles: RoleOfMovie[], roleCount: number}) => {
         this.roles = roleData.roles;
@@ -76,7 +81,6 @@ export class MovieAddComponent implements OnInit, OnDestroy {
         this.directors = directorData.directors;
       }
     );
-
     this.actorsService.getActors(1, 0);
     this.movieForm = new FormGroup({
       'title' : new FormControl(null),
@@ -97,6 +101,7 @@ export class MovieAddComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.checkAndPrepareUpdate();
     this.genresSub = this.genreService.getGenreUpdateListener().subscribe(
       (genreData: {genres: Genre[], genreCount: number }) => {
         this.isLoading = false;
@@ -114,6 +119,52 @@ export class MovieAddComponent implements OnInit, OnDestroy {
     this.filteredDirectors = this.directorControl.valueChanges.pipe<Actor[]>(
       map(value => this._filterActor(value))
     );
+  }
+
+  private checkAndPrepareUpdate() {
+    this.route.paramMap.subscribe((param: ParamMap) => {
+      if (param.has('id')) {
+        this.mode = 'update';
+        this.movieId = param.get('id');
+        this.isLoading = true;
+        this.movieService.getMovie(this.movieId).subscribe((movieData) => {
+          console.log(movieData);
+          this.movie = {
+            id: movieData._id,
+            title: movieData.title,
+            release: movieData.release,
+            duration: movieData.duration,
+            trailerLink: movieData.trailerLink,
+            plotsum: movieData.plotsum,
+            genres: movieData.genres.map( genre => genre._id ),
+            posterPath: movieData.posterPath,
+            rents: movieData.rents
+          };
+          let imagePath = this.movie.posterPath;
+          if ( !imagePath ) {
+            imagePath = '/';
+          }
+          this.movieForm.setValue({
+            'title' : this.movie.title,
+            'trailerLink' : this.movie.trailerLink,
+            'duration' : this.movie.duration,
+            'release' : this.movie.release,
+            'plot' : this.movie.plotsum,
+            'image' : this.movie.posterPath
+          });
+          this.isLoading = false;
+          this.movieGenres = movieData.genres.map( (genre) => ({ id: genre._id, name: genre.name}) );
+          this.roleService.getRolesForMovie(this.movieId);
+          this.movieService.getMovieDirectors(this.movieId);
+          this.roleDirectorFormsEnabled = false;
+          this.imagePreview = movieData.posterPath;
+          this.createdMovieId = this.movieId;
+        });
+      } else {
+        this.mode = 'create';
+        this.movieId = null;
+      }
+    });
   }
 
   private _filterGenre(value: any): Genre[] {
@@ -164,7 +215,7 @@ export class MovieAddComponent implements OnInit, OnDestroy {
     this.movieForm.get('image').updateValueAndValidity();
     const reader = new FileReader();
     reader.onload = () => {
-            this.imagePreview = reader.result;
+            this.imagePreview = reader.result.toString();
     };
     reader.readAsDataURL(file);
   }
@@ -176,8 +227,9 @@ export class MovieAddComponent implements OnInit, OnDestroy {
   saveMovie() {
     console.log(this.movieForm);
     console.log(this.selectedGenre);
-    this.movieService.addMovie(this.movieForm.value.title, this.dateString(this.movieForm.value.release), this.movieForm.value.duration,
-    this.movieForm.value.trailerLink, this.movieForm.value.plot, this.movieGenres, this.movieForm.value.image).subscribe(
+    if ( this.mode === 'create') {
+      this.movieService.addMovie(this.movieForm.value.title, this.dateString(this.movieForm.value.release), this.movieForm.value.duration,
+      this.movieForm.value.trailerLink, this.movieForm.value.plot, this.movieGenres, this.movieForm.value.image).subscribe(
       (createdMovie) => {
         console.log(createdMovie);
         this.createdMovieId = createdMovie.createdMovie._id;
@@ -186,6 +238,21 @@ export class MovieAddComponent implements OnInit, OnDestroy {
         this.saveButton = 'Finish';
       }
     );
+    } else {
+      this.movieService.updateMovie(this.movieId,
+      this.movieForm.value.title,
+      this.dateString(this.movieForm.value.release),
+      this.movieForm.value.duration,
+      this.movieForm.value.trailerLink,
+      this.movieForm.value.plot, this.movieGenres,
+      this.movieForm.value.image , this.movie.rents).subscribe(
+      (res) => {
+        console.log(res);
+        this.movieForm.disable();
+        this.saveButton = 'Finish';
+      });
+    }
+
     return;
   }
 

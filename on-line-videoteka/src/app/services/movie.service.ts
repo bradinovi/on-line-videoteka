@@ -128,6 +128,7 @@ export class MovieService {
     genres.forEach(genre => {
       genresForSend.push(genre.id);
     });
+    console.log(genres);
     if (typeof(image) === 'object') {
       movieData = new FormData();
       movieData.append('id', movieId);
@@ -169,8 +170,6 @@ export class MovieService {
   };
     return this.http.delete('http://localhost:3000/api/movies/director' + '/' + movieId, httpOptions);
   }
-
-
 
   getMovieDirectors(movieId: string) {
     this.http.get<

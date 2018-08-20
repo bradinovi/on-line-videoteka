@@ -136,7 +136,7 @@ exports.updateMovie = (req, res, next) => {
     trailerLink: req.body.trailerLink,
     plotsum: req.body.plotsum,
     posterPath: imagePath,
-    genres: req.body.genres,
+    genres: genresForDB,
     year: new Date(req.body.release).getFullYear()
   });
 

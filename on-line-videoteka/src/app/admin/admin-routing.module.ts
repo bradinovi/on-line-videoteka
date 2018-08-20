@@ -13,6 +13,7 @@ const routes: Routes = [
   { path: 'actoradd/:id', component: ActorAddComponent },
   { path: 'actoradd', component: ActorAddComponent },
   { path: 'movieadd', component: MovieAddComponent },
+  { path: 'movieadd/:id', component: MovieAddComponent },
   { path: 'actors', component: ActorListComponent },
   { path: 'genres', component: GenreCrudComponent },
   { path: 'users', component: UserCrudComponent }
