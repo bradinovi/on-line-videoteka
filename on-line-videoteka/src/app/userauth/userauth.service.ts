@@ -8,9 +8,10 @@ import { apiLinks } from '../API-links';
 
 @Injectable({ providedIn: 'root'})
 export class AuthService {
-  private userRole: string;
+  private isAdmin = false;
   private isAuthenticated = false;
   private token: string;
+  private isAdminStatusListener = new Subject<boolean>();
   private authStatusListener = new Subject<boolean>();
   private tokenTimer: any;
   constructor(private http: HttpClient, private router: Router) {}
@@ -28,9 +29,12 @@ export class AuthService {
   getIsAuth() {
     return this.isAuthenticated;
   }
+  getIsAdmin() {
+    return this.isAdmin;
+  }
 
-  getRole() {
-    return this.userRole;
+  getIsAdminStatusListener() {
+    return this.isAdminStatusListener.asObservable();
   }
 
   getAuthStatusListener() {
@@ -90,6 +94,11 @@ export class AuthService {
       this.isAuthenticated = true;
       this.userId = authInformation.userId;
       this.authStatusListener.next(true);
+      console.log(authInformation);
+      if (authInformation.role) {
+        this.isAdminStatusListener.next(true);
+        this.isAdmin = true;
+      }
     }
   }
 
@@ -107,7 +116,13 @@ export class AuthService {
     localStorage.setItem('token', token);
     localStorage.setItem('expiration', expirationDate.toISOString());
     localStorage.setItem('userId', userId);
-    localStorage.setItem('role', role);
+    if (role === 'admin') {
+      this.isAdminStatusListener.next(true);
+      this.isAdmin = true;
+      localStorage.setItem('role', role);
+    } else {
+      this.isAdminStatusListener.next(false);
+    }
   }
 
   private clearAuthData() {
@@ -125,12 +140,15 @@ export class AuthService {
     if (!token && !expirationDate) {
       return;
     }
-    return {
+    const authData: {token: string, expirationDate: Date, userId: string, role?: string} = {
       token: token,
       expirationDate: new Date(expirationDate),
-      userId: userId,
-      role: role
+      userId: userId
     };
+    if (role) {
+      authData['role'] = role;
+    }
+    return authData;
   }
 
   private setAuthTimer(duration: number) {

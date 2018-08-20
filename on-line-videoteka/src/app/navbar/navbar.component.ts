@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AuthService } from '../userauth/userauth.service';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
@@ -8,19 +8,25 @@ import { Router } from '@angular/router';
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent implements OnInit, OnDestroy {
 
   private authListenerSubs: Subscription;
+  private isAuthSub: Subscription;
   userAuthenticated = false;
   searchIconColor = 'white';
-
+  isAdmin = false;
   constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit() {
-    this. userAuthenticated = this.authService.getIsAuth();
+    this.userAuthenticated = this.authService.getIsAuth();
+    this.isAdmin = this.authService.getIsAdmin();
     this.authListenerSubs = this.authService.getAuthStatusListener().subscribe(
-      isAuthenticated => { this. userAuthenticated = isAuthenticated; }
+      isAuthenticated => this. userAuthenticated = isAuthenticated
     );
+    this.isAuthSub = this.authService.getIsAdminStatusListener().subscribe(
+      isAdmin => {this.isAdmin = isAdmin; console.log(isAdmin); }
+    );
+    console.log(this.isAdmin);
   }
 
   onSearchFocused() {
@@ -42,4 +48,8 @@ export class NavbarComponent implements OnInit {
     }
   }
 
+  ngOnDestroy() {
+    this.isAuthSub.unsubscribe(),
+    this.authListenerSubs.unsubscribe();
+  }
 }

@@ -3,19 +3,27 @@
   <img src="assets/images/logo.png" class="navbar-logo">
   </a>
   <span class="spacer"></span>
-  <mat-form-field color="accent" class="main-search">
+  <mat-form-field color="accent" class="main-search" *ngIf="userAuthenticated">
       <input matInput type="search"
       (focus)="onSearchFocused()" (blur)="onSearchBlur()" (keypress)="onHitEnter($event)">
     </mat-form-field>
-    <mat-icon class="main-search-icon" color={{searchIconColor}}>search</mat-icon>
+    <mat-icon class="main-search-icon" color={{searchIconColor}} *ngIf="userAuthenticated">search</mat-icon>
   <ul>
-      <li>
+      <li *ngIf="userAuthenticated">
           <a mat-button routerLinkActive="mat-accent" routerLink="/searchpage">Browse</a>
       </li>
-    <li *ngIf="userAuthenticated">
-      <a mat-button routerLinkActive="mat-accent" routerLink="/mymovies">My Movies</a>
-    </li>
-
+      <li *ngIf="userAuthenticated">
+        <a mat-button routerLinkActive="mat-accent" routerLink="/mymovies">My Movies</a>
+      </li>
+      <li *ngIf="isAdmin && userAuthenticated">
+          <a mat-button routerLinkActive="mat-accent" routerLink="/admin/actors">Actors</a>
+      </li>
+      <li *ngIf="isAdmin && userAuthenticated">
+          <a mat-button routerLinkActive="mat-accent" routerLink="/admin/movieadd">Create Movie</a>
+      </li>
+      <li *ngIf="isAdmin && userAuthenticated">
+          <a mat-button routerLinkActive="mat-accent" routerLink="/admin/users">Users</a>
+      </li>
   </ul>
   <ul>
     <li *ngIf="!userAuthenticated">

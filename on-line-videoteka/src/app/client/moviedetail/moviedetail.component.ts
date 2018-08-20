@@ -9,6 +9,7 @@ import { ActivatedRoute, ParamMap } from '../../../../node_modules/@angular/rout
 import * as moment from 'moment';
 import { MatDialog } from '@angular/material';
 import { MovieDeleteDialogComponent } from './movie-delete-dialog/movie-delete-dialog.component';
+import { AuthService } from '../../userauth/userauth.service';
 
 @Component({
   selector: 'app-moviedetail',
@@ -21,17 +22,25 @@ export class MoviedetailComponent implements OnInit {
   roles: RoleOfMovie[] = [];
   directors: Director[] = [];
   movie: Movie;
-
+  isAdmin = false;
   movieYear: string;
   movieReleaseDate: string;
 
   rolesSub: Subscription;
   directorSub: Subscription;
+  isAuthSub: Subscription;
 
   constructor( private roleService: RoleService, private movieService: MovieService, public route: ActivatedRoute,
-   private dialog: MatDialog ) { }
+   private dialog: MatDialog, private authService: AuthService ) { }
 
   ngOnInit() {
+
+    this.isAdmin = this.authService.getIsAdmin();
+
+    this.isAuthSub = this.authService.getIsAdminStatusListener().subscribe(
+      isAdmin => {this.isAdmin = isAdmin; console.log(isAdmin); }
+    );
+
     this.rolesSub = this.roleService.getrolesOfMovieUpdatedListener().subscribe(
       (roleData: {roles: RoleOfMovie[], roleCount: number}) => {
         this.roles = roleData.roles;

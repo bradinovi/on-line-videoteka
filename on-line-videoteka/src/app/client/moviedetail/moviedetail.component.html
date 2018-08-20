@@ -21,7 +21,7 @@
                       <mat-chip color="accent" selected><mat-icon class="mat-18">move_to_inbox</mat-icon>{{movie.rents}}</mat-chip>
                   </mat-chip-list>
                   <a href={{movie.trailerLink}} target="_blank">Trailer</a>
-                  <div class="admin-btns">
+                  <div class="admin-btns" *ngIf="isAdmin">
                     <button mat-raised-button color="accent" type="button" [routerLink]="['/admin/movieadd',movie.id]">Edit Movie</button>
                     <button mat-raised-button color="warn" type="button" (click)="onDeleteMovie()">Delete Movie</button>
                   </div>

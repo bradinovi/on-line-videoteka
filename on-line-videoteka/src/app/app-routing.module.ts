@@ -10,23 +10,26 @@ import { MoviedetailComponent } from './client/moviedetail/moviedetail.component
 import { ActordetailComponent } from './client/actordetail/actordetail.component';
 import { MyprofileComponent } from './client/myprofile/myprofile.component';
 import { MymoviesComponent } from './client/mymovies/mymovies.component';
+import { AuthGuard } from './userauth/userauth.guard';
+
 
 const routes: Routes = [
   { path: '', component: HomepageComponent},
   { path: 'login', component: LoginComponent},
   { path: 'signup', component: SignupComponent},
-  { path: 'searchpage', component: SearchpageComponent},
-  { path: 'searchpage/:searchText', component: SearchpageComponent},
-  { path: 'moviedetail/:movieId', component: MoviedetailComponent},
-  { path: 'actordetail/:actorId', component: ActordetailComponent},
-  { path: 'myprofile', component: MyprofileComponent},
-  { path: 'mymovies', component: MymoviesComponent},
+  { path: 'searchpage', component: SearchpageComponent, canActivate: [AuthGuard]},
+  { path: 'searchpage/:searchText', component: SearchpageComponent, canActivate: [AuthGuard]},
+  { path: 'moviedetail/:movieId', component: MoviedetailComponent, canActivate: [AuthGuard]},
+  { path: 'actordetail/:actorId', component: ActordetailComponent, canActivate: [AuthGuard]},
+  { path: 'myprofile', component: MyprofileComponent, canActivate: [AuthGuard]},
+  { path: 'mymovies', component: MymoviesComponent, canActivate: [AuthGuard]},
   { path: 'admin', loadChildren: './admin/admin.module#AdminModule'}
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [AuthGuard]
 })
 
 export class AppRoutingModule {

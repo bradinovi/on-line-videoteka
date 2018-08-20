@@ -22,7 +22,7 @@ export class MoviecardComponent implements OnInit {
 
   }
   ngOnInit() {
-    console.log(this.movie);
+    //console.log(this.movie);
     this.movieYear = moment(this.movie.release).format('Y');
   }
 

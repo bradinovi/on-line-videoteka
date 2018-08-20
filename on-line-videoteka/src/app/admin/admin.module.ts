@@ -11,6 +11,7 @@ import { ActorListComponent } from './actor-list/actor-list.component';
 import { GenreCrudComponent } from './genre-crud/genre-crud.component';
 import { UserCrudComponent } from './user-crud/user-crud.component';
 
+
 export const MY_FORMATS = {
   parse: {
     dateInput: 'DD.MM.gggg'
@@ -41,7 +42,7 @@ export const MY_FORMATS = {
 
   providers: [
     {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
-    {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
+    {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS}
   ],
 })
 export class AdminModule {
