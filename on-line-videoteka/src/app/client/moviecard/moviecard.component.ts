@@ -1,6 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Movie } from '../../models/movie.model';
 import * as moment from 'moment';
+import { MatDialog } from '@angular/material';
+import { RentDialogComponent } from '../rent-dialog/rent-dialog.component';
 @Component({
   selector: 'app-moviecard',
   templateUrl: './moviecard.component.html',
@@ -13,17 +15,20 @@ export class MoviecardComponent implements OnInit {
   @Input() likeRent: boolean;
   @Input() myMovies: boolean;
 
+  constructor(public dialog: MatDialog) { }
 
-
-
-
-  constructor() {
-
-
-  }
   ngOnInit() {
-    //console.log(this.movie);
+    // console.log(this.movie);
     this.movieYear = moment(this.movie.release).format('Y');
+  }
+
+  onRent() {
+    const data = {
+      movieId: this.movie.id,
+      posterPath: this.movie.posterPath,
+      title: this.movie.title
+    };
+    this.dialog.open(RentDialogComponent, { data: data, maxWidth: '30%'});
   }
 
 }

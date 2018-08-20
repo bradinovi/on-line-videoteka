@@ -1,0 +1,13 @@
+<h1>How long would you like to rent {{data.title}} for?</h1>
+<img src={{data.posterPath}}>
+<div class="button-toggle-container">
+<mat-button-toggle-group name="rentDuration" aria-label="Rent Duration" #group="matButtonToggleGroup">
+    <mat-button-toggle value="10" color="accent">10 Days</mat-button-toggle>
+    <mat-button-toggle value="20" color="accent">20 Days</mat-button-toggle>
+    <mat-button-toggle value="30" color="accent">30 Days</mat-button-toggle>
+</mat-button-toggle-group>
+</div>
+<div class="button-toggle-container">
+<button color="accent" mat-stroked-button class="confirm-btn" (click)="onConfirm(group.value)">Confirm</button>
+<button color="warn" mat-stroked-button class="confirm-btn" (click)="onCancel()">Cancel</button>
+</div>

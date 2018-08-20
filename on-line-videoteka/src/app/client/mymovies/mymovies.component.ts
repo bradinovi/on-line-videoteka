@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Movie } from '../../models/movie.model';
+import { RentService } from '../../services/rents.service';
 
 @Component({
   selector: 'app-mymovies',
@@ -14,25 +15,8 @@ export class MymoviesComponent implements OnInit {
   moviesToDisplayAct: Movie[] = [];
   moviesToDisplayExp: Movie[] = [];
 
-  constructor(private http: HttpClient) {
-    this.getJSON().subscribe(data => {
-      for (let i = 0; i < 5; i++) {
-        this.moviesToDisplayAct.push(data[i]);
-      }
-      for (let i = 5; i < data.length; i++) {
-        this.moviesToDisplayExp.push(data[i]);
-      }
-      this.isDataAvailable = true;
-    });
-   }
-
+  constructor(private http: HttpClient, private rentService: RentService) {}
   ngOnInit() {
-
+    this.rentService.getMyMovies();
   }
-
-  public getJSON(): Observable<any> {
-    return this.http.get('./assets/movies.json');
-  }
-
-
 }

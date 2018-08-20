@@ -8,6 +8,7 @@ const actorRoutes= require('./routes/actors');
 const movieRoutes = require('./routes/movies');
 const genreRoutes = require('./routes/genres');
 const roleRoutes = require('./routes/roles');
+const rentsRoutes = require('./routes/rents');
 
 const app = express();
 // mongodb+srv://borna:qsnjMteIbEfJotQS@clustermeanudemy-mcba4.mongodb.net/node-angular
@@ -39,5 +40,7 @@ app.use('/api/movies', movieRoutes);
 app.use('/api/genres', genreRoutes);
 
 app.use('/api/roles', roleRoutes);
+
+app.use('/api/rents', rentsRoutes);
 
 module.exports = app;

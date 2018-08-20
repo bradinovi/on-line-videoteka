@@ -14,7 +14,7 @@ import { LoginComponent } from './userauth/login/login.component';
 import { SignupComponent } from './userauth/signup/signup.component';
 import { FormsModule } from '@angular/forms';
 
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
@@ -37,6 +37,8 @@ import { ActordetailComponent} from './client/actordetail/actordetail.component'
 import { HomepageComponent } from './client/homepage/homepage.component';
 import { FullBioComponent } from './client/actordetail/full-bio/full-bio.component';
 import { MovieDeleteDialogComponent } from './client/moviedetail/movie-delete-dialog/movie-delete-dialog.component';
+import { RentDialogComponent } from './client/rent-dialog/rent-dialog.component';
+import { AuthInterceptor } from './userauth/auth-intercept';
 
 
 
@@ -68,7 +70,8 @@ export const MY_FORMATS = {
     ActordetailComponent,
     HomepageComponent,
     FullBioComponent,
-    MovieDeleteDialogComponent
+    MovieDeleteDialogComponent,
+    RentDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -82,8 +85,9 @@ export const MY_FORMATS = {
   providers: [
     {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
     {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
+    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}
   ],
   bootstrap: [AppComponent],
-  entryComponents: [FullBioComponent, MovieDeleteDialogComponent]
+  entryComponents: [FullBioComponent, MovieDeleteDialogComponent, RentDialogComponent]
 })
 export class AppModule { }

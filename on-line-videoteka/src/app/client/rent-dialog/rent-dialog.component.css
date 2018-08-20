@@ -1,0 +1,24 @@
+img {
+  height: 300px;
+  margin: auto;
+  display: block;
+}
+
+h1 {
+  text-align: center;
+}
+
+button {
+  margin-top: 1em;
+  margin-bottom: 0.5em;
+  margin-right: 0.5em;
+
+  width: 40%;
+}
+
+.button-toggle-container {
+  margin-top: 1em;
+  display: flex;
+  align-items: center;
+  justify-content: center
+}

@@ -14,7 +14,7 @@
         <mat-chip style="font-size: 15px">
           <mat-icon [inline]="true">favorite</mat-icon> {{movie.rents}}
         </mat-chip>
-        <button mat-button color="accent">Rent</button>
+        <button mat-button color="accent" (click)="onRent()">Rent</button>
   </mat-chip-list>
 </mat-card>
 

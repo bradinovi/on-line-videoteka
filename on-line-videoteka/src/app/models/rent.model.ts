@@ -1,7 +1,9 @@
+import { Movie } from './movie.model';
+
 export interface Rent {
   id: string;
   user: string;
-  movie: string;
+  rentDay: string;
+  movie: Movie;
   duration: number;
-  hasLiked: boolean;
 }
