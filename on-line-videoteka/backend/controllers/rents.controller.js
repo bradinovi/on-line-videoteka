@@ -84,6 +84,10 @@ exports.getRents = (req, res, next) => {
   let rentQuery  = Rent.find();
   let fetchedRents;
 
+  if(req.query.user) {
+    rentQuery = Rent.find({ user: req.query.user});
+  }
+
   if (pageSize && currentPage) {
     rentQuery
       .skip(pageSize * (currentPage - 1))

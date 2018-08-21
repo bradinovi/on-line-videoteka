@@ -7,7 +7,6 @@ import { UserAdminService } from '../user-crud/user-admin.service';
 import { Subscription, Observable } from 'rxjs';
 import { MovieService } from '../../services/movie.service';
 import { MatAutocompleteSelectedEvent, PageEvent } from '@angular/material';
-import { RentService } from '../../services/rents.service';
 import { RentAdminService } from './rents.admin.service';
 import { Moment } from 'moment';
 import { Rent } from '../../models/rent.model';
@@ -39,10 +38,11 @@ export class RentsCrudComponent implements OnInit {
 
   userControl = new FormControl();
   movieControl = new FormControl();
+  userFilterControl = new FormControl();
   userSub: Subscription;
   movieSub: Subscription;
   rentSub: Subscription;
-
+  filterByUser = '';
   constructor(private userService: UserAdminService, private movieService: MovieService,
     private rentsService: RentAdminService) { }
 
@@ -54,7 +54,7 @@ export class RentsCrudComponent implements OnInit {
         console.log(this.rents);
       }
     );
-    this.rentsService.getRents(this.rentsPerPage, this.currentPage);
+    this.rentsService.getRents(this.rentsPerPage, this.currentPage, this.filterByUser);
 
     this.form = new FormGroup(
       {
@@ -82,6 +82,9 @@ export class RentsCrudComponent implements OnInit {
     this.movieService.getMovies(1, 0, 'undefined', 'undefined', 'undefined', 'undefined');
 
     this.filteredUsers = this.userControl.valueChanges.pipe<UserData[]>(
+      map(value => this._filterUsers(value))
+    );
+    this.filteredUsers = this.userFilterControl.valueChanges.pipe<UserData[]>(
       map(value => this._filterUsers(value))
     );
     this.filteredMovies = this.movieControl.valueChanges.pipe<Movie[]>(
@@ -129,13 +132,17 @@ export class RentsCrudComponent implements OnInit {
     this.form.patchValue({ 'user': event.option.value.id });
     this.userControl.setValue(event.option.value.username);
   }
+  selectedUserFilter(event: MatAutocompleteSelectedEvent) {
+    this.filterByUser = event.option.value.id;
+    this.userFilterControl.setValue(event.option.value.username);
+  }
 
   onSave() {
     if (this.mode === 'create') {
       this.rentsService.rentMovie(this.form.value.user, this.form.value.movie, this.form.value.duration,
         this.dateString(this.form.value.rentDay)).subscribe(
           (createData) => {
-            this.rentsService.getRents(this.rentsPerPage, this.currentPage);
+            this.rentsService.getRents(this.rentsPerPage, this.currentPage, this.filterByUser);
           }
         );
     } else {
@@ -143,7 +150,7 @@ export class RentsCrudComponent implements OnInit {
         this.rentId, this.form.value.user, this.form.value.movie, this.form.value.duration,
         this.dateString(this.form.value.rentDay)).subscribe(
           (upadateData) => {
-            this.rentsService.getRents(this.rentsPerPage, this.currentPage);
+            this.rentsService.getRents(this.rentsPerPage, this.currentPage,this.filterByUser);
           }
         );
     }
@@ -187,7 +194,7 @@ export class RentsCrudComponent implements OnInit {
   onDelete(element) {
     this.rentsService.deleteRent(element.id).subscribe(
         (upadateData) => {
-          this.rentsService.getRents(this.rentsPerPage, this.currentPage);
+          this.rentsService.getRents(this.rentsPerPage, this.currentPage, this.filterByUser);
         }
       );
   }
@@ -195,7 +202,11 @@ export class RentsCrudComponent implements OnInit {
   onChangePage(pageData: PageEvent) {
     this.currentPage = pageData.pageIndex + 1;
     this.rentsPerPage = pageData.pageSize;
-    this.rentsService.getRents(this.rentsPerPage, this.currentPage);
+    this.rentsService.getRents(this.rentsPerPage, this.currentPage, this.filterByUser);
+  }
+
+  onSearch() {
+    this.rentsService.getRents(this.rentsPerPage, this.currentPage, this.filterByUser);
   }
 
 }

@@ -41,10 +41,16 @@
           </button>
         </form>
       </div>
-      <mat-form-field color="accent" >
-          <input matInput placeholder="Find by user" #searchInput>
-      </mat-form-field>
-      <button mat-button (click)="onSearch(searchInput)" class="search-btn" color="accent" mat-stroked-button>Search</button>
+      <mat-form-field color="accent">
+          <input matInput placeholder="Filter by User" [formControl]="userFilterControl"
+          [matAutocomplete]="autoUserFilter">
+          <mat-autocomplete #autoUserFilter="matAutocomplete"  (optionSelected)="selectedUserFilter($event)">
+            <mat-option *ngFor="let user of filteredUsers | async" [value]="user">
+              {{user.username}} - {{user.firstName}} {{user.lastName}}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+      <button mat-button (click)="onSearch()" class="search-btn" color="accent" mat-stroked-button>Search</button>
 
       <table mat-table [dataSource]="rents" class="mat-elevation-z8">
 

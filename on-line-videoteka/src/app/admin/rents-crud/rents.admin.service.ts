@@ -29,9 +29,13 @@ export class RentAdminService {
     { rentId: rentId, userId: userId, movieId, duration: duration, rentDay: rentDay });
   }
 
-  getRents(rentsPerPage: number, currentPage: number) {
+  getRents(rentsPerPage: number, currentPage: number, userFilter: string) {
     const queryParams = `?pagesize=${rentsPerPage}&page=${currentPage}`;
-    this.http.get<{message: string, rents: any, maxRents: number}>('http://localhost:3000/api/rents' + queryParams).pipe(
+    let userId = '';
+    if (userFilter !== '') {
+      userId = `&user=${userFilter}`;
+    }
+    this.http.get<{message: string, rents: any, maxRents: number}>('http://localhost:3000/api/rents' + queryParams + userId).pipe(
       map(mymoviedData => {
 
         return {
