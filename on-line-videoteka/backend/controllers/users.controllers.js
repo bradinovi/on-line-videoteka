@@ -1,4 +1,5 @@
 const User = require('../models/user');
+const Rent = require('../models/rent');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 var nodemailer = require('nodemailer');
@@ -117,17 +118,21 @@ exports.updateUser = (req, res, next) => {
 }
 
 exports.deleteUser = (req, res, next) => {
-  User.deleteOne({ _id: req.params.id}).then(
-    (result) => {
-      if(result.n > 0) {
-        res.status(201).json({message: 'User deleted!'});
-      } else {
-        res.status(500).json({
-          message: 'User delete failed (ID not found)'
-        });
-      }
+  Rent.deleteMany({user: req.params.id}).then(
+    () => {
+      User.deleteOne({ _id: req.params.id}).then(
+        (result) => {
+          if(result.n > 0) {
+            res.status(201).json({message: 'User deleted!'});
+          } else {
+            res.status(500).json({
+              message: 'User delete failed (ID not found)'
+            });
+          }
+        }
+      )
     }
-  )
+  );
 }
 
 exports.userChangePassword = (req, res, next) => {
@@ -192,8 +197,14 @@ exports.userChangeUserInfo = (req, res, next) => {
 exports.getUsers = (req, res, next) => {
   const pageSize = parseInt(req.query.pagesize) ;
   const currentPage = parseInt(req.query.page);
+  textQuery = req.query.text;
 
-  const userQuery = User.find({}, { password: 0});
+  let userQuery;
+  if(textQuery){
+    userQuery = User.find({ $text: { $search: textQuery } });
+  } else {
+    userQuery = User.find({}, { password: 0});
+  }
 
   if (pageSize && currentPage) {
     userQuery
@@ -204,7 +215,7 @@ exports.getUsers = (req, res, next) => {
   userQuery.then(
     (usersData) => {
       fetchedUsers = usersData;
-      return User.count();
+      return User.count(userQuery);
     }
   ).then(
     count => {

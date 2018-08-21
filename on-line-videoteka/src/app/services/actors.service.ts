@@ -50,9 +50,13 @@ export class ActorService {
     });
   }
 
-  getActors( actorsPerPage: number, currentPage: number ) {
+  getActors( actorsPerPage: number, currentPage: number, textSearch: string ) {
     const queryParams = `?pagesize=${actorsPerPage}&page=${currentPage}`;
-    this.http.get<{message: string, actors: any, maxActors: number}>( 'http://localhost:3000/api/actors' + queryParams)
+    let textQuery = '';
+    if (textSearch !== '') {
+      textQuery = `&text=${textSearch}`;
+    }
+    this.http.get<{message: string, actors: any, maxActors: number}>( 'http://localhost:3000/api/actors' + queryParams + textQuery)
     .pipe( map((actorData) => {  // converts atribute name _id to id
       return {
         actors:
@@ -69,14 +73,14 @@ export class ActorService {
           roles: actor.roles,
           directed: actor.directed
         }; }),
-        maxPosts: actorData.maxActors
+        maxActors: actorData.maxActors
       };
     }) )
     .subscribe((transformedActorData) => {
       this.actors = transformedActorData.actors;
       this.actorsUpdated.next({
         actors : [...this.actors],
-        actorCount: transformedActorData.maxPosts
+        actorCount: transformedActorData.maxActors
       });
     });
   }

@@ -71,7 +71,7 @@ export class RentsCrudComponent implements OnInit {
 
       }
     );
-    this.userService.getUsers(5, 1);
+    this.userService.getUsers(5, 1, '');
 
     this.movieSub = this.movieService.getMovieUpdateListener().subscribe(
       movieData => {

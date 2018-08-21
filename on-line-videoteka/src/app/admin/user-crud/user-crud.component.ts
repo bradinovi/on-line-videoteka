@@ -12,12 +12,13 @@ import { Moment } from 'moment';
   styleUrls: ['./user-crud.component.css']
 })
 export class UserCrudComponent implements OnInit {
+  textSearch = '';
   passwordChange = false;
   users: UserData[];
   formShow = false;
   isLoading = false;
   currentPage = 1;
-  totalMovies: number;
+  totalUsers: number;
   usersPerPage = 5;
   pageSizeOptions = [5, 10, 20, 30];
   form: FormGroup;
@@ -33,10 +34,10 @@ export class UserCrudComponent implements OnInit {
     this.userSub = this.userService.getUsersUpdateListener().subscribe(
       (userData) => {
         this.users = userData.users;
-        this.totalMovies = userData.userCount;
+        this.totalUsers = userData.userCount;
       }
     );
-    this.userService.getUsers(5, 1);
+    this.userService.getUsers(5, 1, '');
     this.form = new FormGroup(
       {
         firstName: new FormControl(null, [Validators.required]),
@@ -73,7 +74,7 @@ export class UserCrudComponent implements OnInit {
   onChangePage(pageData: PageEvent) {
     this.currentPage = pageData.pageIndex + 1;
     this.usersPerPage = pageData.pageSize;
-    this.userService.getUsers(this.usersPerPage, this.currentPage);
+    this.userService.getUsers(this.usersPerPage, this.currentPage, this.textSearch);
   }
 
   onSave() {
@@ -85,7 +86,7 @@ export class UserCrudComponent implements OnInit {
       this.userService.addUser(this.form.value.email, this.form.value.password, this.form.value.firstName,
       this.form.value.lastName, this.form.value.username, this.dateString(this.form.value.dateOfBirth)).subscribe((response) => {
         console.log(response);
-        this.userService.getUsers(this.usersPerPage, this.currentPage);
+        this.userService.getUsers(this.usersPerPage, this.currentPage, this.textSearch);
         this.formShow = false;
         this.form.reset();
       });
@@ -98,7 +99,7 @@ export class UserCrudComponent implements OnInit {
         this.form.value.email, this.form.value.password, this.form.value.firstName,
       this.form.value.lastName, this.form.value.username, this.dateString(this.form.value.dateOfBirth), role).subscribe((response) => {
         console.log(response);
-        this.userService.getUsers(this.usersPerPage, this.currentPage);
+        this.userService.getUsers(this.usersPerPage, this.currentPage, this.textSearch);
         this.formShow = false;
         this.form.reset();
       });
@@ -128,9 +129,14 @@ export class UserCrudComponent implements OnInit {
     this.userService.deleteUser(element.id).subscribe(
       (response) => {
         console.log(response);
-        this.userService.getUsers(this.usersPerPage, this.currentPage);
+        this.userService.getUsers(this.usersPerPage, this.currentPage, this.textSearch);
       }
     );
+  }
+
+  onSearch(searchInput) {
+    this.textSearch = searchInput.value;
+    this.userService.getUsers(this.usersPerPage, this.currentPage, this.textSearch);
   }
 
   dateString(date: string | Moment) {

@@ -1,4 +1,5 @@
 const Rent = require('../models/rent');
+const Movie = require('../models/movie');
 const mongoose = require('mongoose');
 exports.addRent = (req, res, next) => {
   const rent = new Rent(
@@ -25,11 +26,18 @@ exports.addRent = (req, res, next) => {
         res.status(200).json({ rentId: rentFound[0]._id, message: 'Already have rent on that movie'});
       }
       else{
-        rent.save().then(
-          (rentData) => {
-            res.status(201).json({
-              message: 'Movie rented'
-            });
+        Movie.findOneAndUpdate(
+          { _id: mongoose.Types.ObjectId(req.body.movieId) },
+          { $inc: { rents: 1} }
+        ).then(
+          (updateData) => {
+            rent.save().then(
+              (rentData) => {
+                res.status(201).json({
+                  message: 'Movie rented'
+                });
+              }
+            );
           }
         );
       }

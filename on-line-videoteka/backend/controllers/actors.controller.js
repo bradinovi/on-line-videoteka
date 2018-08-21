@@ -19,13 +19,13 @@ exports.getActors = (req, res, next) => {
   }
   actorQuery.then((documents) => {
     fetchedActors = documents;
-    return Actor.count();
+    return Actor.count(actorQuery);
   })
   .then( count => {
     res.json({
       message: 'Actors fetched succesfully!',
       actors: fetchedActors,
-      maxPosts: count
+      maxActors: count
     });
   }).catch( error =>{
     res.status(500).json({

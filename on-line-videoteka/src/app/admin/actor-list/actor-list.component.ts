@@ -23,7 +23,7 @@ Date.prototype.toString = function() {
   styleUrls: ['./actor-list.component.css']
 })
 export class ActorListComponent implements OnInit {
-
+  textSearch = '';
   actors = [];
   isLoading = true;
   totalActors = 0;
@@ -43,7 +43,7 @@ export class ActorListComponent implements OnInit {
         this.actors = actorData.actors;
       }
     );
-    this.actorsService.getActors(this.actorsPerPage, this.currentPage);
+    this.actorsService.getActors(this.actorsPerPage, this.currentPage, this.textSearch);
   }
 
   onEdit(element) {
@@ -54,18 +54,19 @@ export class ActorListComponent implements OnInit {
     console.log(element);
     this.actorsService.deleteActor(element.id).subscribe((response) => {
       console.log(response);
-      this.actorsService.getActors(this.actorsPerPage, this.currentPage);
+      this.actorsService.getActors(this.actorsPerPage, this.currentPage, this.textSearch);
     });
   }
 
   onChangePage(pageData: PageEvent) {
     this.currentPage = pageData.pageIndex + 1;
     this.actorsPerPage = pageData.pageSize;
-    this.actorsService.getActors(this.actorsPerPage, this.currentPage);
+    this.actorsService.getActors(this.actorsPerPage, this.currentPage, this.textSearch);
   }
 
   onSearch(searchInput) {
-    console.log(searchInput.value);
+    this.textSearch = searchInput.value;
+    this.actorsService.getActors(this.actorsPerPage, this.currentPage, this.textSearch);
   }
 
   goToActorAdd() {

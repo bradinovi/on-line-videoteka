@@ -81,7 +81,7 @@ export class MovieAddComponent implements OnInit, OnDestroy {
         this.directors = directorData.directors;
       }
     );
-    this.actorsService.getActors(1, 0);
+    this.actorsService.getActors(1, 0, '');
     this.movieForm = new FormGroup({
       'title' : new FormControl(null),
       'trailerLink' : new FormControl(null),

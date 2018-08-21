@@ -67,7 +67,7 @@ exports.getMovies = (req, res, next) => {
   }
   if (selectedSort && selectedSort !== 'undefined') {
     if (selectedSort == 'year'){
-      movieQuery = movieQuery.sort({ year: -1 });
+      movieQuery = movieQuery.sort({ release: -1 });
     }
     if (selectedSort == 'rents' && selectedSort){
       movieQuery = movieQuery.sort({ rents: -1 });

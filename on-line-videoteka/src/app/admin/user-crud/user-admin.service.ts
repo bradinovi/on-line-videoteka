@@ -18,9 +18,13 @@ export class UserAdminService {
     return this.usersUpdated.asObservable();
   }
 
-  getUsers( genresPerPage: number, currentPage: number ) {
+  getUsers( genresPerPage: number, currentPage: number, textSearch: string ) {
     const queryParams = `?pagesize=${genresPerPage}&page=${currentPage}`;
-    this.http.get<{message: string, users: any, maxUsers: number}>( 'http://localhost:3000/api/users' + queryParams)
+    let textQuery = '';
+    if (textSearch !== '') {
+      textQuery = `&text=${textSearch}`;
+    }
+    this.http.get<{message: string, users: any, maxUsers: number}>( 'http://localhost:3000/api/users' + queryParams + textQuery)
     .pipe( map((userData) => {
       return {
         users:
@@ -41,6 +45,7 @@ export class UserAdminService {
     }) )
     .subscribe((transformedUserData) => {
       this.users = transformedUserData.users;
+      console.log('MAX USERS' + transformedUserData.maxUsers);
       this.usersUpdated.next({
         users : [...this.users],
         userCount: transformedUserData.maxUsers
