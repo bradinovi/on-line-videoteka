@@ -18,7 +18,7 @@ const routes: Routes = [
   { path: 'movieadd/:id', component: MovieAddComponent, canActivate: [AdminAuthGuard] },
   { path: 'actors', component: ActorListComponent, canActivate: [AdminAuthGuard] },
   { path: 'genres', component: GenreCrudComponent, canActivate: [AdminAuthGuard] },
-  { path: 'users', component: UserCrudComponent, canActivate: [AdminAuthGuard] },
+  { path: 'users', component: UserCrudComponent },
   { path: 'rents', component: RentsCrudComponent, canActivate: [AdminAuthGuard] }
 ];
 

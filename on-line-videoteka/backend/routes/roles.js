@@ -1,20 +1,20 @@
 const express = require('express');
-
+const authCheck = require('../middleware/auth-check');
 const RolesController = require('../controllers/roles.controller');
-
+const adminAuthCheck = require('../middleware/auth-check-admin');
 
 const router = express.Router();
 
-router.post('/', RolesController.addRole);
+router.post('/', adminAuthCheck, RolesController.addRole);
 
-router.get('/actor/:actorId', RolesController.getRolesActor);
+router.get('/actor/:actorId',authCheck, RolesController.getRolesActor);
 
-router.get('/movie/:movieId', RolesController.getRolesMovie);
+router.get('/movie/:movieId',authCheck, RolesController.getRolesMovie);
 
-router.get('/:id', RolesController.getRole);
+router.get('/:id',authCheck, RolesController.getRole);
 
-router.put('/', RolesController.updateRole);
+router.put('/',adminAuthCheck, RolesController.updateRole);
 
-router.delete('/:id', RolesController.deleteRole);
+router.delete('/:id',adminAuthCheck, RolesController.deleteRole);
 
 module.exports = router;

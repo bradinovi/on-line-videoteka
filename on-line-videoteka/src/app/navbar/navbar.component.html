@@ -16,10 +16,10 @@
         <a mat-button routerLinkActive="mat-accent" routerLink="/mymovies">My Movies</a>
       </li>
       <li *ngIf="isAdmin && userAuthenticated">
-          <a mat-button routerLinkActive="mat-accent" routerLink="/admin/actors">Actors</a>
+          <a mat-button routerLinkActive="mat-accent" routerLink="/admin/movieadd">Add Movie</a>
       </li>
       <li *ngIf="isAdmin && userAuthenticated">
-          <a mat-button routerLinkActive="mat-accent" routerLink="/admin/movieadd">Create Movie</a>
+          <a mat-button routerLinkActive="mat-accent" routerLink="/admin/actors">Actors</a>
       </li>
       <li *ngIf="isAdmin && userAuthenticated">
           <a mat-button routerLinkActive="mat-accent" routerLink="/admin/genres">Genres</a>

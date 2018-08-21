@@ -1,22 +1,22 @@
 const express = require('express');
-
+const adminAuthCheck = require('../middleware/auth-check-admin');
 const MoviesController = require('../controllers/movies.controller');
 const extractMoviePosterFile = require('../middleware/poster-file');
-
+const authCheck = require('../middleware/auth-check');
 const router = express.Router();
 
-router.post('/', extractMoviePosterFile ,MoviesController.addMovie);
+router.post('/',adminAuthCheck, extractMoviePosterFile ,MoviesController.addMovie);
 
-router.get('/', MoviesController.getMovies);
+router.get('/', authCheck, MoviesController.getMovies);
 
-router.get('/:id', MoviesController.getMovie);
+router.get('/:id', authCheck, MoviesController.getMovie);
 
-router.put('/', extractMoviePosterFile,MoviesController.updateMovie);
+router.put('/',adminAuthCheck, extractMoviePosterFile,MoviesController.updateMovie);
 
-router.delete('/:id', MoviesController.deleteMovie);
+router.delete('/:id',adminAuthCheck, MoviesController.deleteMovie);
 
-router.get('/director/:id', MoviesController.getDirectorsForMovie);
-router.post('/director/:id', MoviesController.addDirector);
-router.delete('/director/:id', MoviesController.deleteDirector);
+router.get('/director/:id', authCheck, MoviesController.getDirectorsForMovie);
+router.post('/director/:id',adminAuthCheck, MoviesController.addDirector);
+router.delete('/director/:id',adminAuthCheck, MoviesController.deleteDirector);
 
 module.exports = router;
