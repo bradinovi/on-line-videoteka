@@ -41,6 +41,10 @@ export class AuthService {
     return this.authStatusListener.asObservable();
   }
 
+  getUserData() {
+    return this.http.get<any>('http://localhost:3000/api/users/myprofile');
+  }
+
   createUser( email: string, password: string, firstName: string, lastName: string, username: string, dateOfBirth: string) {
     const userData: UserData = {
       email: email,
@@ -113,6 +117,15 @@ export class AuthService {
     this.userId = null;
     this.clearAuthData();
     clearTimeout(this.tokenTimer);
+  }
+
+  changePassword(email: string, newPass: string, oldPass: string) {
+    return this.http.patch<any>('http://localhost:3000/api/users/userpass', { email: email, oldPassword: oldPass, newPassword: newPass });
+  }
+
+  changeUserInfo(username: string, firstName: string, lastName: string, dateOfBirth: string) {
+    return this.http.patch<any>('http://localhost:3000/api/users/userinfo',
+    { firstName: firstName, lastName: lastName, username: username, dateOfBirth: dateOfBirth });
   }
 
   private saveAuthData(token: string, expirationDate: Date, userId: string, role: string) {

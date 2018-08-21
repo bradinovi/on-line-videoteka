@@ -15,6 +15,8 @@ router.post('/forgotpassword', UserController.issueNewPassword);
 router.get('/', adminAuthCheck, UserController.getUsers);
 router.patch('/', adminAuthCheck, UserController.updateUser);
 router.delete('/:id', adminAuthCheck, UserController.deleteUser);
+
+router.get('/myprofile', authCheck, UserController.getUserInfo);
 router.patch('/userpass', authCheck,UserController.userChangePassword);
 router.patch('/userinfo', authCheck,UserController.userChangeUserInfo);
 

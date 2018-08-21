@@ -19,7 +19,7 @@ import { Rent } from '../../models/rent.model';
 })
 export class RentsCrudComponent implements OnInit {
   mode = 'create';
-  formShow = true;
+  formShow = false;
   totalRents: number;
   currentPage = 1;
   rentsPerPage = 5;

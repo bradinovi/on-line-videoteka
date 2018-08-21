@@ -164,13 +164,12 @@ exports.userChangePassword = (req, res, next) => {
 
 exports.userChangeUserInfo = (req, res, next) => {
   const userData = req.body;
-  const userId = req.body.id;
+  const userId = req.userData.userId;
     const patchData = {
       firstName: userData.firstName,
       lastName: userData.lastName,
       username: userData.username,
-      dateOfBirth: userData.dateOfBirth,
-      email: userData.email
+      dateOfBirth: userData.dateOfBirth
   }
 
   User.findOneAndUpdate( { _id: userId }, patchData ).then(
@@ -280,4 +279,17 @@ exports.issueNewPassword = (req, res, next) => {
     );
   });
 
+}
+
+exports.getUserInfo = (req, res, next) => {
+  User.findById(req.userData.userId).then(
+    userData => {
+      res.status(200).json(
+        {
+          message: 'User data fetched',
+          myprofile: userData
+        }
+      );
+    }
+  );
 }

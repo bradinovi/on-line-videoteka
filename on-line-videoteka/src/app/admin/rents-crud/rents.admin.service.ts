@@ -33,8 +33,10 @@ export class RentAdminService {
     const queryParams = `?pagesize=${rentsPerPage}&page=${currentPage}`;
     this.http.get<{message: string, rents: any, maxRents: number}>('http://localhost:3000/api/rents' + queryParams).pipe(
       map(mymoviedData => {
+
         return {
           rents: mymoviedData.rents.map( mymovie => {
+
             return {
             id: mymovie._id,
             user: {
