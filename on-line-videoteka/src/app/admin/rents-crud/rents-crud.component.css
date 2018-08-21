@@ -1,3 +1,17 @@
+.movieicon {
+  vertical-align: middle;
+  margin-right: 8px;
+}
+
+[dir='rtl'] .movieicon {
+  margin-right: 0;
+  margin-left: 8px;
+}
+
+form {
+  width: 40%;
+}
+
 .content {
   width: 85%;
   margin-left: auto;
@@ -26,6 +40,10 @@ mat-form-field {
 }
 
 .save-btn{
-  margin-left: 1em;
+
   display: inline;
+}
+
+.clr-btn{
+  float: right;
 }

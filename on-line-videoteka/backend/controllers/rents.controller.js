@@ -5,7 +5,7 @@ exports.addRent = (req, res, next) => {
     {
       user: req.userData.userId,
       movie: req.body.movieId,
-      duration: req.body.duration,
+      duration:  req.body.duration,
       rentDay:  new Date()
     }
   );
@@ -57,10 +57,6 @@ exports.getRentsForUser = (req, res, next) => {
   );
 }
 
-exports.getRents = (req, res, next) => {
-
-}
-
 exports.extendRent = (req, res, next) => {
   console.log(req.body.rentId);
   console.log(req.body.duration);
@@ -70,6 +66,89 @@ exports.extendRent = (req, res, next) => {
   ).then(
     (updateData) => {
       res.status(200).json({ message: 'Duration prolonged' })
+    }
+  );
+}
+
+exports.getRents = (req, res, next) => {
+  const pageSize = parseInt(req.query.pagesize);
+  const currentPage = parseInt(req.query.page);
+  let rentQuery  = Rent.find();
+  let fetchedRents;
+
+  if (pageSize && currentPage) {
+    rentQuery
+      .skip(pageSize * (currentPage - 1))
+      .limit(pageSize);
+  }
+  rentQuery.populate({path:'movie', select: '_id title posterPath'}).populate({path:'user'});
+
+  rentQuery.then((documents) => {
+    fetchedRents = documents;
+    return Rent.count();
+  }).then(
+    count => {
+      res.status(200).json(
+        {
+          message: 'Rents fetched',
+          rents: fetchedRents,
+          maxRents: count
+        }
+      );
+    }
+  );
+}
+
+exports.addRentAdmin = (req, res, next) => {
+  console.log(req.body);
+  const rent = new Rent(
+    {
+      user: req.body.userId,
+      movie: req.body.movieId,
+      duration: parseInt(req.body.duration),
+      rentDay:  new Date(req.body.rentDay)
+    }
+  );
+
+  rent.save().then(
+    (rentData) => {
+      res.status(201).json({
+        message: 'Movie rented'
+      });
+    }
+  );
+}
+
+exports.updateRent = (req, res, next) => {
+  const rent = new Rent(
+    {
+      _id: req.body.rentId,
+      user: req.body.userId,
+      movie: req.body.movieId,
+      duration: req.body.duration,
+      rentDay:  new Date(req.body.rentDay)
+    }
+  );
+
+  Rent.updateOne({_id: req.body.rentId}, rent).then(
+    (updateData) => {
+      if(updateData.n > 0) {
+        res.status(201).json({
+          message: 'Rent updated'
+        });
+      }
+    }
+  );
+}
+
+exports.deleteRent = (req, res, next) => {
+  Rent.deleteOne({_id: req.params.Id}).then(
+    (deleteData) => {
+      if(deleteData.n > 0) {
+        res.status(201).json({
+          message: 'Rent deleted'
+        });
+      }
     }
   );
 }

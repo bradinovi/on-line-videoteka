@@ -22,6 +22,12 @@
           <a mat-button routerLinkActive="mat-accent" routerLink="/admin/movieadd">Create Movie</a>
       </li>
       <li *ngIf="isAdmin && userAuthenticated">
+          <a mat-button routerLinkActive="mat-accent" routerLink="/admin/genres">Genres</a>
+      </li>
+      <li *ngIf="isAdmin && userAuthenticated">
+          <a mat-button routerLinkActive="mat-accent" routerLink="/admin/rents">User Rents</a>
+      </li>
+      <li *ngIf="isAdmin && userAuthenticated">
           <a mat-button routerLinkActive="mat-accent" routerLink="/admin/users">Users</a>
       </li>
   </ul>

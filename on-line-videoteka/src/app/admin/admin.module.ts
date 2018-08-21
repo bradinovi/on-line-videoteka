@@ -10,6 +10,7 @@ import { MomentDateAdapter } from '../../../node_modules/@angular/material-momen
 import { ActorListComponent } from './actor-list/actor-list.component';
 import { GenreCrudComponent } from './genre-crud/genre-crud.component';
 import { UserCrudComponent } from './user-crud/user-crud.component';
+import { RentsCrudComponent } from './rents-crud/rents-crud.component';
 
 
 export const MY_FORMATS = {
@@ -30,7 +31,8 @@ export const MY_FORMATS = {
     MovieAddComponent,
     ActorListComponent,
     GenreCrudComponent,
-    UserCrudComponent
+    UserCrudComponent,
+    RentsCrudComponent
   ],
   imports: [
     ReactiveFormsModule,
