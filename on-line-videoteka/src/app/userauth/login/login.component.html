@@ -15,7 +15,7 @@
         <button mat-flat-button color="accent" type="submit">Log in</button>
       </form>
       <p class="not-registered-link">Not registered? <a routerLink="/signup">Create an account</a> </p>
-      <p class="forgot-passw-link"><a (click)="onForgotPassword()">Forgot your password?</a></p>
+      <a (click)="onForgotPassword()"><p class="forgot-passw-link">Forgot your password?</p></a>
     </mat-card-content>
 </mat-card>
 <div class="content">
@@ -25,12 +25,12 @@
         Forgot your password?
     </mat-card-title>
     <mat-card-content>
-      <form (submit)="onLogIn(logInForm)" #logInForm="ngForm">
+      <form (submit)="onForgotPassSubmit(forgotForm)" #forgotForm="ngForm">
         <mat-form-field color="accent">
             <input matInput placeholder="Email" #emailInput="ngModel" name="email" ngModel email>
             <mat-hint align="start">Enter the email you registered with and we will send you a password reset link.</mat-hint>
         </mat-form-field>
-        <button mat-flat-button color="accent" type="submit">Email link</button>
+        <button mat-flat-button color="accent" type="submit">Submit</button>
       </form>
       <button (click)="onBackToLogIn()" mat-button class="back-button" mat-mini-fab color="primary"><mat-icon>keyboard_arrow_left</mat-icon></button>
     </mat-card-content>

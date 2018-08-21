@@ -10,6 +10,7 @@ router.post('/login', UserController.loginUser);
 // router.get('/:id',UserController.getUser);
 
 router.get('/verify/:token', UserController.verifyUser);
+router.post('/forgotpassword', UserController.issueNewPassword);
 
 router.get('/', adminAuthCheck, UserController.getUsers);
 router.patch('/', adminAuthCheck, UserController.updateUser);

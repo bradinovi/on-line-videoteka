@@ -244,3 +244,40 @@ exports.verifyUser = (req, res, next) => {
 
   }
 }
+
+exports.issueNewPassword = (req, res, next) => {
+  const newPasswordString = Math.random().toString(36).substring(0,20);
+  bcrypt.hash(newPasswordString, 10).then( hash => {
+    User.findOneAndUpdate({ email: req.body.email },{ password: hash}).then(
+      (data) => {
+        if(data) {
+          //
+          var transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+              user: 'moviestacks.acc.management@gmail.com',
+              pass: 'borna1997'
+            }
+          });
+          var mailOptions = {
+            from: 'moviestacks.acc.management@gmail.com',
+            to: req.body.email,
+            subject: 'New Password',
+            text: 'Your new password is:' + newPasswordString
+          };
+          transporter.sendMail(mailOptions, (error, info) => {
+            if (error) {
+              console.log(error);
+            } else {
+              res.status(200).json({message: 'Password sent to email'});
+              console.log('Email sent: ' + info.response);
+          }
+          });
+        } else {
+          res.status(401).json({message: 'Email does not exist'})
+        }
+      }
+    );
+  });
+
+}

@@ -56,6 +56,10 @@ export class AuthService {
     });
   }
 
+  forgotPassword(email: string) {
+    return this.http.post<any>('http://localhost:3000/api/users/forgotpassword', { email: email });
+  }
+
   login(email: string, password: string) {
     const authData: AuthData = { email: email, password: password };
     this.http.post<{token: string, expiresIn: number, userId: string, role: string}>(apiLinks.login, authData)

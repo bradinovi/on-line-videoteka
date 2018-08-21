@@ -36,6 +36,16 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.forgotPassword = true;
   }
 
+  onForgotPassSubmit(forgotForm: NgForm) {
+
+    this.authService.forgotPassword(forgotForm.value.email).subscribe(
+      (res) => {
+        console.log(res);
+        this.forgotPassword = false;
+      }
+    );
+  }
+
   onBackToLogIn() {
     this.forgotPassword = false;
   }
