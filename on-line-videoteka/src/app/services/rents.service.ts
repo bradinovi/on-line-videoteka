@@ -19,18 +19,12 @@ export class RentService {
   }
 
   rentMovie(movieId: string, duration: number) {
-    this.http.post('http://localhost:3000/api/rents/rentmovie', { movieId: movieId, duration: duration }).subscribe(
-      (rentData) => {
-        console.log(rentData);
-        this.router.navigate(['/mymovies']);
-      }
-    );
+    return this.http.post<any>('http://localhost:3000/api/rents/rentmovie', { movieId: movieId, duration: duration });
   }
 
   getMyMovies() {
     this.http.get<{message: string, mymovies: any}>('http://localhost:3000/api/rents/mymovies').pipe(
       map(mymoviedData => {
-        console.log(mymoviedData);
         return {
           mymovies: mymoviedData.mymovies.map( mymovie => {
             return {
@@ -56,7 +50,7 @@ export class RentService {
       )
     ).subscribe(
       transformedMyMovieData => {
-        console.log(transformedMyMovieData.mymovies);
+        // console.log(transformedMyMovieData.mymovies);
         this.myMoviesUpdated.next(
           {
             mymovies: transformedMyMovieData.mymovies
@@ -65,4 +59,9 @@ export class RentService {
       }
     );
   }
+
+  extendRent(rentId: string, duration: number) {
+    return this.http.patch<any>('http://localhost:3000/api/rents/extendrent', { rentId: rentId, duration: duration });
+  }
+
 }

@@ -94,7 +94,6 @@ export class AuthService {
       this.isAuthenticated = true;
       this.userId = authInformation.userId;
       this.authStatusListener.next(true);
-      console.log(authInformation);
       if (authInformation.role) {
         this.isAdminStatusListener.next(true);
         this.isAdmin = true;

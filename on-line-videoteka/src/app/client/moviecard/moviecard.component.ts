@@ -14,6 +14,7 @@ export class MoviecardComponent implements OnInit {
   movieYear: string;
   @Input() likeRent: boolean;
   @Input() myMovies: boolean;
+  @Input() daysLeft: string;
 
   constructor(public dialog: MatDialog) { }
 

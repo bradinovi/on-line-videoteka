@@ -26,3 +26,14 @@ mat-chip{
   text-decoration: none;
   color: inherit;
 }
+
+.time-chip p{
+  display: inline;
+  position: relative;
+  bottom: 7px;
+}
+
+
+
+
+

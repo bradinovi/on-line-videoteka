@@ -1,4 +1,8 @@
-<h1>How long would you like to rent {{data.title}} for?</h1>
+<h1 *ngIf="!exists">How long would you like to rent {{data.title}} for?</h1>
+<h3 *ngIf="exists">You have Active rent on {{data.title}}!</h3>
+<h2 *ngIf="exists">
+  Would you like to extend rent on {{data.title}}?
+</h2>
 <img src={{data.posterPath}}>
 <div class="button-toggle-container">
 <mat-button-toggle-group name="rentDuration" aria-label="Rent Duration" #group="matButtonToggleGroup">

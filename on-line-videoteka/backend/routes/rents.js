@@ -9,4 +9,6 @@ router.get('/mymovies',authCheck, RentsController.getRentsForUser);
 
 router.post('/rentmovie', authCheck,RentsController.addRent);
 
+router.patch('/extendrent', authCheck,RentsController.extendRent);
+
 module.exports = router;
