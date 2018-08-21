@@ -8,7 +8,8 @@ const userSchema = mongoose.Schema({
   dateOfBirth: {type: Date, required: true},
   email: {type: String, required: true, unique: true}, // unique isn't a validator it has to be handled
   password: { type: String, required: true},
-  role: { type: String, required: true, default: 'user'}
+  role: { type: String, required: true, default: 'user'},
+  verified: { type: Boolean, required: true, default: false}
 });
 
 userSchema.plugin(uniqueValidator);

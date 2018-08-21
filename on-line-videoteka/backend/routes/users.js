@@ -9,6 +9,8 @@ router.post('/login', UserController.loginUser);
 
 // router.get('/:id',UserController.getUser);
 
+router.get('/verify/:token', UserController.verifyUser);
+
 router.get('/', adminAuthCheck, UserController.getUsers);
 router.patch('/', adminAuthCheck, UserController.updateUser);
 router.delete('/:id', adminAuthCheck, UserController.deleteUser);
