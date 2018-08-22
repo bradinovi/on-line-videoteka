@@ -1,4 +1,51 @@
-app-moviecard {
-  display: inline;
-  margin: 0;
+html {
+  background-color: #424242;
 }
+.content{
+  width: 100%;
+
+  background-image: url("../../../assets/images/homepage.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  height: 673px;
+}
+
+button {
+  width: 25%;
+  display: block;
+  margin-left: 10em;
+  height: 1.5em;
+  font-size: 2em;
+}
+
+
+.slogan-container {
+  opacity: 99999;
+  width: 85%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 12em;
+  margin-top: 0;
+}
+
+.slogan-container h1{
+  color: #424242;
+  margin-top: 0;
+
+  font-size: 4em;
+}
+
+.slogan-container h2{
+  color: #24B758;
+  font-size: 2.5em;
+  display: inline-block;
+
+}
+.slogan-container h4{
+  color: #424242;
+  font-size: 1.5em;
+  display: inline-block;
+  margin-left: 2em;
+}
+
