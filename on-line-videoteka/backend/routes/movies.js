@@ -5,11 +5,14 @@ const extractMoviePosterFile = require('../middleware/poster-file');
 const authCheck = require('../middleware/auth-check');
 const router = express.Router();
 
+
 router.post('/',adminAuthCheck, extractMoviePosterFile ,MoviesController.addMovie);
 
 router.get('/', authCheck, MoviesController.getMovies);
 
 router.get('/:id', authCheck, MoviesController.getMovie);
+
+router.get('/homepage/recent', MoviesController.getRecentMovies);
 
 router.put('/',adminAuthCheck, extractMoviePosterFile,MoviesController.updateMovie);
 

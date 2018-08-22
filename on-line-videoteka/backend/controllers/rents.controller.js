@@ -164,3 +164,32 @@ exports.deleteRent = (req, res, next) => {
     }
   );
 }
+
+exports.getTopMoviesForMonth = (req, res, next) => {
+  let pageSize = +req.query.pagesize;
+  if(!pageSize) {
+    pageSize = 3;
+  }
+  const date = new Date();
+  const firstDayOfTheMonth = new Date(date.getFullYear(), date.getMonth(), 1);
+  Rent.aggregate([
+    { $match:  { rentDay: { $gt: firstDayOfTheMonth } } },
+    { $group: { _id : "$movie", count: { $sum: 1 } } },
+    { $sort: {  count: -1 } },
+    { $limit: pageSize}
+  ]).then(
+    data => {
+      movieIdArray =[];
+      data.forEach(movie => {
+        movieIdArray.push(movie._id);
+      });
+      Movie.find( { _id: { $in: movieIdArray} } ).then(
+        moviesTop => {
+          res.status(200).json({
+            topmonth: moviesTop
+          })
+        }
+      )
+    }
+  );
+}

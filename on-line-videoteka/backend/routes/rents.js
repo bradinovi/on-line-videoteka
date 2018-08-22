@@ -10,6 +10,7 @@ router.put('/', adminAuthCheck, authCheck,RentsController.updateRent);
 router.delete('/', adminAuthCheck, authCheck,RentsController.deleteRent);
 router.get('/', adminAuthCheck, RentsController.getRents);
 
+router.get('/topmonth',  RentsController.getTopMoviesForMonth);
 
 router.get('/mymovies',authCheck, RentsController.getRentsForUser);
 

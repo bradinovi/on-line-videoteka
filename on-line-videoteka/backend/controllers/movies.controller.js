@@ -229,3 +229,19 @@ exports.getDirectorsForMovie = (req, res, next) => {
   );
 
 }
+
+exports.getRecentMovies = (req, res, next) => {
+  console.log('TEST');
+  let pageSize = 3;
+  if(req.query.pagesize) {
+    pageSize = req.query.pagesize;
+  }
+  Movie.find().sort({ release: -1 }).limit(pageSize).then(
+    nRecent => {
+      res.status(200).json({
+        movies: nRecent
+      });
+    }
+  );
+}
+
