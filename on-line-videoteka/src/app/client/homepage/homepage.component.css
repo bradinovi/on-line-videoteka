@@ -4,7 +4,7 @@ html {
 .content{
   width: 100%;
 
-  background-image: url("../../../assets/images/homepage.jpg");
+  background-image: url("../../../assets/images/homepage.png");
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
@@ -30,7 +30,7 @@ button {
 }
 
 .slogan-container h1{
-  color: #424242;
+  color: #F5F5F5;
   margin-top: 0;
 
   font-size: 4em;
@@ -43,9 +43,9 @@ button {
 
 }
 .slogan-container h4{
-  color: #424242;
+  color: #F5F5F5;
   font-size: 1.5em;
   display: inline-block;
-  margin-left: 2em;
+  margin-top: 3em;
 }
 

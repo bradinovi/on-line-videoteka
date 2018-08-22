@@ -39,6 +39,7 @@ import { FullBioComponent } from './client/actordetail/full-bio/full-bio.compone
 import { MovieDeleteDialogComponent } from './client/moviedetail/movie-delete-dialog/movie-delete-dialog.component';
 import { RentDialogComponent } from './client/rent-dialog/rent-dialog.component';
 import { AuthInterceptor } from './userauth/auth-intercept';
+import { HomeAfterAuthComponent } from './client/home-after-auth/home-after-auth.component';
 
 
 
@@ -71,7 +72,8 @@ export const MY_FORMATS = {
     HomepageComponent,
     FullBioComponent,
     MovieDeleteDialogComponent,
-    RentDialogComponent
+    RentDialogComponent,
+    HomeAfterAuthComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,25 @@
+.content{
+  width: 85%;
+  margin:auto;
+  color: whitesmoke;
+}
+
+mat-spinner{
+  margin-left: auto;
+  margin-right: auto;
+
+}
+
+.content-color{
+  background-color: #616161  !important;
+  height: 170%;
+}
+
+h1{
+  text-align: center;
+  color: whitesmoke;
+  padding-left: 0.2em;
+  font-size: 2.5em;
+}
+
+

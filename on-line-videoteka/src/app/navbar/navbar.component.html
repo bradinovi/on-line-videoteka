@@ -1,6 +1,9 @@
 <mat-toolbar color="primary" class="header">
-  <a class="logo-home-link" routerLink="/">
+  <a class="logo-home-link" routerLink="/" *ngIf="!userAuthenticated">
   <img src="assets/images/logo.png" class="navbar-logo">
+  </a>
+  <a class="logo-home-link" routerLink="/userhome" *ngIf="userAuthenticated">
+    <img src="assets/images/logo.png" class="navbar-logo">
   </a>
   <span class="spacer"></span>
   <mat-form-field color="accent" class="main-search" *ngIf="userAuthenticated">

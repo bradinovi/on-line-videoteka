@@ -1,5 +1,10 @@
 .spacer{
   height: 64px;
 }
+main {
+  background-color: #616161  !important;
+  height: 100%;
+}
+
 
 

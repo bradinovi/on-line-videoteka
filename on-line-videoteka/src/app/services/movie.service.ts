@@ -200,4 +200,13 @@ export class MovieService {
       }
     );
   }
+
+  getRecentMovies(number: number) {
+    return this.http.get<any>('http://localhost:3000/api/movies/homepage/recent' + '?pagesize=' + number);
+  }
+
+  getTopMonthlyMovies(number: number) {
+    return this.http.get<any>('http://localhost:3000/api/rents/topmonth' + '?pagesize=' + number);
+  }
+
 }

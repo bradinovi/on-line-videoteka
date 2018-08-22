@@ -2,6 +2,11 @@ mat-card {
   margin-top: 1.5em;
 }
 
+.content-color{
+  background-color: #616161  !important;
+
+}
+
 mat-form-field{
   width: 90%;
 }

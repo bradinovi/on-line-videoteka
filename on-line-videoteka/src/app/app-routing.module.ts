@@ -11,6 +11,7 @@ import { ActordetailComponent } from './client/actordetail/actordetail.component
 import { MyprofileComponent } from './client/myprofile/myprofile.component';
 import { MymoviesComponent } from './client/mymovies/mymovies.component';
 import { AuthGuard } from './userauth/userauth.guard';
+import { HomeAfterAuthComponent } from './client/home-after-auth/home-after-auth.component';
 
 
 const routes: Routes = [
@@ -23,6 +24,7 @@ const routes: Routes = [
   { path: 'actordetail/:actorId', component: ActordetailComponent, canActivate: [AuthGuard]},
   { path: 'myprofile', component: MyprofileComponent, canActivate: [AuthGuard]},
   { path: 'mymovies', component: MymoviesComponent, canActivate: [AuthGuard]},
+  { path: 'userhome', component: HomeAfterAuthComponent, canActivate: [AuthGuard]},
   { path: 'admin', loadChildren: './admin/admin.module#AdminModule'}
 ];
 
