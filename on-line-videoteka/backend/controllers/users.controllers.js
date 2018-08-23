@@ -241,16 +241,16 @@ exports.verifyUser = (req, res, next) => {
       (update) => {
         console.log(update);
         if (update) {
-          res.redirect(process.env.REDIRECT_URL + 'login?ver=1');
+          res.redirect(process.env.REDIRECT_URL);
         } else {
-          res.redirect(process.env.REDIRECT_URL + 'login?ver=0');
+          res.redirect(process.env.REDIRECT_URL);
         }
       }
     )
   } catch (error) {
 
       console.log(error);
-      res.redirect(process.env.REDIRECT_URL + 'login?error=1');
+      res.redirect(process.env.REDIRECT_URL);
 
   }
 }

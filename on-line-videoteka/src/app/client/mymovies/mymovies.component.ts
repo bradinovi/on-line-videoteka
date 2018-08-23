@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, Subscription } from 'rxjs';
 import { Movie } from '../../models/movie.model';
@@ -10,7 +10,7 @@ import * as moment from 'moment';
   templateUrl: './mymovies.component.html',
   styleUrls: ['./mymovies.component.css']
 })
-export class MymoviesComponent implements OnInit {
+export class MymoviesComponent implements OnInit, OnDestroy {
 
   isDataAvailable = false;
   moviesToDisplayAct: Movie[] = [];
@@ -49,5 +49,9 @@ export class MymoviesComponent implements OnInit {
 
     return Math.floor((Date.UTC(dt2.getFullYear(), dt2.getMonth(), dt2.getDate()) -
     Date.UTC(dt1.getFullYear(), dt1.getMonth(), dt1.getDate()) ) / (1000 * 60 * 60 * 24));
+  }
+
+  ngOnDestroy() {
+    this.myMovieSub.unsubscribe();
   }
 }

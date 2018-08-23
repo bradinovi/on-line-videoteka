@@ -1,11 +1,8 @@
-import { Component, OnInit, Inject, Injectable } from '@angular/core';
-
-
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import { Component, OnInit, Injectable, OnDestroy } from '@angular/core';
+import {MatDialog } from '@angular/material';
 import { FullBioComponent } from './full-bio/full-bio.component';
 import { Subscription } from '../../../../node_modules/rxjs';
 import { RoleService } from '../../services/roles.service';
-import { MovieService, Director } from '../../services/movie.service';
 import { RoleOfActor } from '../../models/role.model';
 import { ActorService, Directed } from '../../services/actors.service';
 import { ParamMap, ActivatedRoute } from '../../../../node_modules/@angular/router';
@@ -23,10 +20,8 @@ export interface DialogData {
   styleUrls: ['./actordetail.component.css']
 })
 @Injectable()
-export class ActordetailComponent implements OnInit {
+export class ActordetailComponent implements OnInit, OnDestroy {
   isLoading = true;
-  // tslint:disable-next-line:max-line-length
-
   actorBio = '...';
   actorBioFull = '';
   actor: Actor;
@@ -43,7 +38,6 @@ export class ActordetailComponent implements OnInit {
     private route: ActivatedRoute) {  }
 
   ngOnInit() {
-
     this.roleSub = this.roleService.getrolesOfActorUpdatedListener().subscribe(
       (roleData) => {
         this.roles = roleData.roles;
@@ -98,6 +92,10 @@ export class ActordetailComponent implements OnInit {
     this.dialog.open(FullBioComponent, { data: { bio: this.actor.bio }, maxHeight: '500px'});
   }
 
+  ngOnDestroy() {
+    this.directorsSub.unsubscribe();
+    this.roleSub.unsubscribe();
+  }
 }
 
 

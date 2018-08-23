@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Actor } from '../../models/actor.model';
 import { PageEvent } from '../../../../node_modules/@angular/material';
 import { ActorService } from '../../services/actors.service';
@@ -22,7 +22,7 @@ Date.prototype.toString = function() {
   templateUrl: './actor-list.component.html',
   styleUrls: ['./actor-list.component.css']
 })
-export class ActorListComponent implements OnInit {
+export class ActorListComponent implements OnInit, OnDestroy {
   textSearch = '';
   actors = [];
   isLoading = true;
@@ -71,5 +71,9 @@ export class ActorListComponent implements OnInit {
 
   goToActorAdd() {
     this.router.navigate(['admin/actoradd']);
+  }
+
+  ngOnDestroy() {
+    this.actorSub.unsubscribe();
   }
 }

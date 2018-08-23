@@ -114,6 +114,7 @@ export class AuthService {
     this.token = null;
     this.isAuthenticated = false;
     this.authStatusListener.next(false);
+    this.isAdminStatusListener.next(false);
     this.router.navigate(['/']);
     this.userId = null;
     this.clearAuthData();

@@ -8,11 +8,14 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "server": "nodemon server.js"
+    "@angular/animations": "^6.0.3",
+    "server": "nodemon ./backend/server.js",
+    "postinstall": "ng build --aot -prod"
   },
   "private": true,
   "dependencies": {
     "@angular/animations": "^6.0.3",
+    "@angular/cli": "~6.0.8",
     "@angular/cdk": "^6.4.3",
     "@angular/common": "^6.0.3",
     "@angular/compiler": "^6.0.3",

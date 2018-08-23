@@ -256,9 +256,7 @@ export class MovieAddComponent implements OnInit, OnDestroy {
     return;
   }
 
-  ngOnDestroy() {
-    this.genresSub.unsubscribe();
-  }
+
 
   dateString(date: string | Moment) {
     if ( date === null) {
@@ -345,5 +343,12 @@ export class MovieAddComponent implements OnInit, OnDestroy {
       console.log(res);
       this.movieService.getMovieDirectors(this.createdMovieId);
     });
+  }
+
+  ngOnDestroy() {
+    this.genresSub.unsubscribe();
+    this.actorSub.unsubscribe();
+    this.rolesSub.unsubscribe();
+    this.directorSub.unsubscribe();
   }
 }

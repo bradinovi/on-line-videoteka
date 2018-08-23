@@ -1,8 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { PageEvent } from '../../../../node_modules/@angular/material';
 import { FormGroup, FormControl, Validators } from '../../../../node_modules/@angular/forms';
-import { ActorService } from '../../services/actors.service';
 import { Subscription } from '../../../../node_modules/rxjs';
 import { GenreService } from '../../services/genres.service';
 import { Genre } from '../../models/genre.model';
@@ -12,7 +10,7 @@ import { Genre } from '../../models/genre.model';
   templateUrl: './genre-crud.component.html',
   styleUrls: ['./genre-crud.component.css']
 })
-export class GenreCrudComponent implements OnInit {
+export class GenreCrudComponent implements OnInit, OnDestroy {
   formShow = false;
   isLoading = false;
   currentPage = 1;
@@ -89,5 +87,9 @@ export class GenreCrudComponent implements OnInit {
         this.genreService.getGenres(this.genresPerPage, this.currentPage);
       }
     );
+  }
+
+  ngOnDestroy() {
+    this.genreSub.unsubscribe();
   }
 }

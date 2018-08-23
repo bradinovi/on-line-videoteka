@@ -62,4 +62,15 @@ export class SearchpageComponent implements OnInit, OnDestroy {
     this.genreSub.unsubscribe();
   }
 
+  onHitEnter(event) {
+    if (event.key === 'Enter') {
+      this.isSearch = true;
+      this.movieService.getMovies( 5, 1, this.searchText, this.selectedGenre, this.selectedYear, this.selectedSort );
+    }
+  }
+
+  clearSearch() {
+    this.searchText = '';
+  }
+
 }

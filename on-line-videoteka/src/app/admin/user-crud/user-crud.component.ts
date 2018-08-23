@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { PageEvent } from '@angular/material';
@@ -11,7 +11,7 @@ import { Moment } from 'moment';
   templateUrl: './user-crud.component.html',
   styleUrls: ['./user-crud.component.css']
 })
-export class UserCrudComponent implements OnInit {
+export class UserCrudComponent implements OnInit, OnDestroy {
   textSearch = '';
   passwordChange = false;
   users: UserData[];
@@ -147,5 +147,9 @@ export class UserCrudComponent implements OnInit {
       return date.toISOString();
     }
     return date;
+  }
+
+  ngOnDestroy() {
+    this.userSub.unsubscribe();
   }
 }

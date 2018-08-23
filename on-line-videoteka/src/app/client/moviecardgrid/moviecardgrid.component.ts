@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, Subscription } from 'rxjs';
 import { Movie } from '../../models/movie.model';
@@ -11,7 +11,7 @@ import { PageEvent } from '../../../../node_modules/@angular/material';
   styleUrls: ['./moviecardgrid.component.css'],
 
 })
-export class MoviecardgridComponent implements OnInit {
+export class MoviecardgridComponent implements OnInit, OnDestroy {
   isLoading = true;
   isDataAvailable = false;
   moviesToDisplay: Movie[];
@@ -52,5 +52,10 @@ export class MoviecardgridComponent implements OnInit {
       this.moviesPerPage, this.currentPage, this.searchQuery.searchText,
       this.searchQuery.selectedGenre, this.searchQuery.selectedYear, this.searchQuery.selectedSort
     );
+  }
+
+  ngOnDestroy() {
+    this.movieSub.unsubscribe();
+    this.querySub.unsubscribe();
   }
 }

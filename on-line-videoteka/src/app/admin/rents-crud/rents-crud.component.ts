@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { UserData } from '../../userauth/user.model';
 import { Movie } from '../../models/movie.model';
@@ -16,7 +16,7 @@ import { Rent } from '../../models/rent.model';
   templateUrl: './rents-crud.component.html',
   styleUrls: ['./rents-crud.component.css']
 })
-export class RentsCrudComponent implements OnInit {
+export class RentsCrudComponent implements OnInit, OnDestroy {
   mode = 'create';
   formShow = false;
   totalRents: number;
@@ -150,7 +150,7 @@ export class RentsCrudComponent implements OnInit {
         this.rentId, this.form.value.user, this.form.value.movie, this.form.value.duration,
         this.dateString(this.form.value.rentDay)).subscribe(
           (upadateData) => {
-            this.rentsService.getRents(this.rentsPerPage, this.currentPage,this.filterByUser);
+            this.rentsService.getRents(this.rentsPerPage, this.currentPage, this.filterByUser);
           }
         );
     }
@@ -206,11 +206,17 @@ export class RentsCrudComponent implements OnInit {
   }
 
   onSearch() {
-    if (this.userFilterControl.value === ''){
+    if (this.userFilterControl.value === '') {
       this.filterByUser = '';
     }
 
     this.rentsService.getRents(this.rentsPerPage, this.currentPage, this.filterByUser);
+  }
+
+  ngOnDestroy() {
+    this.userSub.unsubscribe();
+    this.movieSub.unsubscribe();
+    this.rentSub.unsubscribe();
   }
 
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, Injectable } from '@angular/core';
+import { Component, OnInit, Injectable, OnDestroy } from '@angular/core';
 import { RoleOfMovie } from '../../models/role.model';
 import { Director, MovieService } from '../../services/movie.service';
 import { Movie } from '../../models/movie.model';
@@ -18,7 +18,7 @@ import { RentDialogComponent } from '../rent-dialog/rent-dialog.component';
   styleUrls: ['./moviedetail.component.css']
 })
 @Injectable()
-export class MoviedetailComponent implements OnInit {
+export class MoviedetailComponent implements OnInit, OnDestroy {
   isLoading = true;
   roles: RoleOfMovie[] = [];
   directors: Director[] = [];
@@ -102,4 +102,9 @@ export class MoviedetailComponent implements OnInit {
     this.dialog.open(RentDialogComponent, { data: data, maxWidth: '30%'});
   }
 
+  ngOnDestroy() {
+    this.rolesSub.unsubscribe();
+    this.directorSub.unsubscribe();
+    this.isAuthSub.unsubscribe();
+  }
 }

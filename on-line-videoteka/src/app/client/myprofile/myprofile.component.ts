@@ -20,8 +20,8 @@ Date.prototype.toString = function() {
 })
 
 export class MyprofileComponent implements OnInit {
-  private profileInfoEdit = false;
-  private passwordEdit = false;
+  profileInfoEdit = false;
+  passwordEdit = false;
   myprofile: any;
   userfirstName: string;
   userlastName: string;
