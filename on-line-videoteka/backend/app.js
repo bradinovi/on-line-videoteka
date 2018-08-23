@@ -12,7 +12,7 @@ const rentsRoutes = require('./routes/rents');
 
 const app = express();
 // mongodb+srv://borna:qsnjMteIbEfJotQS@clustermeanudemy-mcba4.mongodb.net/node-angular
-mongoose.connect('mongodb+srv://videoteka:9mD738nncgx1JjgT@videoteka-aippe.mongodb.net/test?retryWrites=true', {useNewUrlParser: true}).then(() => {
+mongoose.connect('mongodb+srv://videoteka:'+ process.env.MONGO_ACCESS + '@videoteka-aippe.mongodb.net/test?retryWrites=true', {useNewUrlParser: true}).then(() => {
   console.log('Database connected...')
 }).catch(() => {
   console.log('Connection failed! Error when connecting to database!!');

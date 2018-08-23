@@ -17,8 +17,8 @@ exports.createUser =  (req, res, next) => {
     user.save()
       .then( result => {
         console.log('CREATED USER   ' + result._id);
-        const token = jwt.sign({ userId: result._id },'email_verification_secret');
-        var link = 'http://localhost:3000/api/users/verify/' + token;
+        const token = jwt.sign({ userId: result._id }, process.env.EMAIL_ACT_SEC);
+        var link = req.protocol + '://' + req.get('host') + '/' + 'api/users/verify/' + token;
         console.log(link);
         var transporter = nodemailer.createTransport({
           service: 'gmail',
@@ -66,7 +66,7 @@ exports.loginUser = (req, res, next) => {
       } else {
         const token = jwt.sign(
           { email:userFound.email, userId: userFound._id, role: userFound.role },
-          'S7vrly7NDuMZ_R8MdDRGDddtY3iIvJ0wS7S-fgh0syUSDg3CLT9G4BqUESRRPp0YNnYQuFV6uOgbux_9CVop9cejRzJfwEGFnbaSN7QPQFAYogSar5Hrjqqnayrgs_764VrozPfpFGZeIejnuItx9x8Z8VB9uhB2vzi35co9-jmUn1KxxkmQB2-BNrjH9pf0kNJSjX4277IrYn1FOjRk-bdK3kR1ylQePgiTmzqsOXXXpVjktigYXcSRX4J_x4kP44wPKuA4w2QZHfIqo5Q_m607TlNfhuc87nLw1zhphVWYGC5DI7F7tTrfuYijvJLydMMj3XAbaW7CDcrRm5D45Q',
+          process.env.PASSWORD_SEC,
           { expiresIn: '3h'});
 
         return res.status(200).json({
@@ -235,22 +235,22 @@ exports.verifyUser = (req, res, next) => {
 
   try {
     const token = req.params.token;
-    const decodedToken = jwt.verify(token,'email_verification_secret');
+    const decodedToken = jwt.verify(token, process.env.EMAIL_ACT_SEC);
     console.log('DECODED ID:  ' +decodedToken.userId);
     User.findOneAndUpdate({ _id: decodedToken.userId}, { verified: true }).then(
       (update) => {
         console.log(update);
         if (update) {
-          res.redirect('http://localhost:4200/login?ver=1');
+          res.redirect(process.env.REDIRECT_URL + 'login?ver=1');
         } else {
-          res.redirect('http://localhost:4200/login?ver=0');
+          res.redirect(process.env.REDIRECT_URL + 'login?ver=0');
         }
       }
     )
   } catch (error) {
 
       console.log(error);
-      res.redirect('http://localhost:4200/login?error=1');
+      res.redirect(process.env.REDIRECT_URL + 'login?error=1');
 
   }
 }
