@@ -1,0 +1,52 @@
+mat-card{
+  width: 35%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 2em;
+  margin-bottom: 0.5em;
+}
+
+mat-card h3{
+  font-weight: 500;
+  font-size: 20px;
+  color: #8EFFA3;
+}
+
+mat-card p{
+
+  font-size: 18px;
+
+}
+
+.back-button{
+  width: 3em;
+}
+
+mat-form-field {
+  width: 100%;
+  display: block;
+  padding-bottom: 0.7em;
+}
+
+button {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 1.5em;
+  display: block;
+  width: 60%;
+}
+
+mat-checkbox a {
+  text-decoration: underline;
+  color: white;
+
+
+}
+mat-checkbox a:hover{
+  color: #8EFFA3;
+}
+
+.content {
+  width: 85%;
+  margin: auto;
+}

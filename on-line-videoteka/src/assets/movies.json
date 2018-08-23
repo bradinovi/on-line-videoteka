@@ -1,0 +1,78 @@
+[
+{
+	"movieTitle" : "Love, Simon",
+	"movieYear" : 2018,
+  "movieGenres" : "Comedy, Drama, Romance",
+	"moviePrice": 2,
+	"moviePosterPath" :"https://m.media-amazon.com/images/M/MV5BNTMyZDdiMzUtZjcxNS00Mjc3LTljY2UtYjI4YmY5NzJlYjc1XkEyXkFqcGdeQXVyMTA5OTkwNTc@._V1_SY1000_CR0,0,677,1000_AL_.jpg"
+},
+{
+	"movieTitle" : "Silver Linings Playbook",
+	"movieYear" : 2012,
+	"movieGenres" : "Comedy, Drama, Romance",
+	"moviePrice" : 2,
+	"moviePosterPath" : "https://m.media-amazon.com/images/M/MV5BMTM2MTI5NzA3MF5BMl5BanBnXkFtZTcwODExNTc0OA@@._V1_SY1000_CR0,0,674,1000_AL_.jpg"
+},
+{
+	"movieTitle" : "Atomic Blonde",
+	"movieYear" : 2017,
+	"movieGenres" : "Action, Mystery, Thriller",
+	"moviePrice" : 5,
+	"moviePosterPath" : "https://m.media-amazon.com/images/M/MV5BMjM5NDYzMzg5N15BMl5BanBnXkFtZTgwOTM2NDU1MjI@._V1_SY1000_CR0,0,631,1000_AL_.jpg"
+},
+{
+	"movieTitle" : "The Perks of Being a Wallflower",
+	"movieYear" : 2012,
+	"movieGenres" : "Drama, Romance",
+	"moviePrice" : 2,
+	"moviePosterPath" : "https://m.media-amazon.com/images/M/MV5BMzIxOTQyODU1OV5BMl5BanBnXkFtZTcwMDQ4Mjg4Nw@@._V1_SY1000_CR0,0,676,1000_AL_.jpg"
+},
+
+{
+	"movieTitle" : "Fight Club",
+	"movieYear" : 1999,
+	"movieGenres" : "Drama",
+	"moviePrice" : 3,
+	"moviePosterPath" : "https://m.media-amazon.com/images/M/MV5BNGM2NjQxZTAtMmU5My00YTk5LWFmOWMtYjZlYzk4YzMwNjFlXkEyXkFqcGdeQXVyNDk3NzU2MTQ@._V1_SY1000_CR0,0,666,1000_AL_.jpg"
+},
+
+{
+	"movieTitle" : "Pulp Fiction",
+	"movieYear" : 1994,
+	"movieGenres" : "Crime, Drama",
+	"moviePrice" : 1,
+	"moviePosterPath" : "https://m.media-amazon.com/images/M/MV5BNGNhMDIzZTUtNTBlZi00MTRlLWFjM2ItYzViMjE3YzI5MjljXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_SY1000_CR0,0,686,1000_AL_.jpg"
+},
+
+{
+	"movieTitle" : "Tomb Raider",
+	"movieYear" : 2018,
+	"movieGenres" : "Action, Adventure, Drama",
+	"moviePrice" : 5,
+	"moviePosterPath" : "https://m.media-amazon.com/images/M/MV5BOTY4NDcyZGQtYmVlNy00ODgwLTljYTMtYzQ2OTE3NDhjODMwXkEyXkFqcGdeQXVyNzYzODM3Mzg@._V1_SY1000_CR0,0,674,1000_AL_.jpg"
+},
+
+{
+	"movieTitle" : "Ready Player One",
+	"movieYear" : 2018,
+	"movieGenres" : "Action, Adventure, Sci-Fi ",
+	"moviePrice" : 5,
+	"moviePosterPath" : "https://m.media-amazon.com/images/M/MV5BY2JiYTNmZTctYTQ1OC00YjU4LWEwMjYtZjkwY2Y5MDI0OTU3XkEyXkFqcGdeQXVyNTI4MzE4MDU@._V1_SY1000_CR0,0,674,1000_AL_.jpg"
+},
+
+{
+	"movieTitle" : "Red Sparrow",
+	"movieYear" : 2018,
+	"movieGenres" : "Action, Drama, Thriller",
+	"moviePrice" : 4,
+	"moviePosterPath" : "https://m.media-amazon.com/images/M/MV5BMTA3MDkxOTc4NDdeQTJeQWpwZ15BbWU4MDAxNzgyNTQz._V1_SY1000_CR0,0,674,1000_AL_.jpg"
+},
+
+{
+	"movieTitle" : "Wonder Woman",
+	"movieYear" : 2017,
+	"movieGenres" : "Action, Adventure, Fantasy",
+	"moviePrice" : 4,
+	"moviePosterPath" : "https://m.media-amazon.com/images/M/MV5BNDFmZjgyMTEtYTk5MC00NmY0LWJhZjktOWY2MzI5YjkzODNlXkEyXkFqcGdeQXVyMDA4NzMyOA@@._V1_SY1000_SX675_AL_.jpg"
+}
+]

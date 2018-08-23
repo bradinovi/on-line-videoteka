@@ -1,0 +1,54 @@
+mat-card{
+  width: 35%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 0.3em;
+  margin-bottom: 0.5em;
+}
+
+mat-spinner{
+  margin: auto;
+}
+
+mat-form-field {
+  width: 100%;
+  display: block;
+  padding-bottom: 0.7em;
+}
+
+button {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 1.5em;
+  display: block;
+  width: 60%;
+}
+
+mat-checkbox a {
+  text-decoration: underline;
+  color: white;
+
+
+}
+mat-checkbox a:hover{
+  color: #8EFFA3;
+}
+
+.content {
+  width: 85%;
+  margin: auto;
+}
+
+
+
+.my-err-pass {
+  margin-bottom: 10px;
+  font-size: 12px;
+
+}
+
+.my-err-terms {
+  margin-top: 10px;
+  font-size: 12px;
+
+}

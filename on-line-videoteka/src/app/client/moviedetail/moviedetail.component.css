@@ -1,0 +1,89 @@
+.content{
+  width: 85%;
+  margin: auto;
+}
+.content-color{
+  background-color: #616161  !important;
+
+}
+
+mat-card {
+  margin-top: 1em;
+  padding-bottom: 3em;
+
+}
+
+mat-grid-tile img{
+  width: 100%;
+  display: block;
+}
+
+mat-grid-tile h1{
+  width: 100%;
+}
+
+mat-grid-tile h2{
+  width: 100%;
+}
+
+mat-icon{
+  margin-right: 3px;
+}
+
+mat-grid-tile p {
+  font-size: 20px;
+}
+.rent-btn {
+  display: block;
+  width: 20%;
+}
+
+mat-tab-group {
+  margin-top: 1em;
+}
+
+mat-list {
+  width: 95%;
+  margin: auto;
+}
+
+mat-list-item p{
+  margin-left: 50px;
+}
+
+mat-card{
+  margin-bottom: 20px;
+}
+
+mat-list-item p a{
+  color:#fff;
+  font-size: 17px;
+}
+
+
+
+mat-grid-tile div a {
+  font-size: 20px;
+  margin-top: 2em;
+  display: block;
+  color:#8EFFA3;
+}
+
+mat-spinner {
+  margin: auto;
+  width: 50%;
+}
+
+.genres{
+  display: inline;
+  margin-right: 10px;
+  font-weight: 150;
+}
+
+.admin-btns{
+  margin-top: 1.5em;
+}
+
+.admin-btns button{
+  margin-right: 1em;
+}

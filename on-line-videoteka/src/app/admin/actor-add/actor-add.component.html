@@ -1,0 +1,68 @@
+<div class="content-color">
+<div class="content">
+
+  <mat-card style="margin-bottom: 0;">
+      <mat-spinner *ngIf="isLoading" color="accent"></mat-spinner>
+      <form [formGroup]="form" (submit)="onSaveActor()"  *ngIf="!isLoading">
+      <mat-grid-list cols="5" rowHeight="380px;" >
+
+          <mat-grid-tile>
+
+            <button *ngIf="imagePreview === '' " mat-raised-button color="accent" (click)="filePicker.click()" type="button">Add Portrait</button>
+
+            <img *ngIf="imagePreview !== '' " [src]="imagePreview" [alt]="form.value.name" (click)="clearImage()">
+
+
+          </mat-grid-tile>
+          <mat-grid-tile colspan="2" class="movie-header-data">
+            <div>
+              <mat-form-field color="accent">
+                <input matInput placeholder="First name" formControlName="firstName">
+              </mat-form-field> <br>
+              <mat-form-field color="accent">
+                <input matInput placeholder="Last name" formControlName="lastName">
+              </mat-form-field>
+              <div>
+                <mat-form-field color="accent">
+                  <input matInput [matDatepicker]="pickerBorn" placeholder="Born" formControlName="born">
+                  <mat-datepicker-toggle matSuffix [for]="pickerBorn"></mat-datepicker-toggle>
+                  <mat-datepicker #pickerBorn></mat-datepicker>
+                </mat-form-field> <br>
+                <mat-form-field color="accent">
+                  <input matInput [matDatepicker]="pickerDied" placeholder="Died" formControlName="died">
+                  <mat-datepicker-toggle matSuffix [for]="pickerDied"></mat-datepicker-toggle>
+                  <mat-datepicker #pickerDied></mat-datepicker>
+                </mat-form-field>
+              </div>
+              <br>
+              <mat-form-field color="accent">
+                <mat-chip-list #chipList>
+                  <mat-chip *ngFor="let ocupation of ocupations" [selectable]="selectable"
+                           [removable]="removable" (removed)="remove(ocupation)">
+                    {{ocupation}}
+                    <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                  </mat-chip>
+                  <input placeholder="Ocupations"
+                         [matChipInputFor]="chipList"
+                         [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                         [matChipInputAddOnBlur]="addOnBlur"
+                         (matChipInputTokenEnd)="add($event)">
+                </mat-chip-list>
+              </mat-form-field>
+            </div>
+          </mat-grid-tile>
+          <mat-grid-tile colspan="2">
+            <div style="width: 90%;">
+              <mat-form-field color="accent" style="width: 100%">
+                <textarea matInput placeholder="Add bio" rows="15" style="resize: none;" formControlName="bio"></textarea>
+              </mat-form-field>
+            </div>
+          </mat-grid-tile>
+      </mat-grid-list>
+      <input type="file" #filePicker (change)="onImageChosen($event)">
+      <button class="save-button" mat-raised-button type="submit" color="accent">Save</button>
+    </form>
+
+  </mat-card>
+</div>
+</div>

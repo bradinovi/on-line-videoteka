@@ -1,0 +1,38 @@
+<mat-card *ngIf="!forgotPassword">
+    <mat-spinner *ngIf="isLoading" color="accent"></mat-spinner>
+    <mat-card-title *ngIf="!isLoading">
+      Log in
+    </mat-card-title>
+    <mat-card-content *ngIf="!isLoading">
+      <form (submit)="onLogIn(logInForm)" #logInForm="ngForm">
+        <mat-form-field color="accent">
+            <input matInput placeholder="Email" #emailInput="ngModel" name="email" ngModel email>
+        </mat-form-field>
+
+        <mat-form-field color="accent">
+          <input matInput type="password" placeholder="Password" #passwordInput="ngModel" name="password" ngModel>
+        </mat-form-field>
+        <button mat-flat-button color="accent" type="submit">Log in</button>
+      </form>
+      <p class="not-registered-link">Not registered? <a routerLink="/signup">Create an account</a> </p>
+      <a (click)="onForgotPassword()"><p class="forgot-passw-link">Forgot your password?</p></a>
+    </mat-card-content>
+</mat-card>
+<div class="content">
+<mat-card *ngIf="forgotPassword">
+
+    <mat-card-title>
+        Forgot your password?
+    </mat-card-title>
+    <mat-card-content>
+      <form (submit)="onForgotPassSubmit(forgotForm)" #forgotForm="ngForm">
+        <mat-form-field color="accent">
+            <input matInput placeholder="Email" #emailInput="ngModel" name="email" ngModel email>
+            <mat-hint align="start">Enter the email you registered with and we will send you a password reset link.</mat-hint>
+        </mat-form-field>
+        <button mat-flat-button color="accent" type="submit">Submit</button>
+      </form>
+      <button (click)="onBackToLogIn()" mat-button class="back-button" mat-mini-fab color="primary"><mat-icon>keyboard_arrow_left</mat-icon></button>
+    </mat-card-content>
+</mat-card>
+</div>

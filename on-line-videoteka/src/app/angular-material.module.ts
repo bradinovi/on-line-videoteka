@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import {MatTableModule} from '@angular/material/table';
 
 import {
   MatButtonModule,
@@ -10,16 +11,28 @@ import {
   MatChipsModule,
   MatCheckboxModule,
   MatTooltipModule,
-  MatExpansionPanel
+  MatGridListModule,
+  MatPaginatorModule,
+  MatButtonToggleModule,
+  MatSelectModule,
+  MatProgressBarModule,
+  MatListModule,
+  MatDialogModule,
+  MatProgressSpinnerModule,
+
+
+
 } from '@angular/material';
 
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 
+import {MatTabsModule} from '@angular/material/tabs';
+import {MatDividerModule} from '@angular/material/divider';
 
-
-
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 @NgModule({
   exports: [
     MatInputModule,
@@ -33,8 +46,23 @@ import { MatMomentDateModule } from '@angular/material-moment-adapter';
     MatCheckboxModule,
     MatTooltipModule,
     MatExpansionModule,
-    MatChipsModule
+    MatChipsModule,
+    MatGridListModule,
+    MatPaginatorModule,
+    MatButtonToggleModule,
+    MatSelectModule,
+    MatProgressBarModule,
+    MatTabsModule,
+    MatDividerModule,
+    MatListModule,
+    MatDialogModule,
+    MatProgressSpinnerModule,
+    MatAutocompleteModule,
+    MatTableModule,
+    MatSlideToggleModule
   ]
+
+
 })
 export class AngularMaterialModule {
 

@@ -1,0 +1,130 @@
+<div class="content-color">
+<div class="content">
+
+  <mat-card>
+      <form [formGroup]="movieForm" (submit)="saveMovie()">
+      <mat-grid-list cols="5" rowHeight="380px;" >
+          <mat-grid-tile>
+            <button *ngIf="imagePreview === '' " mat-raised-button color="accent" (click)="filePicker.click()" type="button">Add Poster</button>
+            <img *ngIf="imagePreview !== '' " [src]="imagePreview" [alt]="movieForm.value.name" (click)="clearImage()">
+          </mat-grid-tile>
+          <mat-grid-tile colspan="2" class="movie-header-data">
+            <div class="inputs-middle">
+              <mat-form-field color="accent">
+                <input matInput placeholder="Title" formControlName="title">
+              </mat-form-field> <br>
+              <mat-form-field color="accent">
+                <input matInput placeholder="Trailer Link" formControlName="trailerLink">
+              </mat-form-field> <br>
+              <mat-form-field color="accent">
+                <input matInput placeholder="Duration" type="number" formControlName="duration">
+                <span matSuffix>min</span>
+              </mat-form-field>
+              <div>
+                <mat-form-field color="accent">
+                  <input matInput [matDatepicker]="releasePicker" placeholder="Release date" formControlName="release">
+                  <mat-datepicker-toggle matSuffix [for]="releasePicker"></mat-datepicker-toggle>
+                  <mat-datepicker #releasePicker></mat-datepicker>
+                </mat-form-field> <br>
+              </div>
+              <br>
+
+</div>
+</mat-grid-tile>
+<mat-grid-tile colspan="2">
+<div style="width: 90%;">
+  <mat-form-field color="accent" style="width: 100%">
+    <textarea matInput placeholder="Short plot description" rows="15" style="resize: none;" formControlName="plot"></textarea>
+  </mat-form-field>
+</div>
+</mat-grid-tile>
+</mat-grid-list>
+<mat-form-field class="genres" color="accent">
+  <mat-chip-list #chipList>
+    <mat-chip *ngFor="let genre of movieGenres" [selectable]="selectable"
+             [removable]="removable" (removed)="removeGenre(genre)">
+      {{genre.name}}
+      <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+    </mat-chip>
+    <input placeholder="Genres"
+           #genreInput
+           [formControl]="genreControl"
+           [matAutocomplete]="auto"
+           [matChipInputFor]="chipList"
+           [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+           [matChipInputAddOnBlur]="addOnBlur"
+          >
+  </mat-chip-list>
+<mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectedGenre($event)">
+<mat-option *ngFor="let option of filteredGenres| async" [value]="option">
+{{option.name}}
+</mat-option>
+</mat-autocomplete>
+</mat-form-field>
+<input type="file" #filePicker (change)="onImageChosen($event)">
+<button class="save-button" mat-raised-button color="accent">{{saveButton}}</button>
+</form>
+</mat-card>
+    <mat-card class="roles-add">
+      <mat-card-title-group>
+        <mat-card-title>Roles</mat-card-title>
+      </mat-card-title-group>
+      <form [formGroup] = "roleForm" (submit)="onAddRole()">
+        <mat-form-field color="accent" class="actor-field">
+          <input matInput placeholder="Actor" [formControl]="actorControl" disabled={{roleDirectorFormsEnabled}}
+          [matAutocomplete]="autoActor">
+          <mat-autocomplete #autoActor="matAutocomplete"  (optionSelected)="selectedActor($event)">
+            <mat-option *ngFor="let actor of filteredActors | async" [value]="actor">
+              {{actor.firstName}} {{actor.lastName}}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+        &nbsp;&nbsp;&nbsp; - &nbsp;&nbsp;&nbsp;
+        <mat-form-field color="accent">
+          <input matInput placeholder="Role Name" formControlName="roleName">
+        </mat-form-field> &nbsp; &nbsp;
+        <button type="submit" mat-raised-button color="accent" disabled={{roleDirectorFormsEnabled}}>Add</button>
+      </form>
+      <mat-hint *ngIf="roleDirectorFormsEnabled">You can only add roles if you saved the movie</mat-hint>
+      <div *ngIf="roles.length > 0">
+        <div *ngFor="let role of roles">
+          <div class="role-container">
+          <p> {{role.actor.firstName}} {{role.actor.lastName}} - {{ role.name }}
+          </p>
+          </div>
+          <div class="role-action-containter">
+              <button mat-button (click)="onEditRole(role)" color="accent">Edit</button>
+              <button mat-button (click)="onDeleteRole(role)" color="warn">Delete</button>
+          </div>
+        </div>
+      </div>
+    </mat-card>
+    <mat-card class="directors-add">
+      <mat-card-title-group>
+        <mat-card-title>Directors</mat-card-title>
+      </mat-card-title-group>
+      <form [formGroup] = "directorForm" (submit)="onAddDirector()">
+        <mat-form-field color="accent" class="director-input">
+        <input matInput placeholder="Director" [formControl]="directorControl" disabled={{roleDirectorFormsEnabled}} [matAutocomplete]="autoDirector">
+        <mat-autocomplete #autoDirector="matAutocomplete" (optionSelected)="selectedDirector($event)">
+          <mat-option *ngFor="let actor of filteredDirectors | async" [value]="actor">
+            {{actor.firstName}} {{actor.lastName}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+      &nbsp;&nbsp;&nbsp;
+        <button mat-raised-button color="accent" disabled={{roleDirectorFormsEnabled}} type="submit">Add</button>
+      </form>
+      <mat-hint *ngIf="roleDirectorFormsEnabled">You can only add directors if you saved the movie</mat-hint>
+      <div *ngFor="let director of directors">
+          <div class="role-container">
+          <p> {{director.firstName}} {{director.lastName}}
+          </p>
+          </div>
+          <div class="role-action-containter">
+              <button mat-button (click)="onDeleteDirector(director)" color="warn">Delete</button>
+          </div>
+        </div>
+    </mat-card>
+</div>
+</div>

@@ -1,0 +1,24 @@
+<div class="content-color">
+<div class="content">
+  <h1>Active</h1>
+    <div *ngIf="isDataAvailable">
+    <mat-grid-list cols="5" rowHeight="535px">
+          <mat-grid-tile *ngFor="let moviea of moviesToDisplayAct">
+              <app-moviecard [movie]="moviea" [daysLeft]="getDaysLeft(moviea)" [myMovies]="true"></app-moviecard>
+          </mat-grid-tile>
+    </mat-grid-list>
+    </div>
+
+    <h1>Expired</h1>
+    <div *ngIf="isDataAvailable">
+        <mat-grid-list cols="5" rowHeight="535px">
+              <mat-grid-tile *ngFor="let movieb of moviesToDisplayExp">
+                <div id="outer-box">
+                  <app-moviecard [movie]="movieb"></app-moviecard>
+                  <div id="inner-box"></div>
+                </div>
+              </mat-grid-tile>
+        </mat-grid-list>
+    </div>
+</div>
+</div>

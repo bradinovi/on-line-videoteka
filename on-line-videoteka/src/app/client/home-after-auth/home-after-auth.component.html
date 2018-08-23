@@ -1,0 +1,26 @@
+<div class="content-color">
+
+  <div class="content">
+
+      <h1>Top Movies This Month</h1>
+      <mat-spinner color="accent" *ngIf="isLoadingTop"></mat-spinner>
+      <div *ngIf="!isLoadingTop">
+      <mat-grid-list cols="5" rowHeight="535px">
+            <mat-grid-tile *ngFor="let movieofmonth of topMoviesMonth">
+                <app-moviecard [movie]="movieofmonth" [likeRent]="true"></app-moviecard>
+            </mat-grid-tile>
+      </mat-grid-list>
+      </div>
+      <h1>Recent</h1>
+      <mat-spinner color="accent" *ngIf="isLoadingRecent" style="margin-top: 0;
+      margin-bottom: 0; height: 50px;"></mat-spinner>
+      <div *ngIf="!isLoadingRecent">
+      <mat-grid-list cols="5" rowHeight="535px">
+            <mat-grid-tile *ngFor="let movierecent of recentMovies">
+                <app-moviecard [movie]="movierecent" [likeRent]="true"></app-moviecard>
+            </mat-grid-tile>
+      </mat-grid-list>
+      </div>
+
+  </div>
+  </div>

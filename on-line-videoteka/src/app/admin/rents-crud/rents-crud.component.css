@@ -1,0 +1,49 @@
+.movieicon {
+  vertical-align: middle;
+  margin-right: 8px;
+}
+
+[dir='rtl'] .movieicon {
+  margin-right: 0;
+  margin-left: 8px;
+}
+
+form {
+  width: 40%;
+}
+
+.content {
+  width: 85%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 1em;
+}
+table {
+  width: 100%;
+}
+
+mat-form-field {
+  font-size: 14px;
+  width: 92%;
+}
+
+.search-btn{
+  margin-left: 0.5em;
+}
+
+.addnew-btn {
+  display: block;
+}
+
+.genre-name-input{
+  width: 20%;
+}
+
+.save-btn{
+
+  display: inline;
+}
+
+.clr-btn{
+  float: right;
+}

@@ -1,0 +1,40 @@
+mat-card {
+  margin-top: 1.5em;
+}
+
+.content-color{
+  background-color: #616161  !important;
+
+}
+
+mat-form-field{
+  width: 90%;
+}
+.serach-button {
+  margin-left: 0.7em;
+
+}
+.search{
+  width: 80%;
+  display: table;
+  margin: 0 auto;
+}
+
+.search-filter {
+  width: 10em;
+  margin-right: 2em;
+}
+
+.sort-filter{
+  width: 10em;
+}
+
+.filter-sort-spacer{
+  width: 45%;
+  display: inline-block;
+}
+
+.content{
+  width: 85%;
+  margin: auto;
+}

@@ -1,0 +1,39 @@
+mat-card {
+  width: 200px;
+  height: 480px;
+}
+
+mat-card-header{
+  height: 40px;
+}
+
+mat-card img{
+ height: 400px;
+
+}
+
+mat-icon {
+  margin-right: 0.3em;
+
+}
+
+mat-chip{
+  display: inline-block;
+  height: 2.2em;
+}
+
+.movie-link-card{
+  text-decoration: none;
+  color: inherit;
+}
+
+.time-chip p{
+  display: inline;
+  position: relative;
+  bottom: 7px;
+}
+
+
+
+
+

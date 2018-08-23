@@ -1,0 +1,28 @@
+mat-grid-list{
+  margin-left: auto;
+  margin-right: auto;
+  padding-bottom: 80px;
+  margin-top: 20px;
+}
+
+.footer {
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  z-index: 9999;
+}
+
+.content{
+  width: 85%;
+  margin: auto;
+}
+
+.icon {
+  font-size: 100px;
+}
+
+mat-spinner{
+  margin-top: 3em;
+  margin-left: auto;
+  margin-right: auto;
+}

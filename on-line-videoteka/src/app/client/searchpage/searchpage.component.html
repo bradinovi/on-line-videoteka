@@ -1,0 +1,43 @@
+<div class="content-color">
+<div class="content">
+<mat-card>
+  <div class="search">
+      <mat-form-field color="accent">
+          <input matInput type="text" placeholder="What are you watching today?" [(ngModel)]="searchText"
+          (keypress)="onHitEnter($event)">
+          <button mat-button matSuffix mat-icon-button aria-label="Clear" (click)="clearSearch()">
+            <mat-icon>close</mat-icon>
+          </button>
+      </mat-form-field>
+      <button mat-stroked-button color="accent" class="serach-button" (click)="onSearch()">Search</button>
+
+      <mat-form-field color="accent" class="search-filter" >
+          <mat-select placeholder="Genre" [(ngModel)]="selectedGenre">
+            <mat-option>None</mat-option>
+            <mat-option *ngFor="let genre of genres" value={{genre.id}}>{{genre.name}}</mat-option>
+
+          </mat-select>
+      </mat-form-field>
+
+      <mat-form-field color="accent" class="search-filter">
+          <mat-select placeholder="Year" [(ngModel)]="selectedYear">
+            <mat-option>None</mat-option>
+            <mat-option *ngFor="let year of yearNumbersField" value={{year}}>{{year}}</mat-option>
+          </mat-select>
+      </mat-form-field>
+
+      <div class="filter-sort-spacer"></div>
+
+      <mat-form-field color="accent" class="sort-filter">
+          <mat-select placeholder="Sort"  [(ngModel)]="selectedSort">
+            <mat-option>None</mat-option>
+            <mat-option value="year">Release</mat-option>
+            <mat-option value="rents">Popularity</mat-option>
+          </mat-select>
+      </mat-form-field>
+
+  </div>
+</mat-card>
+</div>
+<app-moviecardgrid *ngIf="isSearch"></app-moviecardgrid>
+</div>

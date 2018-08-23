@@ -1,0 +1,89 @@
+<div class="content">
+  <mat-card>
+
+    <h2>Users</h2>
+      <button *ngIf="!formShow" mat-button class="addnew-btn" color="accent" mat-raised-button (click)="onCreate()">Create</button>
+      <div *ngIf="formShow" class="form-containter">
+          <button mat-icon-button (click)="onCreate()" type="button" class="clr-button">
+              <mat-icon>clear</mat-icon>
+          </button>
+        <form (submit)="onSave()" [formGroup]="form">
+          <mat-form-field color="accent">
+            <input matInput placeholder="First name" formControlName="firstName">
+          </mat-form-field>
+
+          <mat-form-field color="accent">
+              <input matInput placeholder="Last name" formControlName="lastName">
+          </mat-form-field>
+          <mat-form-field color="accent">
+              <input matInput [matDatepicker]="picker" placeholder="Date of birth" formControlName="dateOfBirth">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field color="accent">
+                <input matInput placeholder="Email" formControlName="email">
+            </mat-form-field>
+          <mat-form-field color="accent">
+            <input matInput placeholder="Username" formControlName="username">
+          </mat-form-field>
+          <div class="change-password-btn">
+          <button mat-stroked-button color="accent" type="button" (click)="onChangePassword()">Change password</button>
+          <mat-form-field color="accent">
+              <input matInput placeholder="Password" formControlName="password">
+          </mat-form-field>
+          </div>
+          <mat-slide-toggle formControlName="isAdmin">Set ADMIN rights</mat-slide-toggle>
+          <button mat-button class="save-btn" color="accent" mat-raised-button type="submit">Save</button>
+        </form>
+        </div>
+
+      <mat-form-field color="accent" class="filter">
+          <input matInput placeholder="Filter" #searchInput>
+      </mat-form-field>
+      <button mat-button (click)="onSearch(searchInput)" class="search-btn" color="accent" mat-stroked-button>Search</button>
+      <table mat-table [dataSource]="users" class="mat-elevation-z8">
+          <ng-container matColumnDef="Username">
+            <th mat-header-cell *matHeaderCellDef> Username </th>
+            <td mat-cell *matCellDef="let element"> {{element.username}} </td>
+          </ng-container>
+          <ng-container matColumnDef="First Name">
+            <th mat-header-cell *matHeaderCellDef> First name </th>
+            <td mat-cell *matCellDef="let element"> {{element.firstName}} </td>
+          </ng-container>
+          <ng-container matColumnDef="Last Name">
+            <th mat-header-cell *matHeaderCellDef> Last name </th>
+            <td mat-cell *matCellDef="let element"> {{element.lastName}} </td>
+          </ng-container>
+          <ng-container matColumnDef="Email">
+            <th mat-header-cell *matHeaderCellDef> Email </th>
+            <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+          </ng-container>
+          <ng-container matColumnDef="Date of birth">
+            <th mat-header-cell *matHeaderCellDef> Date of birth </th>
+            <td mat-cell *matCellDef="let element"> {{element.dateOfBirth}} </td>
+          </ng-container>
+          <ng-container matColumnDef="Role">
+            <th mat-header-cell *matHeaderCellDef> Role </th>
+            <td mat-cell *matCellDef="let element"> {{element.role}} </td>
+          </ng-container>
+
+
+          <ng-container matColumnDef="Actions">
+              <th mat-header-cell *matHeaderCellDef> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Actions </th>
+              <td mat-cell *matCellDef="let element">
+                <button mat-button (click)="onEdit(element)" color="accent">Edit</button>
+                <button mat-button (click)="onDelete(element)" color="warn">Delete</button>
+              </td>
+            </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+        <mat-paginator
+          [length]="totalUsers"
+          [pageSize]="usersPerPage"
+          [pageSizeOptions]="pageSizeOptions"
+          (page)="onChangePage($event)"
+          showFirstLastButtons></mat-paginator>
+  </mat-card>
+</div>
