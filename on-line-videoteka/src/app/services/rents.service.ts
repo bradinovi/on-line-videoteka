@@ -5,7 +5,8 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { map } from '../../../node_modules/rxjs/operators';
 import { Rent } from '../models/rent.model';
-
+import { environment } from '../../environments/environment';
+const API_URL = environment.apiUrl;
 
 
 @Injectable({providedIn: 'root'})
@@ -19,11 +20,11 @@ export class RentService {
   }
 
   rentMovie(movieId: string, duration: number) {
-    return this.http.post<any>('http://localhost:3000/api/rents/rentmovie', { movieId: movieId, duration: duration });
+    return this.http.post<any>(API_URL + 'rents/rentmovie', { movieId: movieId, duration: duration });
   }
 
   getMyMovies() {
-    this.http.get<{message: string, mymovies: any}>('http://localhost:3000/api/rents/mymovies').pipe(
+    this.http.get<{message: string, mymovies: any}>(API_URL + 'rents/mymovies').pipe(
       map(mymoviedData => {
         return {
           mymovies: mymoviedData.mymovies.map( mymovie => {
@@ -61,7 +62,7 @@ export class RentService {
   }
 
   extendRent(rentId: string, duration: number) {
-    return this.http.patch<any>('http://localhost:3000/api/rents/extendrent', { rentId: rentId, duration: duration });
+    return this.http.patch<any>(API_URL + 'rents/extendrent', { rentId: rentId, duration: duration });
   }
 
 }

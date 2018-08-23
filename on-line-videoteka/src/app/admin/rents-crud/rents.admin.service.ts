@@ -5,7 +5,8 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { Rent } from '../../models/rent.model';
-
+import { environment } from '../../../environments/environment';
+const API_URL = environment.apiUrl;
 
 
 
@@ -20,12 +21,12 @@ export class RentAdminService {
   }
 
   rentMovie(userId: string, movieId: string, duration: number, rentDay: string) {
-    return this.http.post<any>('http://localhost:3000/api/rents',
+    return this.http.post<any>(API_URL + 'rents',
     { userId: userId, movieId: movieId, duration: duration, rentDay: rentDay });
   }
 
   updateRent(rentId: string, userId: string, movieId: string, duration: number, rentDay: string) {
-    return this.http.put<any>('http://localhost:3000/api/rents',
+    return this.http.put<any>(API_URL + 'rents',
     { rentId: rentId, userId: userId, movieId, duration: duration, rentDay: rentDay });
   }
 
@@ -35,7 +36,7 @@ export class RentAdminService {
     if (userFilter !== '') {
       userId = `&user=${userFilter}`;
     }
-    this.http.get<{message: string, rents: any, maxRents: number}>('http://localhost:3000/api/rents' + queryParams + userId).pipe(
+    this.http.get<{message: string, rents: any, maxRents: number}>(API_URL + 'rents' + queryParams + userId).pipe(
       map(mymoviedData => {
 
         return {
@@ -82,7 +83,7 @@ export class RentAdminService {
   }
 
   deleteRent(rentId: string) {
-    return this.http.delete<any>('http://localhost:3000/api/rents' + '/' + rentId);
+    return this.http.delete<any>(API_URL + 'rents' + '/' + rentId);
   }
 
 }

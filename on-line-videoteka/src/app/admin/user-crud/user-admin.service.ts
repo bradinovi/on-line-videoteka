@@ -4,7 +4,8 @@ import { AuthData, UserData } from '../../userauth/user.model';
 import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
-
+import { environment } from '../../../environments/environment';
+const API_URL = environment.apiUrl;
 
 
 @Injectable({ providedIn: 'root'})
@@ -24,7 +25,7 @@ export class UserAdminService {
     if (textSearch !== '') {
       textQuery = `&text=${textSearch}`;
     }
-    this.http.get<{message: string, users: any, maxUsers: number}>( 'http://localhost:3000/api/users' + queryParams + textQuery)
+    this.http.get<{message: string, users: any, maxUsers: number}>( API_URL + 'users' + queryParams + textQuery)
     .pipe( map((userData) => {
       return {
         users:
@@ -62,7 +63,7 @@ export class UserAdminService {
       username: username,
       dateOfBirth: dateOfBirth
     };
-    return this.http.post('http://localhost:3000/api/users/signup', userData);
+    return this.http.post(API_URL + 'users/signup', userData);
   }
 
   updateUser( id: string, email: string, password: string, firstName: string, lastName: string, username: string,
@@ -81,11 +82,11 @@ export class UserAdminService {
       userData['password'] = password;
     }
 
-    return this.http.patch('http://localhost:3000/api/users', userData);
+    return this.http.patch(API_URL + 'users', userData);
   }
 
   deleteUser( id: string) {
-    return this.http.delete('http://localhost:3000/api/users' + '/' + id);
+    return this.http.delete(API_URL + 'users' + '/' + id);
   }
 
 

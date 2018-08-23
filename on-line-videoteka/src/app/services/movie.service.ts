@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 import { map } from '../../../node_modules/rxjs/operators';
 import { Movie, MovieForAPI } from '../models/movie.model';
 import { Genre } from '../models/genre.model';
+import { environment } from '../../environments/environment';
+const API_URL = environment.apiUrl;
 
 export interface Director {
   id: string;
@@ -54,7 +56,7 @@ export class MovieService {
     movieData.append('genres', JSON.stringify({genres: genresForSend}));
     movieData.append('image', image , title);
 
-    return this.http.post<{message: string, createdMovie: any}>('http://localhost:3000/api/movies', movieData);
+    return this.http.post<{message: string, createdMovie: any}>(API_URL + 'movies', movieData);
   }
 
   updateQueryData(searchText: string,
@@ -71,7 +73,7 @@ export class MovieService {
     `&searchText=${searchText}&selectedGenre=${selectedGenre}&selectedYear=${selectedYear}&selectedSort=${selectedSort}`;
 
     console.log(searchParams + queryParams);
-    this.http.get<{message: string, movies: any, maxPosts: number}>( 'http://localhost:3000/api/movies' + queryParams + searchParams)
+    this.http.get<{message: string, movies: any, maxPosts: number}>( API_URL + 'movies' + queryParams + searchParams)
     .pipe( map((movieData) => {
       return {
         movies:
@@ -116,7 +118,7 @@ export class MovieService {
       posterPath: string,
       rents: number
 
-    }>('http://localhost:3000/api/movies' + '/' + movieId);
+    }>(API_URL + 'movies' + '/' + movieId);
   }
 
 
@@ -153,28 +155,28 @@ export class MovieService {
       rents: rents
     };
   }
-    return this.http.put('http://localhost:3000/api/movies', movieData);
+    return this.http.put(API_URL + 'movies', movieData);
   }
 
   deleteMovie(movieId: string) {
-    return this.http.delete('http://localhost:3000/api/movies' + '/' + movieId);
+    return this.http.delete(API_URL + 'movies' + '/' + movieId);
   }
 
   addDirector(movieId: string, directorId: string) {
-    return this.http.post('http://localhost:3000/api/movies/director' + '/' + movieId, { actorId: directorId });
+    return this.http.post(API_URL + 'movies/director' + '/' + movieId, { actorId: directorId });
   }
 
   deleteDirector(movieId: string, directorId: string) {
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' }), body: { actorId: directorId }
   };
-    return this.http.delete('http://localhost:3000/api/movies/director' + '/' + movieId, httpOptions);
+    return this.http.delete(API_URL + 'movies/director' + '/' + movieId, httpOptions);
   }
 
   getMovieDirectors(movieId: string) {
     this.http.get<
     { directors: { directors: any, _id: string, title: string } }
-    >('http://localhost:3000/api/movies/director' + '/' + movieId).pipe(
+    >(API_URL + 'movies/director' + '/' + movieId).pipe(
       map(directorData => {
         return {
           movieId: directorData.directors._id,
@@ -202,11 +204,11 @@ export class MovieService {
   }
 
   getRecentMovies(number: number) {
-    return this.http.get<any>('http://localhost:3000/api/movies/homepage/recent' + '?pagesize=' + number);
+    return this.http.get<any>(API_URL + 'movies/homepage/recent' + '?pagesize=' + number);
   }
 
   getTopMonthlyMovies(number: number) {
-    return this.http.get<any>('http://localhost:3000/api/rents/topmonth' + '?pagesize=' + number);
+    return this.http.get<any>(API_URL + 'rents/topmonth' + '?pagesize=' + number);
   }
 
 }

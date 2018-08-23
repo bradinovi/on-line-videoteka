@@ -5,7 +5,8 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { map } from '../../../node_modules/rxjs/operators';
 import { RoleOfMovie, RoleOfActor } from '../models/role.model';
-
+import { environment } from '../../environments/environment';
+const API_URL = environment.apiUrl;
 
 @Injectable({providedIn: 'root'})
 export class RoleService {
@@ -30,11 +31,11 @@ export class RoleService {
       actor: actorId,
       name: name
    };
-    return this.http.post<{message: string, genre: Actor}>('http://localhost:3000/api/roles', roleData);
+    return this.http.post<{message: string, genre: Actor}>(API_URL + 'roles', roleData);
   }
 
   getRolesForMovie(movieId: string) {
-    this.http.get<{message: string, roles: any, maxRoles: number}>( 'http://localhost:3000/api/roles/movie/' + movieId)
+    this.http.get<{message: string, roles: any, maxRoles: number}>( API_URL + 'roles/movie/' + movieId)
     .pipe( map((roleData) => {
       return {
         roles:
@@ -58,7 +59,7 @@ export class RoleService {
   }
 
   getRolesForActor(actorId: string) {
-    this.http.get<{message: string, roles: any, maxRoles: number}>( 'http://localhost:3000/api/roles/actor/' + actorId)
+    this.http.get<{message: string, roles: any, maxRoles: number}>( API_URL + 'roles/actor/' + actorId)
     .pipe( map((roleData) => {
       return {
         roles:
@@ -88,10 +89,10 @@ export class RoleService {
         name: name
      };
      console.log(roleData);
-    return this.http.put('http://localhost:3000/api/roles', roleData);
+    return this.http.put(API_URL + 'roles', roleData);
   }
 
   deleteRole(roleId: string) {
-    return this.http.delete('http://localhost:3000/api/roles' + '/' + roleId);
+    return this.http.delete(API_URL + 'roles' + '/' + roleId);
   }
 }

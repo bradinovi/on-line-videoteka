@@ -4,11 +4,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { map } from '../../../node_modules/rxjs/operators';
+import { environment } from '../../environments/environment';
 
 export interface Directed {
   id: string;
   title: string;
 }
+
+const API_URL = environment.apiUrl;
 
 @Injectable({providedIn: 'root'})
 export class ActorService {
@@ -43,7 +46,7 @@ export class ActorService {
     postData.append('bio', bio);
     postData.append('image', portrait, firstName + lastName);
 
-    this.http.post<{message: string, actor: Actor}>('http://localhost:3000/api/actors', postData).subscribe((responseData) => {
+    this.http.post<{message: string, actor: Actor}>( API_URL + 'api/actors', postData).subscribe((responseData) => {
       console.log(responseData.message);
       console.log(responseData.actor);
       this.router.navigate(['admin/actors']);
@@ -56,7 +59,7 @@ export class ActorService {
     if (textSearch !== '') {
       textQuery = `&text=${textSearch}`;
     }
-    this.http.get<{message: string, actors: any, maxActors: number}>( 'http://localhost:3000/api/actors' + queryParams + textQuery)
+    this.http.get<{message: string, actors: any, maxActors: number}>( API_URL + 'actors' + queryParams + textQuery)
     .pipe( map((actorData) => {  // converts atribute name _id to id
       return {
         actors:
@@ -99,7 +102,7 @@ export class ActorService {
         roles: string[],
         directed: string[]
       }
-    >('http://localhost:3000/api/actors' + '/' + actorId);
+    >(API_URL + 'actors' + '/' + actorId);
   }
 
   updateActor(
@@ -142,19 +145,19 @@ export class ActorService {
       }
       console.log('----ACTOR DATA ----');
       console.log(actorData);
-      this.http.put('http://localhost:3000/api/actors', actorData).subscribe((response) => {
+      this.http.put(API_URL + 'actors', actorData).subscribe((response) => {
         this.router.navigate(['admin/actors']);
       });
   }
 
   deleteActor(actorId: string) {
-    return this.http.delete('http://localhost:3000/api/actors' + '/' + actorId);
+    return this.http.delete(API_URL + 'actors' + '/' + actorId);
   }
 
   getActorDirected(actorId: string) {
     this.http.get<
     { directed: { directed: any } , _id: string, firstName: string, lastName: string }
-    >('http://localhost:3000/api/actors/directed' + '/' + actorId).pipe(
+    >(API_URL + 'actors/directed' + '/' + actorId).pipe(
       map(directedData => {
         return {
           firstName: directedData.firstName,

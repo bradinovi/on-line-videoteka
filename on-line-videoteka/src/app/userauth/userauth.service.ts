@@ -3,8 +3,9 @@ import { HttpClient } from '@angular/common/http';
 import { AuthData, UserData } from './user.model';
 import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
+import { environment } from '../../environments/environment';
+const API_URL = environment.apiUrl;
 
-import { apiLinks } from '../API-links';
 
 @Injectable({ providedIn: 'root'})
 export class AuthService {
@@ -42,7 +43,7 @@ export class AuthService {
   }
 
   getUserData() {
-    return this.http.get<any>('http://localhost:3000/api/users/myprofile');
+    return this.http.get<any>(API_URL + 'users/myprofile');
   }
 
   createUser( email: string, password: string, firstName: string, lastName: string, username: string, dateOfBirth: string) {
@@ -53,7 +54,7 @@ export class AuthService {
       lastName: lastName,
       username: username,
       dateOfBirth: dateOfBirth };
-    return this.http.post(apiLinks.register, userData).subscribe(() => {
+    return this.http.post(API_URL + 'users/signup', userData).subscribe(() => {
       this.router.navigate(['/']);
     }, error => {
       this.authStatusListener.next(false);
@@ -61,12 +62,12 @@ export class AuthService {
   }
 
   forgotPassword(email: string) {
-    return this.http.post<any>('http://localhost:3000/api/users/forgotpassword', { email: email });
+    return this.http.post<any>(API_URL + 'users/forgotpassword', { email: email });
   }
 
   login(email: string, password: string) {
     const authData: AuthData = { email: email, password: password };
-    this.http.post<{token: string, expiresIn: number, userId: string, role: string}>(apiLinks.login, authData)
+    this.http.post<{token: string, expiresIn: number, userId: string, role: string}>(API_URL + 'users/login', authData)
     .subscribe( response => {
       console.log(response);
       const token = response.token;
@@ -120,11 +121,11 @@ export class AuthService {
   }
 
   changePassword(email: string, newPass: string, oldPass: string) {
-    return this.http.patch<any>('http://localhost:3000/api/users/userpass', { email: email, oldPassword: oldPass, newPassword: newPass });
+    return this.http.patch<any>(API_URL + 'users/userpass', { email: email, oldPassword: oldPass, newPassword: newPass });
   }
 
   changeUserInfo(username: string, firstName: string, lastName: string, dateOfBirth: string) {
-    return this.http.patch<any>('http://localhost:3000/api/users/userinfo',
+    return this.http.patch<any>(API_URL + 'users/userinfo',
     { firstName: firstName, lastName: lastName, username: username, dateOfBirth: dateOfBirth });
   }
 
