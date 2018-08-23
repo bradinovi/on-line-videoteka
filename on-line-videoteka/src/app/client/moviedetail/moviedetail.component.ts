@@ -10,6 +10,7 @@ import * as moment from 'moment';
 import { MatDialog } from '@angular/material';
 import { MovieDeleteDialogComponent } from './movie-delete-dialog/movie-delete-dialog.component';
 import { AuthService } from '../../userauth/userauth.service';
+import { RentDialogComponent } from '../rent-dialog/rent-dialog.component';
 
 @Component({
   selector: 'app-moviedetail',
@@ -90,6 +91,15 @@ export class MoviedetailComponent implements OnInit {
 
   onDeleteMovie() {
     const dialogRef = this.dialog.open(MovieDeleteDialogComponent, { data: { id: this.movie.id } });
+  }
+
+  onRent() {
+    const data = {
+      movieId: this.movie.id,
+      posterPath: this.movie.posterPath,
+      title: this.movie.title
+    };
+    this.dialog.open(RentDialogComponent, { data: data, maxWidth: '30%'});
   }
 
 }

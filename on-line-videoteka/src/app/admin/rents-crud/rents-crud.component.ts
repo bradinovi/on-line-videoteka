@@ -206,6 +206,10 @@ export class RentsCrudComponent implements OnInit {
   }
 
   onSearch() {
+    if (this.userFilterControl.value === ''){
+      this.filterByUser = '';
+    }
+
     this.rentsService.getRents(this.rentsPerPage, this.currentPage, this.filterByUser);
   }
 

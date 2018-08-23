@@ -3,8 +3,14 @@
   margin: auto;
 }
 
+.content-color{
+  background-color: #616161  !important;
+
+}
+
 mat-card {
   margin-top: 1em;
+  padding-bottom: 3em;
 }
 
 mat-grid-tile img{

@@ -40,6 +40,8 @@ import { MovieDeleteDialogComponent } from './client/moviedetail/movie-delete-di
 import { RentDialogComponent } from './client/rent-dialog/rent-dialog.component';
 import { AuthInterceptor } from './userauth/auth-intercept';
 import { HomeAfterAuthComponent } from './client/home-after-auth/home-after-auth.component';
+import {ToasterService, ToasterModule} from 'angular2-toaster';
+import { ErrorInterceptor } from './error-interceptor';
 
 
 
@@ -82,12 +84,14 @@ export const MY_FORMATS = {
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ToasterModule.forRoot()
   ],
   providers: [
     {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
     {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
-    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}
+    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}
   ],
   bootstrap: [AppComponent],
   entryComponents: [FullBioComponent, MovieDeleteDialogComponent, RentDialogComponent]

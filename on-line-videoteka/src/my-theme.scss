@@ -1,5 +1,5 @@
 @import '~@angular/material/theming';
-
+@import 'node_modules/angular2-toaster/src/toaster';
 @include mat-core();
 
 $my-theme-primary: mat-palette($mat-mydarkgrey);

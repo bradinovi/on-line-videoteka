@@ -55,14 +55,14 @@ exports.loginUser = (req, res, next) => {
   User.findOne({ email: req.body.email, verified: true }).then( user => {
     if(!user){
       console.log('email or activated');
-      return res.status(401).json({ massage: 'Auth failed email not registerd or activated.' });
+      return res.status(401).json({ error: 'Email not registered or activated.' });
     }
     userFound = user;
     return bcrypt.compare(req.body.password, user.password);
   }).then(result => {
     if(typeof(result) !== 'object') {
       if(!result){
-        return res.status(401).json({ massage: 'Auth failed' });
+        return res.status(401).json({ error: 'Wrong password' });
       } else {
         const token = jwt.sign(
           { email:userFound.email, userId: userFound._id, role: userFound.role },

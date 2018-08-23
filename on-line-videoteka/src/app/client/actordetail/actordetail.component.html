@@ -1,6 +1,7 @@
+<div class="content-color">
 <div class="content">
 
-    <mat-card>
+    <mat-card style="margin-bottom: 0;">
         <mat-spinner *ngIf="isLoading" color="accent"></mat-spinner>
         <mat-grid-list cols="5" rowHeight="380px;" *ngIf="!isLoading">
             <mat-grid-tile>
@@ -23,7 +24,7 @@
             </mat-grid-tile>
             <mat-grid-tile colspan="2">
               <div style="width: 90%;">
-              <p>
+              <p *ngIf="actorBio !== ''">
                  {{actorBio}}
               </p>
               <button mat-raised-button (click)="openDialog()" color="accent">Read More</button>
@@ -55,4 +56,5 @@
     </mat-card>
 
 
-    </div>
+</div>
+</div>

@@ -35,7 +35,7 @@
               <td mat-cell *matCellDef="let element">
                 <button mat-button (click)="onEdit(element)" color="accent">Edit</button>
                 <button mat-button (click)="onDelete(element)" color="warn">Delete</button>
-                <button mat-button (click)="onViewPage(element)">View Page</button>
+                <button mat-button [routerLink]="['/actordetail',element.id]">View Page</button>
               </td>
             </ng-container>
 

@@ -11,7 +11,7 @@ exports.getActors = (req, res, next) => {
   } else {
     actorQuery = Actor.find();
   }
-
+  actorQueryCount = Actor.count(actorQuery);
   if (pageSize && currentPage) {
     actorQuery
       .skip(pageSize * (currentPage - 1))
@@ -19,7 +19,7 @@ exports.getActors = (req, res, next) => {
   }
   actorQuery.then((documents) => {
     fetchedActors = documents;
-    return Actor.count(actorQuery);
+    return actorQueryCount;
   })
   .then( count => {
     res.json({

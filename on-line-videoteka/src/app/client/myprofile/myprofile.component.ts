@@ -94,6 +94,13 @@ export class MyprofileComponent implements OnInit {
       data => {
         console.log(data);
         this.profileInfoEdit = false;
+        this.authService.getUserData().subscribe(
+          (dataUpdated) => {
+            this.myprofile = dataUpdated.myprofile;
+            this.isLoading = false;
+            this.dateOfBirth = new Date(data.myprofile.dateOfBirth);
+          }
+        );
       }
     );
   }

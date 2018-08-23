@@ -17,7 +17,19 @@ export class HomeAfterAuthComponent implements OnInit {
   ngOnInit() {
     this.movieService.getRecentMovies(5).subscribe(
       data => {
-        this.recentMovies = data.movies;
+        this.recentMovies = data.movies.map( movie => {
+          return {
+            id: movie._id,
+            title: movie.title,
+            release: movie.release,
+            duration: movie.duration,
+            trailerLink: movie.trailerLink,
+            plotsum: movie.plotSum,
+            genres: movie.genres,
+            posterPath: movie.posterPath,
+            rents: movie.rents
+          };
+        });
         this.isLoadingRecent = false;
 
       }
@@ -25,7 +37,19 @@ export class HomeAfterAuthComponent implements OnInit {
 
     this.movieService.getTopMonthlyMovies(5).subscribe(
       data => {
-        this.topMoviesMonth = data.topmonth;
+        this.topMoviesMonth = data.topmonth.map( movie => {
+          return {
+            id: movie._id,
+            title: movie.title,
+            release: movie.release,
+            duration: movie.duration,
+            trailerLink: movie.trailerLink,
+            plotsum: movie.plotSum,
+            genres: movie.genres,
+            posterPath: movie.posterPath,
+            rents: movie.rents
+          };
+        });;
         this.isLoadingTop = false;
 
       }
