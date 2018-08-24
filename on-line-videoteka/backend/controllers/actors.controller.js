@@ -164,7 +164,6 @@ exports.getDirectedByActor = (req, res, next) => {
 
   Actor.find({_id:actorId},'firstName lastName').populate({ path: 'directed', select: 'title _id' }).then(
     (directed) => {
-      console.log(directed);
       res.status(200).json({
         directed: directed[0]
       });

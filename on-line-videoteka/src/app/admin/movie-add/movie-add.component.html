@@ -3,7 +3,7 @@
 
   <mat-card>
       <form [formGroup]="movieForm" (submit)="saveMovie()">
-      <mat-grid-list cols="5" rowHeight="380px;" >
+      <mat-grid-list cols="5" rowHeight="380px" >
           <mat-grid-tile>
             <button *ngIf="imagePreview === '' " mat-raised-button color="accent" (click)="filePicker.click()" type="button">Add Poster</button>
             <img *ngIf="imagePreview !== '' " [src]="imagePreview" [alt]="movieForm.value.name" (click)="clearImage()">

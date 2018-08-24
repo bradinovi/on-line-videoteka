@@ -54,7 +54,7 @@
               <mat-tab label="Directors">
                   <mat-list>
                     <div *ngFor="let director of directors">
-                      <mat-list-item><img mat-card-avatar src={{director.portraitPath}}><p> <a [routerLink]="['/actordetail',director.id]">{{director.firstName}} {{director.lastName}} </a></p></mat-list-item>
+                      <mat-list-item><p> <a [routerLink]="['/actordetail',director.id]">{{director.firstName}} {{director.lastName}} </a></p></mat-list-item>
                       <mat-divider></mat-divider>
                     </div>
                   </mat-list>

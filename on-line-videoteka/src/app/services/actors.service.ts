@@ -60,7 +60,8 @@ export class ActorService {
       textQuery = `&text=${textSearch}`;
     }
     this.http.get<{message: string, actors: any, maxActors: number}>( API_URL + 'actors' + queryParams + textQuery)
-    .pipe( map((actorData) => {  // converts atribute name _id to id
+    .pipe( map((actorData) => {
+        // converts atribute name _id to id
       return {
         actors:
         actorData.actors.map( actor => {
@@ -156,16 +157,16 @@ export class ActorService {
 
   getActorDirected(actorId: string) {
     this.http.get<
-    { directed: { directed: any } , _id: string, firstName: string, lastName: string }
-    >(API_URL + 'actors/directed' + '/' + actorId).pipe(
+    any>(API_URL + 'actors/directed' + '/' + actorId).pipe(
       map(directedData => {
+        console.log(directedData);
         return {
           firstName: directedData.firstName,
           directed: directedData.directed.directed.map(
-            (director => {
+            (movie => {
               return {
-                id: director._id,
-                title: director.title
+                id: movie._id,
+                title: movie.title
               };
             })
           )

@@ -15,7 +15,7 @@ import { Actor } from '../../models/actor.model';
 import { ActorService } from '../../services/actors.service';
 import { RoleService } from '../../services/roles.service';
 import { RoleOfMovie } from '../../models/role.model';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 
 
 
@@ -66,7 +66,7 @@ export class MovieAddComponent implements OnInit, OnDestroy {
   @ViewChild('genreInput') genreInput: ElementRef;
   constructor( private genreService: GenreService, private movieService: MovieService,
     private actorsService: ActorService, private roleService: RoleService,
-    public route: ActivatedRoute) {
+    public route: ActivatedRoute, private router: Router) {
     this.rolesSub = this.roleService.getrolesOfMovieUpdatedListener().subscribe(
       (roleData: {roles: RoleOfMovie[], roleCount: number}) => {
         this.roles = roleData.roles;
@@ -225,6 +225,9 @@ export class MovieAddComponent implements OnInit, OnDestroy {
   }
 
   saveMovie() {
+    if (this.saveButton === 'Finish') {
+      this.router.navigate(['moviedetail', this.movie.id]);
+    }
     console.log(this.movieForm);
     console.log(this.selectedGenre);
     if ( this.mode === 'create') {
@@ -269,12 +272,10 @@ export class MovieAddComponent implements OnInit, OnDestroy {
   }
 
   onAddRole() {
-
-    console.log(this.roleForm.value);
-    console.log(this.createdMovieId);
     if (this.roleMode === 'create') {
       this.roleService.addRole(this.roleForm.value.roleName, this.roleForm.value.actor, this.createdMovieId).subscribe((response) => {
         this.roleService.getRolesForMovie(this.createdMovieId);
+        this.actorControl.setValue('');
       });
     } else {
       this.roleService.updateRole(this.roleToEdit, this.roleForm.value.actor, this.createdMovieId, this.roleForm.value.roleName)
@@ -331,6 +332,7 @@ export class MovieAddComponent implements OnInit, OnDestroy {
     this.movieService.addDirector( this.createdMovieId, this.directorForm.value.director ).subscribe(
       (res) => {
         console.log(res);
+        this.directorControl.setValue('');
         this.movieService.getMovieDirectors(this.createdMovieId);
       }
     );
