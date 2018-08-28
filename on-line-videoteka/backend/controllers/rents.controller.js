@@ -87,7 +87,7 @@ exports.getRents = (req, res, next) => {
   if(req.query.user) {
     rentQuery = Rent.find({ user: req.query.user});
   }
-
+  const countRents = Rent.count(rentQuery);
   if (pageSize && currentPage) {
     rentQuery
       .skip(pageSize * (currentPage - 1))
@@ -97,7 +97,7 @@ exports.getRents = (req, res, next) => {
 
   rentQuery.then((documents) => {
     fetchedRents = documents;
-    return Rent.count();
+    return countRents;
   }).then(
     count => {
       res.status(200).json(

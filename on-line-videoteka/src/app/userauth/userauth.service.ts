@@ -69,7 +69,6 @@ export class AuthService {
     const authData: AuthData = { email: email, password: password };
     this.http.post<{token: string, expiresIn: number, userId: string, role: string}>(API_URL + 'users/login', authData)
     .subscribe( response => {
-      console.log(response);
       const token = response.token;
       this.token = token;
       if (token) {
@@ -81,7 +80,6 @@ export class AuthService {
         const now = new Date();
         const expirationDate = new Date(now.getTime() + expiresInDuration * 1000);
         this.saveAuthData(token, expirationDate, response.userId, response.role);
-        console.log(response);
         this.router.navigate(['/userhome']);
       }
     }, error => {
@@ -170,7 +168,6 @@ export class AuthService {
   }
 
   private setAuthTimer(duration: number) {
-    console.log('Setting timer: ' + duration);
     this.tokenTimer = setTimeout(() => {
       this.logout();
     }, duration * 1000);

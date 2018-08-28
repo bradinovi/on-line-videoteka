@@ -25,12 +25,10 @@ export class RentDialogComponent implements OnInit {
   }
 
   onConfirm(duration) {
-    console.log(duration);
     if (!this.exists) {
       this.rentService.rentMovie(this.data.movieId, duration).subscribe(
         (rentData) => {
           if (rentData.rentId) {
-            console.log(rentData.rentId);
             this.rentId = rentData.rentId;
             this.exists = true;
           } else {
@@ -42,7 +40,6 @@ export class RentDialogComponent implements OnInit {
     } else {
       this.rentService.extendRent(this.rentId, duration).subscribe(
         rentExtendData => {
-          console.log(rentExtendData);
           this.router.navigate(['/mymovies']);
             this.dialogRef.close();
         }

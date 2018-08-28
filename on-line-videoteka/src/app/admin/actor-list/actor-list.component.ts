@@ -51,9 +51,7 @@ export class ActorListComponent implements OnInit, OnDestroy {
   }
 
   onDelete(element) {
-    console.log(element);
     this.actorsService.deleteActor(element.id).subscribe((response) => {
-      console.log(response);
       this.actorsService.getActors(this.actorsPerPage, this.currentPage, this.textSearch);
     });
   }

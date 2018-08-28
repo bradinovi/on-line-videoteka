@@ -46,7 +46,16 @@ exports.createUser =  (req, res, next) => {
         });
 
 
-      })
+      }).catch(
+        error => {
+          if(error.errors.email){
+            res.status(500).json({ error: "Email already registered"});
+          }
+          if(error.errors.username){
+            res.status(500).json({ error: "Username already registered"});
+          }
+        }
+      )
   });
 }
 
@@ -205,7 +214,7 @@ exports.getUsers = (req, res, next) => {
   } else {
     userQuery = User.find({}, { password: 0});
   }
-
+  const count = User.count(userQuery);
   if (pageSize && currentPage) {
     userQuery
       .skip(pageSize * (currentPage - 1))
@@ -215,7 +224,7 @@ exports.getUsers = (req, res, next) => {
   userQuery.then(
     (usersData) => {
       fetchedUsers = usersData;
-      return User.count(userQuery);
+      return count;
     }
   ).then(
     count => {
@@ -256,7 +265,7 @@ exports.verifyUser = (req, res, next) => {
 }
 
 exports.issueNewPassword = (req, res, next) => {
-  const newPasswordString = Math.random().toString(36).substring(0,20);
+  const newPasswordString =  Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
   bcrypt.hash(newPasswordString, 10).then( hash => {
     User.findOneAndUpdate({ email: req.body.email },{ password: hash}).then(
       (data) => {
@@ -301,6 +310,30 @@ exports.getUserInfo = (req, res, next) => {
           myprofile: userData
         }
       );
+    }
+  );
+}
+
+exports.verifyOrDeactivateUser = (req, res, next) => {
+  const userId = req.params.id;
+  User.findById(userId).then(
+    userData => {
+      if(userData) {
+
+        let value = true;
+        if(userData.verified){
+          value = false;
+        }
+        User.findOneAndUpdate( { _id: userId }, { verified: value }).then(
+          oldUserData => {
+            console.log(oldUserData);
+            res.status(200).json({message: 'User verified'});
+          }
+        )
+
+      }else {
+        res.status(500).json({error: "User does not exist"});
+      }
     }
   );
 }

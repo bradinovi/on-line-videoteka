@@ -71,7 +71,6 @@ export class RentAdminService {
       )
     ).subscribe(
       transformedMyMovieData => {
-        console.log(transformedMyMovieData.rents);
         this.rentsUpdated.next(
           {
             rents: transformedMyMovieData.rents,

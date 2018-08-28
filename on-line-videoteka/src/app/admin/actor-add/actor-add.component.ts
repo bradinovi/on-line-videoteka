@@ -51,7 +51,6 @@ export class ActorAddComponent implements OnInit {
         this.actorId = param.get('id');
         this.isLoading = true;
         this.actorsService.getActor(this.actorId).subscribe((actorData) => {
-          console.log(actorData);
           this.actor = {
             id: actorData._id,
             firstName: actorData.firstName,
@@ -112,7 +111,6 @@ export class ActorAddComponent implements OnInit {
   }
 
   onImageChosen(event: Event) {
-    console.log('a');
     const file = (event.target as HTMLInputElement).files[0]; // this stores a file object
     this.form.value.image = event.target;
     this.form.patchValue({'image': file});

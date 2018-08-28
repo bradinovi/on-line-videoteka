@@ -51,7 +51,6 @@ export class RentsCrudComponent implements OnInit, OnDestroy {
       (rentData) => {
         this.rents = rentData.rents;
         this.totalRents = rentData.count;
-        console.log(this.rents);
       }
     );
     this.rentsService.getRents(this.rentsPerPage, this.currentPage, this.filterByUser);
@@ -71,7 +70,7 @@ export class RentsCrudComponent implements OnInit, OnDestroy {
 
       }
     );
-    this.userService.getUsers(5, 1, '');
+    this.userService.getUsers(0, 1, '');
 
     this.movieSub = this.movieService.getMovieUpdateListener().subscribe(
       movieData => {
@@ -94,7 +93,6 @@ export class RentsCrudComponent implements OnInit, OnDestroy {
   }
 
   private _filterUsers(value: any): UserData[] {
-    // console.log(value);
     const filterUsers: UserData[] = [];
     if (typeof(value) === 'string') {
       const filterValue = value.toLowerCase();

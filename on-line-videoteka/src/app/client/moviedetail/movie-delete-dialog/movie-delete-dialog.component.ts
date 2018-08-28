@@ -25,7 +25,6 @@ export class MovieDeleteDialogComponent implements OnInit {
   onYes() {
     this.movieService.deleteMovie(this.data.id).subscribe(
       (res) => {
-        console.log(res);
         this.router.navigate(['/searchpage']);
         this.dialogRef.close();
       }

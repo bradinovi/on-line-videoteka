@@ -72,7 +72,6 @@ export class MovieService {
     const searchParams =
     `&searchText=${searchText}&selectedGenre=${selectedGenre}&selectedYear=${selectedYear}&selectedSort=${selectedSort}`;
 
-    console.log(searchParams + queryParams);
     this.http.get<{message: string, movies: any, maxPosts: number}>( API_URL + 'movies' + queryParams + searchParams)
     .pipe( map((movieData) => {
       return {
@@ -130,7 +129,6 @@ export class MovieService {
     genres.forEach(genre => {
       genresForSend.push(genre.id);
     });
-    console.log(genres);
     if (typeof(image) === 'object') {
       movieData = new FormData();
       movieData.append('id', movieId);

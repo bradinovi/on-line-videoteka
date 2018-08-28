@@ -40,7 +40,6 @@ export class LoginComponent implements OnInit, OnDestroy {
 
     this.authService.forgotPassword(forgotForm.value.email).subscribe(
       (res) => {
-        console.log(res);
         this.forgotPassword = false;
       }
     );

@@ -35,7 +35,6 @@ exports.getActors = (req, res, next) => {
 }
 
 exports.getActor = (req, res, next) => {
-  console.log('getactor');
   Actor.findById(req.params.id).then( actor => {
     if(actor){
       res.status(200).json(actor);
@@ -50,7 +49,6 @@ exports.getActor = (req, res, next) => {
 }
 
 exports.addActor = (req, res, next) => {
-  console.log(req.body);
   const url = req.protocol + '://' + req.get("host");
   let born = null;
   let died = null;

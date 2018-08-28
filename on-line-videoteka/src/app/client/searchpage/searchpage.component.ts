@@ -48,11 +48,6 @@ export class SearchpageComponent implements OnInit, OnDestroy {
   }
 
   onSearch() {
-    /*
-    console.log(this.searchText);
-    console.log(this.selectedGenre);
-    console.log(this.selectedYear);
-    console.log(this.selectedSort); */
     this.isSearch = true;
     this.movieService.getMovies( 5, 1, this.searchText, this.selectedGenre, this.selectedYear, this.selectedSort );
 

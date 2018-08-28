@@ -26,11 +26,9 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.isAuthSub = this.authService.getIsAdminStatusListener().subscribe(
       isAdmin => {this.isAdmin = isAdmin; console.log(isAdmin); }
     );
-    console.log(this.isAdmin);
   }
 
   onSearchFocused() {
-    console.log('tedasdasdas');
     this.searchIconColor = 'accent';
   }
 

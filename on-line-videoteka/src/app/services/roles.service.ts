@@ -88,7 +88,6 @@ export class RoleService {
         actor: actorId,
         name: name
      };
-     console.log(roleData);
     return this.http.put(API_URL + 'roles', roleData);
   }
 

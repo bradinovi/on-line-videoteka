@@ -67,7 +67,6 @@ export class MyprofileComponent implements OnInit {
 
   onChangeInfoBtn() {
     this.profileInfoEdit = true;
-    console.log(this.myprofile.firstName);
     this.profileInfoForm.setValue(
       {
         'firstName': this.myprofile.firstName,
@@ -92,7 +91,6 @@ export class MyprofileComponent implements OnInit {
     this.authService.changeUserInfo(this.profileInfoForm.value.username, this.profileInfoForm.value.firstName
     , this.profileInfoForm.value.lastName, this.dateString(this.profileInfoForm.value.dateOfBirth)).subscribe(
       data => {
-        console.log(data);
         this.profileInfoEdit = false;
         this.authService.getUserData().subscribe(
           (dataUpdated) => {
@@ -106,9 +104,7 @@ export class MyprofileComponent implements OnInit {
   }
 
   onPasswordChange() {
-    console.log('BLA');
     if (this.passwordForm.value.newPassword !== this.passwordForm.value.newPasswordConfirm) {
-      console.log('pass not matching');
       this.passwordsNotMatchingErr = true;
       return;
     } else { this.passwordsNotMatchingErr = false; }
@@ -120,7 +116,6 @@ export class MyprofileComponent implements OnInit {
     this.authService.changePassword(this.myprofile.email, this.passwordForm.value.newPassword, this.passwordForm.value.oldPassword)
     .subscribe(
       res => {
-        console.log(res);
         this.passwordEdit = false;
       }
     );

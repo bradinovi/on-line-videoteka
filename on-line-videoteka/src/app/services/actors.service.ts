@@ -47,8 +47,6 @@ export class ActorService {
     postData.append('image', portrait, firstName + lastName);
 
     this.http.post<{message: string, actor: Actor}>( API_URL + 'api/actors', postData).subscribe((responseData) => {
-      console.log(responseData.message);
-      console.log(responseData.actor);
       this.router.navigate(['admin/actors']);
     });
   }
@@ -116,11 +114,8 @@ export class ActorService {
       bio: string,
       portrait: File| string, roles: string[], directed: string[]) {
       let actorData: ActorForAPI| FormData;
-      console.log(portrait);
-      console.log('typeof: ' + typeof(portrait));
       const ocupationsJSON = { ocupations: ocupations };
       if (typeof(portrait) === 'object') {
-        console.log('SLIKA stavljena');
         actorData = new FormData();
         actorData.append('id', actorId);
         actorData.append('firstName', firstName);
@@ -144,8 +139,6 @@ export class ActorService {
           directed: directed
         };
       }
-      console.log('----ACTOR DATA ----');
-      console.log(actorData);
       this.http.put(API_URL + 'actors', actorData).subscribe((response) => {
         this.router.navigate(['admin/actors']);
       });
@@ -159,7 +152,6 @@ export class ActorService {
     this.http.get<
     any>(API_URL + 'actors/directed' + '/' + actorId).pipe(
       map(directedData => {
-        console.log(directedData);
         return {
           firstName: directedData.firstName,
           directed: directedData.directed.directed.map(

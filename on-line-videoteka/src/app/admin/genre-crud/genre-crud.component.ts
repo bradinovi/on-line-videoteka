@@ -33,7 +33,6 @@ export class GenreCrudComponent implements OnInit, OnDestroy {
     });
     this.genreSub = this.genreService.getGenreUpdateListener().subscribe(
       (genreData: {genres: Genre[], genreCount: number }) => {
-      console.log(genreData);
       this.isLoading = false;
       this.totalGenres = genreData.genreCount;
       this.genres = genreData.genres;
@@ -60,12 +59,10 @@ export class GenreCrudComponent implements OnInit, OnDestroy {
   onSave() {
     if (this.mode === 'create') {
       this.genreService.addGenre(this.form.value.name).subscribe((response) => {
-        console.log(response);
         this.genreService.getGenres(this.genresPerPage, this.currentPage);
       });
     } else {
       this.genreService.updateGenre(this.genreId, this.form.value.name).subscribe((response) => {
-        console.log(response);
         this.genreService.getGenres(this.genresPerPage, this.currentPage);
         this.formShow = false;
         this.form.reset();
@@ -83,7 +80,6 @@ export class GenreCrudComponent implements OnInit, OnDestroy {
   onDelete(element) {
     this.genreService.deleteGenre(element.id).subscribe(
       (response) => {
-        console.log(response);
         this.genreService.getGenres(this.genresPerPage, this.currentPage);
       }
     );

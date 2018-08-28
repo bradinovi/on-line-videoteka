@@ -128,7 +128,6 @@ export class MovieAddComponent implements OnInit, OnDestroy {
         this.movieId = param.get('id');
         this.isLoading = true;
         this.movieService.getMovie(this.movieId).subscribe((movieData) => {
-          console.log(movieData);
           this.movie = {
             id: movieData._id,
             title: movieData.title,
@@ -181,7 +180,6 @@ export class MovieAddComponent implements OnInit, OnDestroy {
   }
 
   private _filterActor(value: any): Actor[] {
-    console.log(value);
     const filterActors: Actor[] = [];
     if (typeof(value) === 'string') {
       const filterValue = value.toLowerCase();
@@ -208,7 +206,6 @@ export class MovieAddComponent implements OnInit, OnDestroy {
   }
 
   onImageChosen(event: Event) {
-    console.log('a');
     const file = (event.target as HTMLInputElement).files[0]; // this stores a file object
     this.movieForm.value.image = event.target;
     this.movieForm.patchValue({'image': file});
@@ -228,13 +225,10 @@ export class MovieAddComponent implements OnInit, OnDestroy {
     if (this.saveButton === 'Finish') {
       this.router.navigate(['moviedetail', this.movie.id]);
     }
-    console.log(this.movieForm);
-    console.log(this.selectedGenre);
     if ( this.mode === 'create') {
       this.movieService.addMovie(this.movieForm.value.title, this.dateString(this.movieForm.value.release), this.movieForm.value.duration,
       this.movieForm.value.trailerLink, this.movieForm.value.plot, this.movieGenres, this.movieForm.value.image).subscribe(
       (createdMovie) => {
-        console.log(createdMovie);
         this.createdMovieId = createdMovie.createdMovie._id;
         this.movieForm.disable();
         this.roleDirectorFormsEnabled = false;
@@ -250,7 +244,6 @@ export class MovieAddComponent implements OnInit, OnDestroy {
       this.movieForm.value.plot, this.movieGenres,
       this.movieForm.value.image , this.movie.rents).subscribe(
       (res) => {
-        console.log(res);
         this.movieForm.disable();
         this.saveButton = 'Finish';
       });
@@ -280,7 +273,6 @@ export class MovieAddComponent implements OnInit, OnDestroy {
     } else {
       this.roleService.updateRole(this.roleToEdit, this.roleForm.value.actor, this.createdMovieId, this.roleForm.value.roleName)
       .subscribe((res) => {
-        console.log(res);
         this.roleMode = 'create';
         this.roleService.getRolesForMovie(this.createdMovieId);
       });
@@ -300,20 +292,16 @@ export class MovieAddComponent implements OnInit, OnDestroy {
   }
 
   setActorValue( control, form, actorId, firstName, lastName, controlName: string) {
-    console.log(actorId);
-    console.log(control);
     if (controlName === 'director') {
       form.patchValue({ 'director': actorId });
     }
     if (controlName === 'actor') {
       form.patchValue({ 'actor': actorId });
     }
-    console.log(firstName + lastName);
     control.setValue(firstName + ' ' + lastName );
   }
 
   onEditRole(role) {
-    console.log(role);
     this.setActorValue(this.actorControl, this.roleForm, role.actor._id, role.actor.firstName, role.actor.lastName, 'actor');
     this.roleToEdit = role.id;
     this.roleForm.patchValue({'roleName': role.name });
@@ -322,16 +310,13 @@ export class MovieAddComponent implements OnInit, OnDestroy {
 
   onDeleteRole(role) {
     this.roleService.deleteRole(role.id).subscribe((res) => {
-      console.log(res);
       this.roleService.getRolesForMovie(this.createdMovieId);
     });
   }
 
   onAddDirector() {
-    console.log(this.directorForm);
     this.movieService.addDirector( this.createdMovieId, this.directorForm.value.director ).subscribe(
       (res) => {
-        console.log(res);
         this.directorControl.setValue('');
         this.movieService.getMovieDirectors(this.createdMovieId);
       }
@@ -339,10 +324,7 @@ export class MovieAddComponent implements OnInit, OnDestroy {
   }
 
   onDeleteDirector(director) {
-    console.log('DIRECTOR');
-    console.log(director);
     this.movieService.deleteDirector(this.createdMovieId, director.id).subscribe((res) => {
-      console.log(res);
       this.movieService.getMovieDirectors(this.createdMovieId);
     });
   }

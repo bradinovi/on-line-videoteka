@@ -41,21 +41,17 @@ export class ActordetailComponent implements OnInit, OnDestroy {
     this.roleSub = this.roleService.getrolesOfActorUpdatedListener().subscribe(
       (roleData) => {
         this.roles = roleData.roles;
-        console.log(this.roles);
       }
     );
     this.directorsSub = this.actorService.getDirectedUpdatedListener().subscribe(
       (directedData) => {
         this.directed = directedData.directed;
-        console.log(this.directed);
       }
     );
     this.route.paramMap.subscribe((param: ParamMap) => {
-      console.log(param.get('actorId'));
       if (param.has('actorId')) {
         this.actorService.getActor(param.get('actorId')).subscribe(
           actorData => {
-            console.log(actorData);
             const actor: Actor = {
               id: actorData._id,
               born: actorData.born,

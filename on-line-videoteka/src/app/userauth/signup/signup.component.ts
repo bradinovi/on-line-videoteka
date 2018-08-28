@@ -56,20 +56,17 @@ export class SignupComponent implements OnInit, OnDestroy {
   onSignUp(signUpForm: NgForm) {
 
     if ((signUpForm.value.passwordConfirm !== signUpForm.value.password) && !signUpForm.value.termsConfirm) {
-      console.log('pass not matching + terms and cond');
       this.passwordsNotMatchingErr = true;
       this.termsConfirmErr = true;
       return;
     } else { this.passwordsNotMatchingErr = false; this.termsConfirmErr = false; }
 
     if (signUpForm.value.passwordConfirm !== signUpForm.value.password) {
-      console.log('pass not matching');
       this.passwordsNotMatchingErr = true;
       return;
     } { this.passwordsNotMatchingErr = false; }
 
     if (!signUpForm.value.termsConfirm) {
-      console.log('terms and cond');
       this.termsConfirmErr = true;
       return;
     } else { this.termsConfirmErr = false; }

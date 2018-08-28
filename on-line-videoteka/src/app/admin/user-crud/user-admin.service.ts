@@ -7,13 +7,22 @@ import { map } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 const API_URL = environment.apiUrl;
 
+export interface UserDataAdmin {
+  email: string;
+  password: string;
+  firstName: string;
+  lastName: string;
+  username: string;
+  dateOfBirth: string;
+  verified: boolean; // must be ISO-8601 date string
+}
 
 @Injectable({ providedIn: 'root'})
 export class UserAdminService {
 
   constructor(private http: HttpClient, private router: Router) {}
-  private users: UserData[];
-  private usersUpdated = new Subject<{users: UserData[], userCount: number}>();
+  private users: UserDataAdmin[];
+  private usersUpdated = new Subject<{users: UserDataAdmin[], userCount: number}>();
 
   getUsersUpdateListener() {
     return this.usersUpdated.asObservable();
@@ -38,7 +47,8 @@ export class UserAdminService {
               dateOfBirth: user.dateOfBirth,
               email: user.email,
               password: user.password,
-              role: user.role
+              role: user.role,
+              verified: user.verified
             };
         }),
         maxUsers: userData.maxUsers
@@ -46,7 +56,6 @@ export class UserAdminService {
     }) )
     .subscribe((transformedUserData) => {
       this.users = transformedUserData.users;
-      console.log('MAX USERS' + transformedUserData.maxUsers);
       this.usersUpdated.next({
         users : [...this.users],
         userCount: transformedUserData.maxUsers
@@ -89,5 +98,8 @@ export class UserAdminService {
     return this.http.delete(API_URL + 'users' + '/' + id);
   }
 
+  toggleUserVerification(userId: string) {
+    return this.http.get(API_URL + 'users/toggleverify/' + userId);
+  }
 
 }
