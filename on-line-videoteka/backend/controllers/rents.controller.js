@@ -52,7 +52,7 @@ exports.getRentsForUser = (req, res, next) => {
   Rent.find({ user: req.userData.userId }).populate({ path: 'movie' }).then(
     (rentedMovies) => {
       res.json({
-        message: 'Your movies fetched succesfully!',
+        message: 'Your rents fetched succesfully!',
         mymovies: rentedMovies
       });
     }

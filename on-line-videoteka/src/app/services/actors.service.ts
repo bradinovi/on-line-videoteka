@@ -46,7 +46,7 @@ export class ActorService {
     postData.append('bio', bio);
     postData.append('image', portrait, firstName + lastName);
 
-    this.http.post<{message: string, actor: Actor}>( API_URL + 'api/actors', postData).subscribe((responseData) => {
+    this.http.post<{message: string, actor: Actor}>( API_URL + 'actors', postData).subscribe((responseData) => {
       this.router.navigate(['admin/actors']);
     });
   }
