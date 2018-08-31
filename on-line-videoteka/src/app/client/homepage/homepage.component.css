@@ -49,3 +49,16 @@ button {
   margin-top: 3em;
 }
 
+.moviedb-logo{
+  margin-top: 10em;
+  transition: transform .2s;
+  display: inline-block;
+}
+
+.moviedb-logo:hover{
+  transform: scale(1.1);
+}
+
+.moviedb-logo img{
+  width: 50%;
+}
