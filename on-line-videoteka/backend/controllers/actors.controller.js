@@ -29,7 +29,7 @@ exports.getActors = (req, res, next) => {
     });
   }).catch( error =>{
     res.status(500).json({
-      message: 'Fatching Actors failed!',
+      error: 'Fatching Actors failed!',
    });
   });
 }
@@ -37,13 +37,13 @@ exports.getActors = (req, res, next) => {
 exports.getActor = (req, res, next) => {
   Actor.findById(req.params.id).then( actor => {
     if(actor){
-      res.status(200).json(actor);
+      res.json(actor);
     } else {
-      res.status(404).json({message: 'Actor not found'});
+      res.status(400).json({error: 'Actor not found'});
     }
   }).catch( error =>{
     res.status(500).json({
-      message: 'Fatching Actor failed!',
+      error: 'Fatching Actor failed!',
     });
   })
 }
@@ -82,8 +82,8 @@ exports.deleteActor = (req, res, next) => {
         message: 'Actor deleted successfully',
      });
     } else {
-      res.status(401).json({
-        error: {message: 'Not authorized!'}
+      res.status(400).json({
+        error: 'Actor does not exist in database'
      });
     }
   });
@@ -113,18 +113,18 @@ exports.updateActor = (req, res, next) => {
   Actor.updateOne({ _id: req.body.id }, actor).then((result) => {
     console.log(result);
     if(result.n > 0) {
-      res.status(200).json({
+      res.json({
         message: 'Actor updated successfully',
      });
     } else {
-      res.status(401).json({
-        error: {message: 'Not authorized!'},
+      res.status(400).json({
+        error: 'Actor does not exist',
      });
     }
 
   }).catch(error =>{
     res.status(500).json({
-      message: 'Failed update post',
+      error: 'Failed update Actor',
    });
     console.log(error);
   });
@@ -152,7 +152,7 @@ exports.getActorsBySearch = (req, res, next) => {
     });
   }).catch( error =>{
     res.status(500).json({
-      message: 'Fatching Actors failed!',
+      error: 'Fatching Actors failed!',
    });
   });
 }
@@ -162,7 +162,7 @@ exports.getDirectedByActor = (req, res, next) => {
 
   Actor.find({_id:actorId},'firstName lastName').populate({ path: 'directed', select: 'title _id' }).then(
     (directed) => {
-      res.status(200).json({
+      res.json({
         directed: directed[0]
       });
     }

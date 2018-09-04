@@ -10,10 +10,11 @@
               <mat-grid-tile colspan="2" class="movie-header-data">
 
                 <div>
-
+                  <div style="width:400px;">
                   <h1>{{movie.title}}</h1>
+                  </div>
                   <h2>{{movieYear}}</h2>
-                  <h3 *ngFor="let genre of movie.genres" class="genres"> {{genre}} </h3>
+                  <h3 *ngFor="let genre of movie.genres" class="genres" [routerLink]="['/searchpage','genre'+genre._id]"> {{genre.name}} </h3>
                   <br><br>
                   <div><h4 style="display: inline;">Release: </h4><p style="display: inline;">{{movieReleaseDate}}</p></div>
                   <br>

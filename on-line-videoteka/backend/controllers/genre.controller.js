@@ -37,7 +37,7 @@ exports.getGenres = (req, res, next) => {
     });
   }).catch( error =>{
     res.status(500).json({
-      message: 'Fatching Actors failed!'
+      error: 'Fatching Genres failed!'
    });
   });
 }
@@ -47,7 +47,7 @@ exports.getGenre = (req, res, next) => {
     if(genre){
       res.status(200).json(genre);
     } else {
-      res.status(404).json({message: 'Genre not found'});
+      res.status(400).json({error: 'Genre does not exist'});
     }
   }).catch( error => {
     res.status(500).json({
@@ -63,8 +63,8 @@ exports.deleteGenre = (req, res, next) => {
         message: 'Genre deleted successfully',
      });
     } else {
-      res.status(401).json({
-        error: {message: 'Not authorized!'}
+      res.status(400).json({
+        error:  'Genre does not exist'
      });
     }
   });
@@ -83,8 +83,8 @@ exports.updateGenre = (req, res, next) => {
         message: 'Genre updated successfully',
       });
     } else {
-      res.status(401).json({
-        error: {message: 'Not authorized!'},
+      res.status(400).json({
+        error:  'Genre does not exist'
       });
     }
   });

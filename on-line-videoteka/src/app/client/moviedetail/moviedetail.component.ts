@@ -63,10 +63,7 @@ export class MoviedetailComponent implements OnInit, OnDestroy {
               release: movie.release,
               duration: movie.duration,
               plotsum: movie.plotsum,
-
-              genres: movie.genres.map( genre => {
-                return genre.name;
-              }),
+              genres: movie.genres,
               posterPath: movie.posterPath,
               trailerLink: movie.trailerLink,
               rents: movie.rents

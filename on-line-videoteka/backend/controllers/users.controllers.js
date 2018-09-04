@@ -88,9 +88,8 @@ exports.loginUser = (req, res, next) => {
     }
   }).catch(
     err => {
-      console.log('error se desi');
       return res.status(500).json({
-        error: err
+        error: 'Login failed on server'
       });}
   )
 }

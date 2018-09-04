@@ -91,8 +91,7 @@ exports.getMovies = (req, res, next) => {
     });
   }).catch( error =>{
     res.status(500).json({
-      message: 'Fatching Movies failed!',
-      error: error
+      error: 'Fatching Movies failed!'
    });
   });
 }
@@ -102,11 +101,11 @@ exports.getMovie = (req, res, next) => {
     if(movie){
       res.status(200).json(movie);
     } else {
-      res.status(404).json({message: 'Movie not found'});
+      res.status(400).json({error: 'Movie not found'});
     }
   }).catch( error =>{
     res.status(500).json({
-      message: 'Fatching Movie failed!',
+      error: 'Fatching Movie failed!',
     });
   })
 }
@@ -147,15 +146,14 @@ exports.updateMovie = (req, res, next) => {
         message: 'Movie updated successfully',
      });
     } else {
-      res.status(401).json({
-        error: {message: 'Not authorized!'},
+      res.status(400).json({
+        error: 'Movie does not exits',
      });
     }
   }).catch(error =>{
     res.status(500).json({
-      message: 'Failed update movie',
+      error: 'Failed update movie',
    });
-    console.log(error);
   });
 
 }
@@ -173,8 +171,8 @@ exports.deleteMovie = (req, res, next) => {
       });
 
     } else {
-      res.status(401).json({
-        error: {message: 'Not authorized!'}
+      res.status(400).json({
+        error: 'Movie does not exits'
      });
     }
   });

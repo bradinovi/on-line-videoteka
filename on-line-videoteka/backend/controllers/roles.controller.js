@@ -10,8 +10,8 @@ exports.addRole = (req, res, next) => {
   const actorId = req.body.actor;
 
   if (movieId.length < 24 || actorId.length < 24) {
-    res.status(500).json({
-      message: 'Data not valid'
+    res.status(400).json({
+      error: 'Data not valid'
     });
   } else{
   const role = new Role({
@@ -33,14 +33,14 @@ exports.addRole = (req, res, next) => {
         Movie.update({ _id: movieId }, { $push: {roles: roleId}}).then((movieRoleUpdateData)=>{
           console.log(movieRoleUpdateData);
           if(movieRoleUpdateData.n > 0 ){
-            res.status(200).json({
+            res.json({
               message: 'Role added successfuly'
             });
           } else {
             Role.deleteOne({_id:roleId}).then((deleteData) => {
               Actor.update({ _id: actorId }, { $pull: { roles: roleId}}).then((deleteActorRoleData) =>{
-                res.status(401).json({
-                  message: 'Movie data not valid'
+                res.status(400).json({
+                  error:'Role does not exist'
                 });
               });
             });
@@ -48,8 +48,8 @@ exports.addRole = (req, res, next) => {
         });
       } else {
         Role.deleteOne({_id:roleId}).then((deleteData) => {
-          res.status(401).json({
-            message: 'Actor data not valid'
+          res.status(400).json({
+            message: 'Role does data not valid'
           });
         });
       }
@@ -81,7 +81,7 @@ exports.getRolesActor = (req, res, next) => {
     });
   }).catch( error =>{
     res.status(500).json({
-      message: 'Fatching Roles for Actor failed!'
+      error: 'Fatching Roles for Actor failed!'
    });
   });
  }
@@ -108,7 +108,7 @@ exports.getRolesMovie = (req, res, next) => {
     });
   }).catch( error =>{
     res.status(500).json({
-      message: 'Fatching Roles for Movie failed!'
+      error: 'Fatching Roles for Movie failed!'
    });
   });
 }
@@ -130,7 +130,7 @@ exports.getRole = (req, res, next) => {
       }
   ).catch( (err) => {
     res.status(500).json({
-      message: 'Fatching Role failed!'
+      error: 'Fatching Role failed!'
     });
   });
 
@@ -191,7 +191,7 @@ exports.deleteRole = (req, res, next) => {
           });
         });
       } else {
-        res.status(401).json({
+        res.status(400).json({
           error: {message: 'Role does not exist!'}
        });
       }

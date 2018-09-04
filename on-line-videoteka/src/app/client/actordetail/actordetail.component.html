@@ -3,7 +3,7 @@
 
     <mat-card style="margin-bottom: 0;">
         <mat-spinner *ngIf="isLoading" color="accent"></mat-spinner>
-        <mat-grid-list cols="5" rowHeight="380px;" *ngIf="!isLoading">
+        <mat-grid-list cols="5" rowHeight="380px" *ngIf="!isLoading">
             <mat-grid-tile>
               <img src={{actor.portraitPath}} alt={{actor.firstName}}>
             </mat-grid-tile>

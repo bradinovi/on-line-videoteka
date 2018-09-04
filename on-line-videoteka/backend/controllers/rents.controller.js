@@ -11,8 +11,7 @@ exports.addRent = (req, res, next) => {
     }
   );
   const today = new Date()
-  const day =24*60*60000;
-  //console.log(req.body.movieId);
+  const day = 24*60*60000;
   Rent.aggregate([
     { $match: { movie: mongoose.Types.ObjectId(req.body.movieId), user: mongoose.Types.ObjectId(req.userData.userId) } },
     { $project: { rentDay: '$rentDay', duration:'$duration', days: {$multiply : ['$duration',day]}}},
@@ -23,7 +22,7 @@ exports.addRent = (req, res, next) => {
     rentFound => {
       console.log(rentFound)
       if(rentFound[0]){
-        res.status(200).json({ rentId: rentFound[0]._id, message: 'Already have rent on that movie'});
+        res.json({ rentId: rentFound[0]._id, message: 'Already have rent on that movie'});
       }
       else{
         Movie.findOneAndUpdate(
@@ -59,7 +58,7 @@ exports.getRentsForUser = (req, res, next) => {
   ).catch(
     error => {
       res.status(500).json({
-        message: 'Fatching your movies failed!',
+        error: 'Fatching your movies failed!',
      });
     }
   );
@@ -100,7 +99,7 @@ exports.getRents = (req, res, next) => {
     return countRents;
   }).then(
     count => {
-      res.status(200).json(
+      res.json(
         {
           message: 'Rents fetched',
           rents: fetchedRents,
@@ -145,7 +144,7 @@ exports.updateRent = (req, res, next) => {
   Rent.updateOne({_id: req.body.rentId}, rent).then(
     (updateData) => {
       if(updateData.n > 0) {
-        res.status(201).json({
+        res.json({
           message: 'Rent updated'
         });
       }
@@ -157,8 +156,13 @@ exports.deleteRent = (req, res, next) => {
   Rent.deleteOne({_id: req.params.Id}).then(
     (deleteData) => {
       if(deleteData.n > 0) {
-        res.status(201).json({
+        res.json({
           message: 'Rent deleted'
+        });
+      }
+      else{
+        res.json({
+          error: 'Rent does not exist'
         });
       }
     }
@@ -185,7 +189,7 @@ exports.getTopMoviesForMonth = (req, res, next) => {
       });
       Movie.find( { _id: { $in: movieIdArray} } ).then(
         moviesTop => {
-          res.status(200).json({
+          res.json({
             topmonth: moviesTop
           })
         }

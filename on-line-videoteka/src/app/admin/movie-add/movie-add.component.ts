@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild, ElementRef, OnDestroy} from '@angular/core';
-import {FormControl, FormGroup, FormBuilder} from '@angular/forms';
+import {FormControl, FormGroup, FormBuilder, Validators} from '@angular/forms';
 import {Observable, Subscription} from 'rxjs';
 import {map} from 'rxjs/operators';
 
@@ -83,12 +83,12 @@ export class MovieAddComponent implements OnInit, OnDestroy {
     );
     this.actorsService.getActors(1, 0, '');
     this.movieForm = new FormGroup({
-      'title' : new FormControl(null),
+      'title' : new FormControl(null, { validators: [Validators.required] }),
       'trailerLink' : new FormControl(null),
-      'duration' : new FormControl(null),
-      'release' : new FormControl(null),
-      'plot' : new FormControl(null),
-      'image' : new FormControl(null)
+      'duration' : new FormControl(null, { validators: [Validators.required] }),
+      'release' : new FormControl(null, { validators: [Validators.required] }),
+      'plot' : new FormControl(null, { validators: [Validators.required] }),
+      'image' : new FormControl(null, { validators: [Validators.required] })
 
     });
     this.roleForm = new FormGroup({
@@ -224,6 +224,9 @@ export class MovieAddComponent implements OnInit, OnDestroy {
   saveMovie() {
     if (this.saveButton === 'Finish') {
       this.router.navigate(['moviedetail', this.movie.id]);
+    }
+    if (this.movieForm.invalid) {
+      return;
     }
     if ( this.mode === 'create') {
       this.movieService.addMovie(this.movieForm.value.title, this.dateString(this.movieForm.value.release), this.movieForm.value.duration,
