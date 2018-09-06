@@ -153,7 +153,7 @@ exports.updateRent = (req, res, next) => {
 }
 
 exports.deleteRent = (req, res, next) => {
-  Rent.deleteOne({_id: req.params.Id}).then(
+  Rent.deleteOne({_id: req.params.id}).then(
     (deleteData) => {
       if(deleteData.n > 0) {
         res.json({

@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.post('/', adminAuthCheck, authCheck, RentsController.addRentAdmin);
 router.put('/', adminAuthCheck, authCheck,RentsController.updateRent);
-router.delete('/', adminAuthCheck, authCheck,RentsController.deleteRent);
+router.delete('/:id', adminAuthCheck, authCheck,RentsController.deleteRent);
 router.get('/', adminAuthCheck, RentsController.getRents);
 
 router.get('/topmonth',  RentsController.getTopMoviesForMonth);

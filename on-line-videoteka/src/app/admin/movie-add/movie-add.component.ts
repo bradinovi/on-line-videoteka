@@ -70,11 +70,13 @@ export class MovieAddComponent implements OnInit, OnDestroy {
     this.rolesSub = this.roleService.getrolesOfMovieUpdatedListener().subscribe(
       (roleData: {roles: RoleOfMovie[], roleCount: number}) => {
         this.roles = roleData.roles;
+        console.log(this.roles);
       }
     );
     this.actorSub = this.actorsService.getActorUpdateListener().subscribe(
       (actorData: { actors: Actor[], actorCount: number }) => {
       this.actors = actorData.actors;
+      console.log(this.actors);
     });
     this.directorSub = this.movieService.getDirectorsUpdateListener().subscribe(
       ( directorData: { directors: Director[], movieId: string } ) => {
@@ -183,10 +185,12 @@ export class MovieAddComponent implements OnInit, OnDestroy {
     const filterActors: Actor[] = [];
     if (typeof(value) === 'string') {
       const filterValue = value.toLowerCase();
-    this.actors.forEach(actor => {
-      if (actor.firstName.toLowerCase().includes(filterValue) || actor.lastName.toLowerCase().includes(filterValue) ) {
-        filterActors.push(actor);
-      }
+      this.actors.forEach(actor => {
+        if (actor.lastName != null || actor.lastName != null) {
+          if (actor.firstName.toLowerCase().includes(filterValue) || actor.lastName.toLowerCase().includes(filterValue)) {
+            filterActors.push(actor);
+          }
+        }
     });
     }
     return filterActors;
@@ -223,7 +227,8 @@ export class MovieAddComponent implements OnInit, OnDestroy {
 
   saveMovie() {
     if (this.saveButton === 'Finish') {
-      this.router.navigate(['moviedetail', this.movie.id]);
+      this.router.navigate(['moviedetail', this.createdMovieId]);
+      return;
     }
     if (this.movieForm.invalid) {
       return;
@@ -239,6 +244,7 @@ export class MovieAddComponent implements OnInit, OnDestroy {
       }
     );
     } else {
+      console.log('UPDATE');
       this.movieService.updateMovie(this.movieId,
       this.movieForm.value.title,
       this.dateString(this.movieForm.value.release),
@@ -271,15 +277,19 @@ export class MovieAddComponent implements OnInit, OnDestroy {
     if (this.roleMode === 'create') {
       this.roleService.addRole(this.roleForm.value.roleName, this.roleForm.value.actor, this.createdMovieId).subscribe((response) => {
         this.roleService.getRolesForMovie(this.createdMovieId);
-        this.actorControl.setValue('');
       });
     } else {
+      console.log('ACTOR:' + this.roleForm.value.actor);
+      console.log('ROLE NAME:' + this.roleForm.value.roleName);
+      console.log('Role to edit:' + this.roleToEdit);
+      console.log('Movie:' + this.createdMovieId);
       this.roleService.updateRole(this.roleToEdit, this.roleForm.value.actor, this.createdMovieId, this.roleForm.value.roleName)
       .subscribe((res) => {
         this.roleMode = 'create';
         this.roleService.getRolesForMovie(this.createdMovieId);
       });
     }
+    this.actorControl.setValue('');
     this.roleForm.reset();
     return;
   }
@@ -305,7 +315,9 @@ export class MovieAddComponent implements OnInit, OnDestroy {
   }
 
   onEditRole(role) {
-    this.setActorValue(this.actorControl, this.roleForm, role.actor._id, role.actor.firstName, role.actor.lastName, 'actor');
+    if (role.actor !== null) {
+      this.setActorValue(this.actorControl, this.roleForm, role.actor._id, role.actor.firstName, role.actor.lastName, 'actor');
+    }
     this.roleToEdit = role.id;
     this.roleForm.patchValue({'roleName': role.name });
     this.roleMode = 'edit';

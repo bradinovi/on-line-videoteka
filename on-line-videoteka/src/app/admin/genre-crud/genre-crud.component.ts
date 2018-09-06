@@ -64,10 +64,10 @@ export class GenreCrudComponent implements OnInit, OnDestroy {
     } else {
       this.genreService.updateGenre(this.genreId, this.form.value.name).subscribe((response) => {
         this.genreService.getGenres(this.genresPerPage, this.currentPage);
-        this.formShow = false;
-        this.form.reset();
       });
     }
+    this.formShow = false;
+    this.form.reset();
   }
 
   onEdit(element) {

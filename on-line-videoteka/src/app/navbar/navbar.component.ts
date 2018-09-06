@@ -43,6 +43,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   onHitEnter(event) {
     if (event.key === 'Enter') {
       this.router.navigate(['/searchpage', event.target.value]);
+      event.target.value = '';
     }
   }
 

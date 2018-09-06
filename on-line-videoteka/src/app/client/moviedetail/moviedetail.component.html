@@ -44,9 +44,9 @@
               <mat-tab label="Cast">
                   <mat-list>
                     <div *ngFor="let role of roles">
-                      <mat-list-item >
-
-                        <p><a [routerLink]="['/actordetail',role.actor._id]" >{{role.actor.firstName}}  {{role.actor.lastName}}</a> - {{role.name}}</p>
+                      <mat-list-item>
+                        <p><a [routerLink]="['/actordetail',role.actor._id]">
+                          {{role.actor.firstName}}  {{role.actor.lastName}}</a> - {{role.name}}</p>
                       </mat-list-item>
                       <mat-divider></mat-divider>
                     </div>

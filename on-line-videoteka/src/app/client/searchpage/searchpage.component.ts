@@ -41,6 +41,7 @@ export class SearchpageComponent implements OnInit, OnDestroy {
         this.selectedGenre =  parameter.substring(5, parameter.length);
         this.movieService.getMovies( 5, 1, undefined, this.selectedGenre, this.selectedYear, this.selectedSort );
       } else {
+        this.searchText = parameter;
         this.movieService.getMovies( 5, 1, param.get('searchText'), this.selectedGenre, this.selectedYear, this.selectedSort );
       }
     }});

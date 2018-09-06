@@ -1,5 +1,5 @@
 const Genre = require('../models/genre');
-
+const Movie = require('../models/movie');
 exports.addGenre = (req, res, next) => {
   const genre = new Genre({
     name: req.body.name
@@ -59,9 +59,13 @@ exports.getGenre = (req, res, next) => {
 exports.deleteGenre = (req, res, next) => {
   Genre.deleteOne({ _id: req.params.id }).then( result => {
     if(result.n > 0) {
-      res.status(200).json({
-        message: 'Genre deleted successfully',
-     });
+      Movie.updateMany({},{ $pull: { genres: req.params.id}}).then(
+        updateRes => {
+          res.json({
+            message: 'Genre deleted successfully',
+          });
+        }
+      );
     } else {
       res.status(400).json({
         error:  'Genre does not exist'

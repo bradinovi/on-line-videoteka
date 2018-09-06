@@ -1,4 +1,5 @@
-const Actor = require('../models/actor')
+const Actor = require('../models/actor');
+const Role = require('../models/role')
 
 exports.getActors = (req, res, next) => {
   const pageSize = +req.query.pagesize;
@@ -78,9 +79,13 @@ exports.deleteActor = (req, res, next) => {
   console.log(req.params.id);
   Actor.deleteOne({ _id: req.params.id }).then( result => {
     if(result.n > 0) {
-      res.status(200).json({
-        message: 'Actor deleted successfully',
-     });
+      Role.updateMany({actor: req.params.id},{ $set: { actor: null }  }).then(
+        updateRes => {
+          res.status(200).json({
+            message: 'Actor deleted successfully',
+          });
+        }
+      )
     } else {
       res.status(400).json({
         error: 'Actor does not exist in database'
@@ -95,16 +100,23 @@ exports.updateActor = (req, res, next) => {
   let occupationsForDB = req.body.ocupations.ocupations;
   if (req.file) {
     const url = req.protocol + '://' + req.get("host");
-    imagePath = url + "/images/portrait" + req.file.filename;
+    imagePath = url + "/images/portrait/" + req.file.filename;
     occupationsForDB = JSON.parse(req.body.ocupations).ocupations;
   };
-
+  let born = null;
+  let died = null;
+  if (req.body.born !== '') {
+    born = new Date(req.body.born);
+  }
+  if (req.body.died !== '') {
+    died = new Date(req.body.died);
+  }
   const actor = new Actor({
     _id: req.body.id,
     firstName: req.body.firstName,
     lastName: req.body.lastName,
-    born: new Date(req.body.born),
-    died: new Date(req.body.died),
+    born: born,
+    died: died,
     ocupations: occupationsForDB,
     bio: req.body.bio,
     portraitPath: imagePath,

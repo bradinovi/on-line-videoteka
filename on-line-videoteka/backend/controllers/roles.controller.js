@@ -151,7 +151,7 @@ exports.updateRole = (req, res, next) => {
         actor: actorId,
         name: name
       });
-      if(actorId === role.actor.toString()) {
+      if(mongoose.Types.ObjectId(actorId) === role.actor) {
         // TO DO - Update Name of role
         Role.updateOne({ _id : roleId}, roleUpdate).then( (updateRes) =>{
           res.status(201).json({

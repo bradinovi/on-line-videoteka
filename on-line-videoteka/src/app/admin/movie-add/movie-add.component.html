@@ -89,7 +89,7 @@
       <div *ngIf="roles.length > 0">
         <div *ngFor="let role of roles">
           <div class="role-container">
-          <p> {{role.actor.firstName}} {{role.actor.lastName}} - {{ role.name }}
+          <p> <span *ngIf="role.actor!==null">{{role.actor.firstName}} {{role.actor.lastName}}</span> - {{ role.name }}
           </p>
           </div>
           <div class="role-action-containter">

@@ -43,14 +43,6 @@ exports.getMovies = (req, res, next) => {
   const selectedGenre = req.query.selectedGenre;
   const selectedYear = req.query.selectedYear;
   const selectedSort = req.query.selectedSort;
-
-  console.log(pageSize); // +
-  console.log(currentPage); // +
-  console.log(searchText); // +
-  console.log(selectedGenre);
-  console.log(selectedYear);
-  console.log(selectedSort);
-
   let movieQuery;
   let fetchedMovies;
 
@@ -111,13 +103,11 @@ exports.getMovie = (req, res, next) => {
 }
 
 exports.updateMovie = (req, res, next) => {
-  let imagePath = req.body.imagePath;
+  let imagePath = req.body.posterPath;
   let genreArray = [];
-  const genresForDB = []
-  console.log(req.body);
+  const genresForDB = [];
   genreArray = req.body.genres.genres;
   if (req.file) {
-    console.log('HAS FILE');
     genreArray = JSON.parse(req.body.genres).genres;
     const url = req.protocol + '://' + req.get("host");
     imagePath = url + '/images/posters/' + req.file.filename;
@@ -127,21 +117,21 @@ exports.updateMovie = (req, res, next) => {
     genresForDB.push(mongoose.Types.ObjectId(genre))
   });
 
-  const movie = new Movie({
+  const movie = {
     _id: req.body.id,
     title: req.body.title,
     release: new Date(req.body.release),
-    duration: req.body.release,
+    duration: req.body.duration,
     trailerLink: req.body.trailerLink,
     plotsum: req.body.plotsum,
     posterPath: imagePath,
     genres: genresForDB,
     year: new Date(req.body.release).getFullYear()
-  });
+  };
 
-  Movie.updateOne({ _id: req.body.id }, movie).then((result) => {
+  Movie.findByIdAndUpdate(req.body.id, movie).then((result) => {
     console.log(result);
-    if(result.n > 0) {
+    if(result) {
       res.status(200).json({
         message: 'Movie updated successfully',
      });
@@ -151,15 +141,15 @@ exports.updateMovie = (req, res, next) => {
      });
     }
   }).catch(error =>{
+    console.log(error);
     res.status(500).json({
       error: 'Failed update movie',
    });
   });
-
 }
 
 exports.deleteMovie = (req, res, next) => {
-  console.log("TO DELETE:" + req.params.id);
+
   Movie.deleteOne({ _id: req.params.id }).then( result => {
     if(result.n > 0) {
       // TO DO - Remove movie from directed
@@ -216,10 +206,10 @@ exports.deleteDirector = (req, res, next) => {
 
 exports.getDirectorsForMovie = (req, res, next) => {
   const movieId = req.params.id;
-  console.log(movieId);
+
   Movie.find({_id:movieId},'title directors').populate({ path: 'directors', select: 'firstName lastName portraitPath' }).then(
     (directors) => {
-      console.log(directors);
+
       res.status(200).json({
         directors: directors[0]
       });
@@ -229,7 +219,7 @@ exports.getDirectorsForMovie = (req, res, next) => {
 }
 
 exports.getRecentMovies = (req, res, next) => {
-  console.log('TEST');
+
   let pageSize = 3;
   if(req.query.pagesize) {
     pageSize = +req.query.pagesize;

@@ -75,7 +75,7 @@ export class ActorAddComponent implements OnInit {
             bio: this.actor.bio,
             image: imagePath
           });
-
+          this.imagePreview = imagePath;
           this.ocupations = this.actor.ocupations;
           this.isLoading = false;
         });
