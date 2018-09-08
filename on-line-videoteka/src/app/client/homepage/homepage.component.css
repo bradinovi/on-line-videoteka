@@ -62,3 +62,15 @@ button {
 .moviedb-logo img{
   width: 50%;
 }
+
+.favIcon-credit{
+  color: #F5F5F5;
+  font-size: 0.65em;
+  margin-top: 2em;
+  margin-left: 6em;
+}
+
+.favIcon-credit a{
+  color: #24B758;
+}
+
