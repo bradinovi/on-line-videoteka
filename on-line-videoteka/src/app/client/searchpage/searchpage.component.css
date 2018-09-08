@@ -12,7 +12,11 @@ mat-form-field{
 }
 .serach-button {
   margin-left: 0.7em;
+  width: 8%;
+}
 
+search-input{
+  width: 100%;
 }
 .search{
   width: 80%;

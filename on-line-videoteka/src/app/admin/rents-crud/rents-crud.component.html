@@ -8,7 +8,7 @@
               <input matInput placeholder="User" [formControl]="userControl"
               [matAutocomplete]="autoUser">
               <mat-autocomplete #autoUser="matAutocomplete"  (optionSelected)="selectedUser($event)">
-                <mat-option *ngFor="let user of filteredUsers | async" [value]="user">
+                <mat-option *ngFor="let user of filteredUsersForCreate | async" [value]="user">
                   {{user.username}} - {{user.firstName}} {{user.lastName}}
                 </mat-option>
               </mat-autocomplete>
@@ -45,7 +45,7 @@
           <input matInput placeholder="Filter by User" [formControl]="userFilterControl"
           [matAutocomplete]="autoUserFilter">
           <mat-autocomplete #autoUserFilter="matAutocomplete"  (optionSelected)="selectedUserFilter($event)">
-            <mat-option *ngFor="let user of filteredUsers | async" [value]="user">
+            <mat-option *ngFor="let user of filteredMoviesForFilter | async" [value]="user">
               {{user.username}} - {{user.firstName}} {{user.lastName}}
             </mat-option>
           </mat-autocomplete>

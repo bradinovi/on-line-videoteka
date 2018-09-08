@@ -46,9 +46,7 @@ export class ActorService {
     postData.append('bio', bio);
     postData.append('image', portrait, firstName + lastName);
 
-    this.http.post<{message: string, actor: Actor}>( API_URL + 'api/actors', postData).subscribe((responseData) => {
-      console.log(responseData.message);
-      console.log(responseData.actor);
+    this.http.post<{message: string, actor: Actor}>( API_URL + 'actors', postData).subscribe((responseData) => {
       this.router.navigate(['admin/actors']);
     });
   }
@@ -60,7 +58,8 @@ export class ActorService {
       textQuery = `&text=${textSearch}`;
     }
     this.http.get<{message: string, actors: any, maxActors: number}>( API_URL + 'actors' + queryParams + textQuery)
-    .pipe( map((actorData) => {  // converts atribute name _id to id
+    .pipe( map((actorData) => {
+        // converts atribute name _id to id
       return {
         actors:
         actorData.actors.map( actor => {
@@ -115,11 +114,8 @@ export class ActorService {
       bio: string,
       portrait: File| string, roles: string[], directed: string[]) {
       let actorData: ActorForAPI| FormData;
-      console.log(portrait);
-      console.log('typeof: ' + typeof(portrait));
       const ocupationsJSON = { ocupations: ocupations };
       if (typeof(portrait) === 'object') {
-        console.log('SLIKA stavljena');
         actorData = new FormData();
         actorData.append('id', actorId);
         actorData.append('firstName', firstName);
@@ -143,8 +139,6 @@ export class ActorService {
           directed: directed
         };
       }
-      console.log('----ACTOR DATA ----');
-      console.log(actorData);
       this.http.put(API_URL + 'actors', actorData).subscribe((response) => {
         this.router.navigate(['admin/actors']);
       });
@@ -156,16 +150,15 @@ export class ActorService {
 
   getActorDirected(actorId: string) {
     this.http.get<
-    { directed: { directed: any } , _id: string, firstName: string, lastName: string }
-    >(API_URL + 'actors/directed' + '/' + actorId).pipe(
+    any>(API_URL + 'actors/directed' + '/' + actorId).pipe(
       map(directedData => {
         return {
           firstName: directedData.firstName,
           directed: directedData.directed.directed.map(
-            (director => {
+            (movie => {
               return {
-                id: director._id,
-                title: director.title
+                id: movie._id,
+                title: movie.title
               };
             })
           )

@@ -67,7 +67,6 @@ export class GenreService {
         id: genreId,
         name: name
      };
-     console.log(genreData);
     return this.http.put(API_URL + 'genres', genreData);
   }
 

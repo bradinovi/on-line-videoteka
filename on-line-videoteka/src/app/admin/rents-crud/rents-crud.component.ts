@@ -33,7 +33,8 @@ export class RentsCrudComponent implements OnInit, OnDestroy {
   rents: Rent[];
   users: UserData[];
   movies: Movie[];
-  filteredUsers: Observable<UserData[]>;
+  filteredMoviesForFilter: Observable<UserData[]>;
+  filteredUsersForCreate: Observable<UserData[]>;
   filteredMovies: Observable<Movie[]>;
 
   userControl = new FormControl();
@@ -47,15 +48,26 @@ export class RentsCrudComponent implements OnInit, OnDestroy {
     private rentsService: RentAdminService) { }
 
   ngOnInit() {
+
+    this.filteredUsersForCreate = this.userControl.valueChanges.pipe<UserData[]>(
+      map(value => this._filterUsers(value))
+    );
+    this.filteredMoviesForFilter = this.userFilterControl.valueChanges.pipe<UserData[]>(
+      map(value => this._filterUsers(value))
+    );
     this.rentSub = this.rentsService.getRentsUpdateListener().subscribe(
       (rentData) => {
         this.rents = rentData.rents;
         this.totalRents = rentData.count;
-        console.log(this.rents);
+        this.userService.getUsers(0, 1, '');
       }
     );
     this.rentsService.getRents(this.rentsPerPage, this.currentPage, this.filterByUser);
-
+    this.userSub = this.userService.getUsersUpdateListener().subscribe(
+      userData => {
+        this.users = userData.users;
+      }
+    );
     this.form = new FormGroup(
       {
         'duration': new FormControl(),
@@ -64,29 +76,12 @@ export class RentsCrudComponent implements OnInit, OnDestroy {
         'user': new FormControl(),
       }
     );
-
-    this.userSub = this.userService.getUsersUpdateListener().subscribe(
-      userData => {
-        this.users = userData.users;
-
-      }
-    );
-    this.userService.getUsers(5, 1, '');
-
     this.movieSub = this.movieService.getMovieUpdateListener().subscribe(
       movieData => {
         this.movies = movieData.movies;
-
       }
     );
     this.movieService.getMovies(1, 0, 'undefined', 'undefined', 'undefined', 'undefined');
-
-    this.filteredUsers = this.userControl.valueChanges.pipe<UserData[]>(
-      map(value => this._filterUsers(value))
-    );
-    this.filteredUsers = this.userFilterControl.valueChanges.pipe<UserData[]>(
-      map(value => this._filterUsers(value))
-    );
     this.filteredMovies = this.movieControl.valueChanges.pipe<Movie[]>(
       map(value => this._filterMovies(value))
     );
@@ -94,7 +89,7 @@ export class RentsCrudComponent implements OnInit, OnDestroy {
   }
 
   private _filterUsers(value: any): UserData[] {
-    // console.log(value);
+    console.log(value);
     const filterUsers: UserData[] = [];
     if (typeof(value) === 'string') {
       const filterValue = value.toLowerCase();
@@ -102,7 +97,6 @@ export class RentsCrudComponent implements OnInit, OnDestroy {
       if (user.firstName.toLowerCase().includes(filterValue) || user.lastName.toLowerCase().includes(filterValue) ||
       user.username.toLowerCase().includes(filterValue)) {
         filterUsers.push(user);
-
       }
     });
     }

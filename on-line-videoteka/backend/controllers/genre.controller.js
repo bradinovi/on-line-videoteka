@@ -1,5 +1,5 @@
 const Genre = require('../models/genre');
-
+const Movie = require('../models/movie');
 exports.addGenre = (req, res, next) => {
   const genre = new Genre({
     name: req.body.name
@@ -37,7 +37,7 @@ exports.getGenres = (req, res, next) => {
     });
   }).catch( error =>{
     res.status(500).json({
-      message: 'Fatching Actors failed!'
+      error: 'Fatching Genres failed!'
    });
   });
 }
@@ -47,7 +47,7 @@ exports.getGenre = (req, res, next) => {
     if(genre){
       res.status(200).json(genre);
     } else {
-      res.status(404).json({message: 'Genre not found'});
+      res.status(400).json({error: 'Genre does not exist'});
     }
   }).catch( error => {
     res.status(500).json({
@@ -59,12 +59,16 @@ exports.getGenre = (req, res, next) => {
 exports.deleteGenre = (req, res, next) => {
   Genre.deleteOne({ _id: req.params.id }).then( result => {
     if(result.n > 0) {
-      res.status(200).json({
-        message: 'Genre deleted successfully',
-     });
+      Movie.updateMany({},{ $pull: { genres: req.params.id}}).then(
+        updateRes => {
+          res.json({
+            message: 'Genre deleted successfully',
+          });
+        }
+      );
     } else {
-      res.status(401).json({
-        error: {message: 'Not authorized!'}
+      res.status(400).json({
+        error:  'Genre does not exist'
      });
     }
   });
@@ -83,8 +87,8 @@ exports.updateGenre = (req, res, next) => {
         message: 'Genre updated successfully',
       });
     } else {
-      res.status(401).json({
-        error: {message: 'Not authorized!'},
+      res.status(400).json({
+        error:  'Genre does not exist'
       });
     }
   });

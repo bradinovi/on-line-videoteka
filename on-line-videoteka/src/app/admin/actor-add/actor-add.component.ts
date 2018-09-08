@@ -51,7 +51,6 @@ export class ActorAddComponent implements OnInit {
         this.actorId = param.get('id');
         this.isLoading = true;
         this.actorsService.getActor(this.actorId).subscribe((actorData) => {
-          console.log(actorData);
           this.actor = {
             id: actorData._id,
             firstName: actorData.firstName,
@@ -76,7 +75,7 @@ export class ActorAddComponent implements OnInit {
             bio: this.actor.bio,
             image: imagePath
           });
-
+          this.imagePreview = imagePath;
           this.ocupations = this.actor.ocupations;
           this.isLoading = false;
         });
@@ -112,14 +111,13 @@ export class ActorAddComponent implements OnInit {
   }
 
   onImageChosen(event: Event) {
-    console.log('a');
     const file = (event.target as HTMLInputElement).files[0]; // this stores a file object
     this.form.value.image = event.target;
     this.form.patchValue({'image': file});
     this.form.get('image').updateValueAndValidity();
     const reader = new FileReader();
     reader.onload = () => {
-            // this.imagePreview = reader.result;
+            this.imagePreview = reader.result.toString();
     };
     reader.readAsDataURL(file);
   }

@@ -15,7 +15,6 @@ export class ErrorInterceptor implements HttpInterceptor {  // works like outgoi
   intercept(req: HttpRequest<any>, next: HttpHandler) {
     return next.handle(req).pipe(
       catchError((error: HttpErrorResponse) => {
-        console.log(error);
         let errorMessage = 'An unknown error occured!';
         if (error.error.error) {
           errorMessage = error.error.error;
@@ -26,10 +25,7 @@ export class ErrorInterceptor implements HttpInterceptor {  // works like outgoi
           body: errorMessage,
           showCloseButton: true
         };
-        console.log(toast);
         this.toasterService.pop(toast);
-
-
         return throwError(error);
       })
     );

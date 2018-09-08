@@ -1,4 +1,5 @@
-const Actor = require('../models/actor')
+const Actor = require('../models/actor');
+const Role = require('../models/role')
 
 exports.getActors = (req, res, next) => {
   const pageSize = +req.query.pagesize;
@@ -29,28 +30,26 @@ exports.getActors = (req, res, next) => {
     });
   }).catch( error =>{
     res.status(500).json({
-      message: 'Fatching Actors failed!',
+      error: 'Fatching Actors failed!',
    });
   });
 }
 
 exports.getActor = (req, res, next) => {
-  console.log('getactor');
   Actor.findById(req.params.id).then( actor => {
     if(actor){
-      res.status(200).json(actor);
+      res.json(actor);
     } else {
-      res.status(404).json({message: 'Actor not found'});
+      res.status(400).json({error: 'Actor not found'});
     }
   }).catch( error =>{
     res.status(500).json({
-      message: 'Fatching Actor failed!',
+      error: 'Fatching Actor failed!',
     });
   })
 }
 
 exports.addActor = (req, res, next) => {
-  console.log(req.body);
   const url = req.protocol + '://' + req.get("host");
   let born = null;
   let died = null;
@@ -80,12 +79,16 @@ exports.deleteActor = (req, res, next) => {
   console.log(req.params.id);
   Actor.deleteOne({ _id: req.params.id }).then( result => {
     if(result.n > 0) {
-      res.status(200).json({
-        message: 'Actor deleted successfully',
-     });
+      Role.updateMany({actor: req.params.id},{ $set: { actor: null }  }).then(
+        updateRes => {
+          res.status(200).json({
+            message: 'Actor deleted successfully',
+          });
+        }
+      )
     } else {
-      res.status(401).json({
-        error: {message: 'Not authorized!'}
+      res.status(400).json({
+        error: 'Actor does not exist in database'
      });
     }
   });
@@ -97,16 +100,23 @@ exports.updateActor = (req, res, next) => {
   let occupationsForDB = req.body.ocupations.ocupations;
   if (req.file) {
     const url = req.protocol + '://' + req.get("host");
-    imagePath = url + "/images/portrait" + req.file.filename;
+    imagePath = url + "/images/portrait/" + req.file.filename;
     occupationsForDB = JSON.parse(req.body.ocupations).ocupations;
   };
-
+  let born = null;
+  let died = null;
+  if (req.body.born !== '') {
+    born = new Date(req.body.born);
+  }
+  if (req.body.died !== '') {
+    died = new Date(req.body.died);
+  }
   const actor = new Actor({
     _id: req.body.id,
     firstName: req.body.firstName,
     lastName: req.body.lastName,
-    born: new Date(req.body.born),
-    died: new Date(req.body.died),
+    born: born,
+    died: died,
     ocupations: occupationsForDB,
     bio: req.body.bio,
     portraitPath: imagePath,
@@ -115,18 +125,18 @@ exports.updateActor = (req, res, next) => {
   Actor.updateOne({ _id: req.body.id }, actor).then((result) => {
     console.log(result);
     if(result.n > 0) {
-      res.status(200).json({
+      res.json({
         message: 'Actor updated successfully',
      });
     } else {
-      res.status(401).json({
-        error: {message: 'Not authorized!'},
+      res.status(400).json({
+        error: 'Actor does not exist',
      });
     }
 
   }).catch(error =>{
     res.status(500).json({
-      message: 'Failed update post',
+      error: 'Failed update Actor',
    });
     console.log(error);
   });
@@ -154,7 +164,7 @@ exports.getActorsBySearch = (req, res, next) => {
     });
   }).catch( error =>{
     res.status(500).json({
-      message: 'Fatching Actors failed!',
+      error: 'Fatching Actors failed!',
    });
   });
 }
@@ -164,8 +174,7 @@ exports.getDirectedByActor = (req, res, next) => {
 
   Actor.find({_id:actorId},'firstName lastName').populate({ path: 'directed', select: 'title _id' }).then(
     (directed) => {
-      console.log(directed);
-      res.status(200).json({
+      res.json({
         directed: directed[0]
       });
     }

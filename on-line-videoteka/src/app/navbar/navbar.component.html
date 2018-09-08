@@ -10,7 +10,7 @@
       <input matInput type="search"
       (focus)="onSearchFocused()" (blur)="onSearchBlur()" (keypress)="onHitEnter($event)">
     </mat-form-field>
-    <mat-icon class="main-search-icon" color={{searchIconColor}} *ngIf="userAuthenticated">search</mat-icon>
+    <mat-icon matTooltip="Hit Enter" class="main-search-icon" color={{searchIconColor}} *ngIf="userAuthenticated">search</mat-icon>
   <ul>
       <li *ngIf="userAuthenticated">
           <a mat-button routerLinkActive="mat-accent" routerLink="/searchpage">Browse</a>

@@ -27,7 +27,6 @@ export class MoviecardgridComponent implements OnInit, OnDestroy {
     this.movieSub = this.movieService.getMovieUpdateListener().subscribe(
       (movieData) => {
         this.moviesToDisplay = movieData.movies;
-        // console.log(movieData.movies);
         this.movieCount = movieData.movieCount;
         this.isLoading = false;
       }
@@ -39,7 +38,6 @@ export class MoviecardgridComponent implements OnInit, OnDestroy {
     this.querySub = this.movieService.getSearchQueryUpdatedListener().subscribe(
       (searchQueryData) => {
         this.searchQuery = searchQueryData;
-        console.log(this.searchQuery);
       }
     );
 

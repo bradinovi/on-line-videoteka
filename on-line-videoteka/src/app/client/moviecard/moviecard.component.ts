@@ -19,7 +19,6 @@ export class MoviecardComponent implements OnInit {
   constructor(public dialog: MatDialog) { }
 
   ngOnInit() {
-    // console.log(this.movie);
     this.movieYear = moment(this.movie.release).format('Y');
   }
 

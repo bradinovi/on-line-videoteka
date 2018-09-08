@@ -45,14 +45,11 @@ export class MoviedetailComponent implements OnInit, OnDestroy {
     this.rolesSub = this.roleService.getrolesOfMovieUpdatedListener().subscribe(
       (roleData: {roles: RoleOfMovie[], roleCount: number}) => {
         this.roles = roleData.roles;
-        console.log(this.roles);
       }
     );
     this.directorSub = this.movieService.getDirectorsUpdateListener().subscribe(
       ( directorData: { directors: Director[], movieId: string } ) => {
         this.directors = directorData.directors;
-        console.log(this.directors);
-
       }
     );
 
@@ -66,16 +63,12 @@ export class MoviedetailComponent implements OnInit, OnDestroy {
               release: movie.release,
               duration: movie.duration,
               plotsum: movie.plotsum,
-
-              genres: movie.genres.map( genre => {
-                return genre.name;
-              }),
+              genres: movie.genres,
               posterPath: movie.posterPath,
               trailerLink: movie.trailerLink,
               rents: movie.rents
             };
           this.movie = movieToDisplay;
-          console.log(this.movie);
           this.roleService.getRolesForMovie(this.movie.id);
           this.movieService.getMovieDirectors(this.movie.id);
           this.movieYear = moment(this.movie.release).format('Y');

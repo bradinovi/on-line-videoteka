@@ -3,7 +3,7 @@
 
   <mat-card>
       <form [formGroup]="movieForm" (submit)="saveMovie()">
-      <mat-grid-list cols="5" rowHeight="380px;" >
+      <mat-grid-list cols="5" rowHeight="380px" >
           <mat-grid-tile>
             <button *ngIf="imagePreview === '' " mat-raised-button color="accent" (click)="filePicker.click()" type="button">Add Poster</button>
             <img *ngIf="imagePreview !== '' " [src]="imagePreview" [alt]="movieForm.value.name" (click)="clearImage()">
@@ -89,7 +89,7 @@
       <div *ngIf="roles.length > 0">
         <div *ngFor="let role of roles">
           <div class="role-container">
-          <p> {{role.actor.firstName}} {{role.actor.lastName}} - {{ role.name }}
+          <p> <span *ngIf="role.actor!==null">{{role.actor.firstName}} {{role.actor.lastName}}</span> - {{ role.name }}
           </p>
           </div>
           <div class="role-action-containter">

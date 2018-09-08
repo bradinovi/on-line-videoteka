@@ -2,9 +2,19 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { PageEvent } from '@angular/material';
-import { UserAdminService } from './user-admin.service';
-import { UserData } from '../../userauth/user.model';
+import { UserAdminService, UserDataAdmin } from './user-admin.service';
 import { Moment } from 'moment';
+Date.prototype.toString = function() {
+  const parts = this.toLocaleString()
+  .split(',')
+  .join('')
+  .split('/');
+  let date = [parts[1], parts[0] , parts[2].split(' ')[0]].join('.');
+  if ( date === '1.1.1970') {
+    date = 'N/A';
+  }
+  return date;
+};
 
 @Component({
   selector: 'app-user-crud',
@@ -14,7 +24,7 @@ import { Moment } from 'moment';
 export class UserCrudComponent implements OnInit, OnDestroy {
   textSearch = '';
   passwordChange = false;
-  users: UserData[];
+  users: UserDataAdmin[];
   formShow = false;
   isLoading = false;
   currentPage = 1;
@@ -85,7 +95,6 @@ export class UserCrudComponent implements OnInit, OnDestroy {
     if (this.mode === 'create') {
       this.userService.addUser(this.form.value.email, this.form.value.password, this.form.value.firstName,
       this.form.value.lastName, this.form.value.username, this.dateString(this.form.value.dateOfBirth)).subscribe((response) => {
-        console.log(response);
         this.userService.getUsers(this.usersPerPage, this.currentPage, this.textSearch);
         this.formShow = false;
         this.form.reset();
@@ -98,7 +107,6 @@ export class UserCrudComponent implements OnInit, OnDestroy {
       this.userService.updateUser( this.userId,
         this.form.value.email, this.form.value.password, this.form.value.firstName,
       this.form.value.lastName, this.form.value.username, this.dateString(this.form.value.dateOfBirth), role).subscribe((response) => {
-        console.log(response);
         this.userService.getUsers(this.usersPerPage, this.currentPage, this.textSearch);
         this.formShow = false;
         this.form.reset();
@@ -128,7 +136,6 @@ export class UserCrudComponent implements OnInit, OnDestroy {
   onDelete(element) {
     this.userService.deleteUser(element.id).subscribe(
       (response) => {
-        console.log(response);
         this.userService.getUsers(this.usersPerPage, this.currentPage, this.textSearch);
       }
     );
@@ -151,5 +158,13 @@ export class UserCrudComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.userSub.unsubscribe();
+  }
+
+  onToogleVer(element) {
+    this.userService.toggleUserVerification(element.id).subscribe(
+      response => {
+        this.userService.getUsers(this.usersPerPage, this.currentPage, this.textSearch);
+      }
+    );
   }
 }

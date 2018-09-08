@@ -3,9 +3,9 @@
 
     <mat-card style="margin-bottom: 0;">
         <mat-spinner *ngIf="isLoading" color="accent"></mat-spinner>
-        <mat-grid-list cols="5" rowHeight="380px;" *ngIf="!isLoading">
+        <mat-grid-list cols="5" rowHeight="380px" *ngIf="!isLoading">
             <mat-grid-tile>
-              <img src={{actor.portraitPath}}>
+              <img src={{actor.portraitPath}} alt={{actor.firstName}}>
             </mat-grid-tile>
             <mat-grid-tile colspan="2" class="movie-header-data">
 
@@ -14,7 +14,7 @@
                 <h1>
                     {{actor.firstName}} {{actor.lastName}}</h1>
 
-                <div><h4 style="display: inline;">Born: </h4><p style="display: inline;">{{born}}</p></div>
+                <div *ngIf="born !== 'Invalid date'"><h4 style="display: inline;">Born: </h4><p style="display: inline;">{{born}}</p></div>
                 <div *ngIf="died !== 'Invalid date'"><h4 style="display: inline;">Died: </h4><p style="display: inline;">{{died}}</p></div>
                 <br>
                 <mat-chip-list *ngFor="let ocupation of actor.ocupations">

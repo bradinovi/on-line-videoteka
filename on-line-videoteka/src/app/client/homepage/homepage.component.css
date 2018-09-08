@@ -4,7 +4,7 @@ html {
 .content{
   width: 100%;
 
-  background-image: url("../../../assets/images/homepage.png");
+  background-image: url("../../../assets/images/homepage.jpg");
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
@@ -47,5 +47,30 @@ button {
   font-size: 1.5em;
   display: inline-block;
   margin-top: 3em;
+}
+
+.moviedb-logo{
+  margin-top: 10em;
+  transition: transform .2s;
+  display: inline-block;
+}
+
+.moviedb-logo:hover{
+  transform: scale(1.1);
+}
+
+.moviedb-logo img{
+  width: 50%;
+}
+
+.favIcon-credit{
+  color: #F5F5F5;
+  font-size: 0.65em;
+  margin-top: 2em;
+  margin-left: 6em;
+}
+
+.favIcon-credit a{
+  color: #24B758;
 }
 

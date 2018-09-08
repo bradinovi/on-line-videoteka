@@ -7,6 +7,11 @@
 
 }
 
+.genres:hover{
+  color: #8EFFA3;
+  cursor: pointer;
+}
+
 mat-card {
   margin-top: 1em;
   padding-bottom: 3em;
@@ -82,8 +87,13 @@ mat-spinner {
 
 .admin-btns{
   margin-top: 1.5em;
+
 }
 
 .admin-btns button{
   margin-right: 1em;
+}
+
+.movie-header-data {
+  padding-bottom: 2.5em;
 }

@@ -5,7 +5,7 @@ export interface Movie {
   duration: number;
   trailerLink: string;
   plotsum: string;
-  genres: string[];
+  genres: string[]|Object[];
   posterPath: string;
   rents: number;
 }

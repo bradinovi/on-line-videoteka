@@ -2,6 +2,7 @@
 <div class="content">
 <mat-card>
   <div class="search">
+      <div class="search-input">
       <mat-form-field color="accent">
           <input matInput type="text" placeholder="What are you watching today?" [(ngModel)]="searchText"
           (keypress)="onHitEnter($event)">
@@ -10,7 +11,7 @@
           </button>
       </mat-form-field>
       <button mat-stroked-button color="accent" class="serach-button" (click)="onSearch()">Search</button>
-
+      </div>
       <mat-form-field color="accent" class="search-filter" >
           <mat-select placeholder="Genre" [(ngModel)]="selectedGenre">
             <mat-option>None</mat-option>

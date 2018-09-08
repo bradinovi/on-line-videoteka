@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 
-import { NgForm } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
 
@@ -36,52 +36,64 @@ const moment = _moment;
 })
 export class SignupComponent implements OnInit, OnDestroy {
   private authStatusSub: Subscription;
-
+  public signUpForm: FormGroup;
   passwordsNotMatchingErr = false;
   termsConfirmErr = false;
   passwordFormatErr = false;
+  maxDate = moment().subtract(18, 'years').toDate();
+  isLoading = true;
 
-  isLoading = false;
+  constructor(public authService: AuthService) {
 
-  constructor(public authService: AuthService) {}
+
+  }
 
   ngOnInit() {
+    this.signUpForm = new FormGroup({
+      'firstName': new FormControl(null),
+      'lastName': new FormControl(null),
+      'username': new FormControl(null, { validators: [Validators.required] }),
+      'email': new FormControl(null, { validators: [Validators.required, Validators.email] }),
+      'dateOfBirth': new FormControl(null),
+      'password': new FormControl(null),
+      'passwordConfirm': new FormControl(null, { validators: [Validators.required] }),
+      'termsConfirm': new FormControl(null, { validators: [Validators.required] })
+    });
     this.authStatusSub = this.authService.getAuthStatusListener().subscribe(
       authStatus => {
         this.isLoading = false;
       }
     );
+    this.isLoading = false;
   }
 
-  onSignUp(signUpForm: NgForm) {
+  onSignUp() {
+    console.log(this.signUpForm);
 
-    if ((signUpForm.value.passwordConfirm !== signUpForm.value.password) && !signUpForm.value.termsConfirm) {
-      console.log('pass not matching + terms and cond');
+    if ((this.signUpForm.value.passwordConfirm !== this.signUpForm.value.password) && !this.signUpForm.value.termsConfirm) {
       this.passwordsNotMatchingErr = true;
       this.termsConfirmErr = true;
       return;
     } else { this.passwordsNotMatchingErr = false; this.termsConfirmErr = false; }
 
-    if (signUpForm.value.passwordConfirm !== signUpForm.value.password) {
-      console.log('pass not matching');
+    if (this.signUpForm.value.passwordConfirm !== this.signUpForm.value.password) {
       this.passwordsNotMatchingErr = true;
       return;
     } { this.passwordsNotMatchingErr = false; }
 
-    if (!signUpForm.value.termsConfirm) {
-      console.log('terms and cond');
+    if (!this.signUpForm.value.termsConfirm) {
       this.termsConfirmErr = true;
       return;
     } else { this.termsConfirmErr = false; }
 
-  const regexpPass = new RegExp(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).*/);
+    const regexpPass = new RegExp(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z])/);
     let pas: string;
-    pas = signUpForm.value.password;
-    if ( !regexpPass.test(signUpForm.value.password) || (pas.length) < 6) {
+    pas = this.signUpForm.value.password;
+    if ( !regexpPass.test(this.signUpForm.value.password) || (pas.length) < 6) {
       this.passwordFormatErr = true;
       return;
     } else { this.passwordFormatErr = false; }
-    if (signUpForm.invalid) {
+    if (this.signUpForm.invalid) {
       return;
     }
 
@@ -90,12 +102,12 @@ export class SignupComponent implements OnInit, OnDestroy {
     this.termsConfirmErr = false;
     this.isLoading = true;
     this.authService.createUser(
-      signUpForm.value.email,
-      signUpForm.value.password,
-      signUpForm.value.firstName,
-      signUpForm.value.lastName,
-      signUpForm.value.username,
-      signUpForm.value.dateOfBirth.toISOString()
+      this.signUpForm.value.email,
+      this.signUpForm.value.password,
+      this.signUpForm.value.firstName,
+      this.signUpForm.value.lastName,
+      this.signUpForm.value.username,
+      this.signUpForm.value.dateOfBirth.toISOString()
     );
   }
 

@@ -35,8 +35,15 @@ export class SearchpageComponent implements OnInit, OnDestroy {
 
    this.route.paramMap.subscribe((param: ParamMap) => {
     if (param.has('searchText')) {
+      const parameter = param.get('searchText');
       this.isSearch = true;
-      this.movieService.getMovies( 5, 1, param.get('searchText'), this.selectedGenre, this.selectedYear, this.selectedSort );
+      if (parameter.includes('genre')) {
+        this.selectedGenre =  parameter.substring(5, parameter.length);
+        this.movieService.getMovies( 5, 1, undefined, this.selectedGenre, this.selectedYear, this.selectedSort );
+      } else {
+        this.searchText = parameter;
+        this.movieService.getMovies( 5, 1, param.get('searchText'), this.selectedGenre, this.selectedYear, this.selectedSort );
+      }
     }});
 
   }
@@ -48,11 +55,6 @@ export class SearchpageComponent implements OnInit, OnDestroy {
   }
 
   onSearch() {
-    /*
-    console.log(this.searchText);
-    console.log(this.selectedGenre);
-    console.log(this.selectedYear);
-    console.log(this.selectedSort); */
     this.isSearch = true;
     this.movieService.getMovies( 5, 1, this.searchText, this.selectedGenre, this.selectedYear, this.selectedSort );
 
@@ -70,7 +72,7 @@ export class SearchpageComponent implements OnInit, OnDestroy {
   }
 
   clearSearch() {
-    this.searchText = '';
+    this.searchText = undefined;
   }
 
 }

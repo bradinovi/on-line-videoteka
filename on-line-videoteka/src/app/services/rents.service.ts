@@ -51,7 +51,6 @@ export class RentService {
       )
     ).subscribe(
       transformedMyMovieData => {
-        // console.log(transformedMyMovieData.mymovies);
         this.myMoviesUpdated.next(
           {
             mymovies: transformedMyMovieData.mymovies
