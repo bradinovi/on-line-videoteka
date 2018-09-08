@@ -39,3 +39,7 @@ npm run server
 
 To access a created profile a user must activate the account by clicking the activation link received after registration.
 
+### Demo
+
+App Demo available at
+https://videoteka-frontend.herokuapp.com/
