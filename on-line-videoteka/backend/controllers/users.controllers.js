@@ -264,7 +264,7 @@ exports.verifyUser = (req, res, next) => {
 }
 
 exports.issueNewPassword = (req, res, next) => {
-  const newPasswordString =  Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+  const newPasswordString =  Math.random().toString(22).substring(2);
   bcrypt.hash(newPasswordString, 10).then( hash => {
     User.findOneAndUpdate({ email: req.body.email },{ password: hash}).then(
       (data) => {
